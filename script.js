@@ -20,13 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function createStars() {
         stars = [];
-        const starCount = (width * height) / 20000; // Reduced star count
+        const starCount = (width * height) / 20000;
         for (let i = 0; i < starCount; i++) {
             stars.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.6, // Slightly faster initial velocity
-                vy: (Math.random() - 0.5) * 0.6, // Slightly faster initial velocity
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6,
                 radius: Math.random() * 1.5 + 0.5
             });
         }
@@ -43,8 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const star = stars[i];
             star.x += star.vx;
             star.y += star.vy;
-
-            // Wrap-around effect (like Pac-Man)
             if (star.x < 0) star.x += width;
             if (star.x > width) star.x -= width;
             if (star.y < 0) star.y += height;
@@ -66,11 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 let distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < 100) {
-                    // Draw connection line
                     drawConnection(stars[i], stars[j], distance);
-
-                    // Apply reduced gravitational-like force for orbit effect
-                    const force = (100 - distance) / 50000; // Reduced force for gentler pull
+                    const force = (100 - distance) / 50000;
                     const ax = force * dx / distance;
                     const ay = force * dy / distance;
 
@@ -89,8 +84,6 @@ document.addEventListener('DOMContentLoaded', function() {
         starsCtx.lineTo(star2.x, star2.y);
         starsCtx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 100})`;
         starsCtx.stroke();
-
-        // Wrap-around connections
         const dx = star2.x - star1.x;
         const dy = star2.y - star1.y;
         const halfWidth = width / 2;
@@ -119,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nlCanvas = document.getElementById('northern-lights');
     const nlCtx = nlCanvas.getContext('2d');
     nlCanvas.width = window.innerWidth;
-    nlCanvas.height = 200; // Reduced height
+    nlCanvas.height = 200;
 
     const lights = [];
     const lightCount = 8;
@@ -127,12 +120,12 @@ document.addEventListener('DOMContentLoaded', function() {
         lights.push({
             x: i * (nlCanvas.width / lightCount) + (Math.random() * (nlCanvas.width / lightCount)),
             y: Math.random() * nlCanvas.height / 2,
-            width: Math.random() * 500 + 400, // Increased width
-            height: Math.random() * 100 + 50, // Reduced height
-            vx: (Math.random() - 0.5) * 0.01, // Slower speed
-            vy: (Math.random() - 0.5) * 0.01, // Slower speed
+            width: Math.random() * 500 + 400,
+            height: Math.random() * 100 + 50,
+            vx: (Math.random() - 0.5) * 0.01,
+            vy: (Math.random() - 0.5) * 0.01,
             angle: Math.random() * Math.PI / 8 - Math.PI / 16,
-            angleSpeed: (Math.random() - 0.5) * 0.0002, // Slower rotation
+            angleSpeed: (Math.random() - 0.5) * 0.0002,
             color: `rgba(0, ${Math.floor(Math.random() * 156 + 100)}, ${Math.floor(Math.random() * 156 + 100)}, 0.15)`
         });
     }
