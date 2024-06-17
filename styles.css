@@ -24,7 +24,6 @@ canvas {
     top: 0;
     width: 100%;
     height: 40vh;
-    /* Increased height */
     filter: blur(6px) drop-shadow(0 0 30px rgba(51, 180, 172, 1));
     transform-origin: 0 100%;
     transform: skewX(-20deg);
