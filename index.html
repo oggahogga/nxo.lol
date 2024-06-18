@@ -10,13 +10,11 @@
     <meta property="og:image" content="https://cdn.discordapp.com/icons/1221149877245972531/453608bfabb66f52cbca7e36a1a07ab7.webp?size=56&quot">
     <meta property="og:url" content="https://nxo.lol">
     <meta property="og:type" content="website">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated Stars</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
     <style>
-        
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400&display=swap');
-
+        
         body {
             margin: 0;
             padding: 0;
@@ -110,27 +108,48 @@
             background-color: #4c4c4d;
         }
 
-        body {
-            background-size: cover;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            min-height: 100vh;
+        .download-counter {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
     <div class="header">
         <a class="header-link" href="https://discord.gg/nxoontop" target="_blank">Discord</a>
-        <a class="header-link" href="https://github.com/NuggetGT/NXO-V4.1-Features" target
-="_blank">Features</a>
+        <a class="header-link" href="https://github.com/NuggetGT/NXO-V4.1-Features" target="_blank">Features</a>
     </div>
     <div class="intro">
         <h1 class="title">NXO</h1>
-        <a class="download-button" href="https://cdn.discordapp.com/attachments/1215470524612870214/1251328996373958757/NXO_V4.1_NoTrialBy_Btc.dll?ex=6670d171&is=666f7ff1&hm=c3ae8fa3d350803bce14e8afccb6f9076e71ff6862aecf96de6c745bad20e9ca&" download>Download</a>
+        <a class="download-button" href="https://cdn.discordapp.com/attachments/1215470524612870214/1251328996373958757/NXO_V4.1_NoTrialBy_Btc.dll?ex=6670d171&is=666f7ff1&hm=c3ae8fa3d350803bce14e8afccb6f9076e71ff6862aecf96de6c745bad20e9ca&" download id="download-button">Download</a>
+        <div class="download-counter" id="download-counter">Downloads: 0</div>
     </div>
     <canvas id="stars"></canvas>
     <canvas id="northern-lights"></canvas>
     <script src="script.js"></script>
+    <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyAUbv2ryeV2yP6bhgzdXrrWFq1w0O6-KgE",
+          authDomain: "nxolol.firebaseapp.com",
+          projectId: "nxolol",
+          storageBucket: "nxolol.appspot.com",
+          messagingSenderId: "1034599667825",
+          appId: "1:1034599667825:web:ca89606c4f49984c39a3d0",
+          measurementId: "G-24Q041PPXM"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const downloadCountRef = database.ref('downloadCount');
+        downloadCountRef.on('value', (snapshot) => {
+            const downloadCount = snapshot.val() || 0;
+            document.getElementById('download-counter').innerText = `Downloads: ${downloadCount}`;
+        });
+        document.getElementById('download-button').addEventListener('click', () => {
+            downloadCountRef.transaction((currentCount) => {
+                return (currentCount || 0) + 1;
+            });
+        });
+    </script>
 </body>
 </html>
