@@ -10,8 +10,42 @@
     <meta property="og:image" content="https://cdn.discordapp.com/icons/1221149877245972531/453608bfabb66f52cbca7e36a1a07ab7.webp?size=56&quot">
     <meta property="og:url" content="https://nxo.lol">
     <meta property="og:type" content="website">
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAUbv2ryeV2yP6bhgzdXrrWFq1w0O6-KgE",
+          authDomain: "nxolol.firebaseapp.com",
+          projectId: "nxolol",
+          storageBucket: "nxolol.appspot.com",
+          messagingSenderId: "1034599667825",
+          appId: "1:1034599667825:web:ca89606c4f49984c39a3d0",
+          measurementId: "G-24Q041PPXM"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const downloadCountRef = ref(database, 'downloadCount');
+            onValue(downloadCountRef, (snapshot) => {
+                const downloadCount = snapshot.val() || 0;
+                document.getElementById('download-counter').innerText = `Downloads: ${downloadCount}`;
+            });
+
+            document.getElementById('download-button').addEventListener('click', () => {
+                runTransaction(downloadCountRef, (currentCount) => {
+                    return (currentCount || 0) + 1;
+                });
+            });
+        });
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400&display=swap');
         
@@ -128,28 +162,5 @@
     <canvas id="stars"></canvas>
     <canvas id="northern-lights"></canvas>
     <script src="script.js"></script>
-    <script>
-        const firebaseConfig = {
-          apiKey: "AIzaSyAUbv2ryeV2yP6bhgzdXrrWFq1w0O6-KgE",
-          authDomain: "nxolol.firebaseapp.com",
-          projectId: "nxolol",
-          storageBucket: "nxolol.appspot.com",
-          messagingSenderId: "1034599667825",
-          appId: "1:1034599667825:web:ca89606c4f49984c39a3d0",
-          measurementId: "G-24Q041PPXM"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-        const downloadCountRef = database.ref('downloadCount');
-        downloadCountRef.on('value', (snapshot) => {
-            const downloadCount = snapshot.val() || 0;
-            document.getElementById('download-counter').innerText = `Downloads: ${downloadCount}`;
-        });
-        document.getElementById('download-button').addEventListener('click', () => {
-            downloadCountRef.transaction((currentCount) => {
-                return (currentCount || 0) + 1;
-            });
-        });
-    </script>
 </body>
 </html>
