@@ -91,6 +91,7 @@ canvas {
 
 .download-button:hover {
     background-color: #00046b;
+    transform: scale(1.05);
 }
 
 body {
