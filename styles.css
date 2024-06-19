@@ -84,14 +84,25 @@ canvas {
     text-decoration: none;
     border-radius: 25px;
     font-size: 1.5em;
-    transition: background-color 0.3s, transform 0.3s; /* Added transform transition */
+    transition: background-color 0.3s, transform 0.3s;
     display: inline-block;
     margin-top: 20px;
 }
 
 .download-button:hover {
     background-color: #00046b;
-    transform: scale(1.05); /* Changed scale value to 1.05 */
+    transform: scale(1.05);
+}
+
+.download-counter {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #ffffff;
+    width: 100%;  /* Set width to 100% */
+    max-width: 500px;  /* Maximum width */
+    text-align: center;
+    padding: 0 10px;  /* Padding for better spacing */
+    overflow-wrap: break-word;  /* Ensure long text breaks nicely */
 }
 
 body {
