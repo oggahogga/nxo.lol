@@ -84,14 +84,14 @@ canvas {
     text-decoration: none;
     border-radius: 25px;
     font-size: 1.5em;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s; /* Added transform transition */
     display: inline-block;
     margin-top: 20px;
 }
 
 .download-button:hover {
     background-color: #00046b;
-    transform: scale(1.50);
+    transform: scale(1.05); /* Changed scale value to 1.05 */
 }
 
 body {
