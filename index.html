@@ -27,9 +27,16 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             const downloadCountRef = ref(database, 'downloadCount');
+            const userCountRef = ref(database, 'userCount');
+
             onValue(downloadCountRef, (snapshot) => {
                 const downloadCount = snapshot.val() || 0;
                 document.getElementById('download-counter').innerText = `Downloads: ${downloadCount}`;
+            });
+
+            onValue(userCountRef, (snapshot) => {
+                const userCount = snapshot.val() || 0;
+                document.getElementById('user-counter').innerText = `Users: ${userCount}`;
             });
 
             document.getElementById('download-button').addEventListener('click', () => {
@@ -137,7 +144,7 @@
             transform: scale(1.03);
         }
 
-        .download-counter {
+        .download-counter, .user-counter {
             position: absolute;
             top: 115%;
             left: 50%;
@@ -147,6 +154,10 @@
             padding: 0 20px;
             min-width: 200px;
             text-align: center;
+        }
+
+        .user-counter {
+            top: 130%; /* Adjust position if needed */
         }
     </style>
 </head>
@@ -159,6 +170,7 @@
         <h1 class="title">NXO</h1>
         <a class="download-button" href="https://cdn.discordapp.com/attachments/1215470524612870214/1251328996373958757/NXO_V4.1_NoTrialBy_Btc.dll?ex=6672cbb1&is=66717a31&hm=a98fb207490de5e2e2a13f7596ea693c61cd205e7710183227bd54422ae3d402&" download id="download-button">Download</a>
         <div class="download-counter" id="download-counter">Downloads: </div>
+        <div class="user-counter" id="user-counter">Users: </div>
     </div>
     <canvas id="stars"></canvas>
     <canvas id="northern-lights"></canvas>
