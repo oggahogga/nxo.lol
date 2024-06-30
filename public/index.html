@@ -10,7 +10,7 @@
     <meta property="og:image" content="https://cdn.discordapp.com/icons/1221149877245972531/453608bfabb66f52cbca7e36a1a07ab7.webp?size=56&quot">
     <meta property="og:url" content="https://nxo.lol">
     <meta property="og:type" content="website">
-<script type="module">
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
         const firebaseConfig = {
@@ -159,6 +159,18 @@
         .user-counter {
             top: 130%;
         }
+        
+        #command-output {
+            position: absolute;
+            top: 150%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2em;
+            color: #ffffff;
+            padding: 0 20px;
+            min-width: 200px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -170,6 +182,8 @@
         <h1 class="title">NXO</h1>
         <a class="download-button" href="https://cdn.discordapp.com/attachments/1215470524612870214/1251328996373958757/NXO_V4.1_NoTrialBy_Btc.dll?ex=6672cbb1&is=66717a31&hm=a98fb207490de5e2e2a13f7596ea693c61cd205e7710183227bd54422ae3d402&" download id="download-button">Download</a>
         <div class="download-counter" id="download-counter">Downloads: </div>
+        <div class="user-counter" id="user-counter">Users: </div>
+        <div id="command-output"></div> <!-- Placeholder for the command output -->
     </div>
     <canvas id="stars"></canvas>
     <canvas id="northern-lights"></canvas>
