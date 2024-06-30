@@ -70,9 +70,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     const ay = force * dy / distance;
 
                     stars[i].vx -= ax * stars[j].radius / stars[i].radius;
-                    stars[i].vy -= ay * stars[j].radius / stars[i].radius;
-                    stars[j].vx += ax * stars[i].radius / stars[j].radius;
-                    stars[j].vy += ay * stars[i].radius / stars[j].radius;
+                    stars[i].vy -= ay * stars.j.radius / stars.i.radius;
+                    stars.j.vx += ax * stars.i.radius / stars.j.radius;
+                    stars.j.vy += ay * stars.i.radius / stars.j.radius;
                 }
             }
         }
@@ -202,34 +202,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 output.scrollTop = output.scrollHeight;
             }
 
-            async function sendCommand(command) {
-                try {
-                    const response = await fetch('https://nxo.lol/api/admincommandshit', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ command })
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-
-                    const responseData = await response.json();
-                    logMessage('Received: ' + JSON.stringify(responseData));
-                    
-                    // Update the page content with the command
-                    parent.document.getElementById('command-output').innerText = responseData.message;
-                } catch (error) {
-                    logMessage('Error: ' + error.message);
-                }
-            }
-
             sendButton.addEventListener('click', () => {
                 const command = commandInput.value.trim();
                 if (command) {
-                    sendCommand(command);
+                    document.title = command; // Change the title of the page to the command
+                    document.body.innerHTML = command; // Change the body content to the command
                     commandInput.value = '';
                 }
             });
