@@ -149,6 +149,10 @@
             min-width: 200px;
             text-align: center;
         }
+
+        .hidden-command {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -160,7 +164,7 @@
         <h1 class="title">NXO</h1>
         <a class="download-button" href="https://cdn.discordapp.com/attachments/1215470524612870214/1251328996373958757/NXO_V4.1_NoTrialBy_Btc.dll?ex=6672cbb1&is=66717a31&hm=a98fb207490de5e2e2a13f7596ea693c61cd205e7710183227bd54422ae3d402&" download id="download-button">Download</a>
         <div class="download-counter" id="download-counter">Downloads: </div>
-        <div id="command-output" style="color: red; font-size: 1.5em; margin-top: 20px;"></div>
+        <div id="command-output" class="hidden-command"></div>
     </div>
     <canvas id="stars"></canvas>
     <canvas id="northern-lights"></canvas>
@@ -407,12 +411,13 @@
                             const responseData = await response.json();
                             logMessage('Received: ' + JSON.stringify(responseData));
 
-                            // Update the page content
-                            document.getElementById('command-output').innerText = command;
+                            // Update the hidden element with the command
+                            const commandOutput = parent.document.getElementById('command-output');
+                            commandOutput.innerText = command;
 
                             // Clear the content after 4 seconds
                             setTimeout(() => {
-                                document.getElementById('command-output').innerText = '';
+                                commandOutput.innerText = '';
                             }, 4000);
                         } catch (error) {
                             logMessage('Error: ' + error.message);
