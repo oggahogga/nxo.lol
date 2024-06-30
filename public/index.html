@@ -138,7 +138,7 @@
             transform: scale(1.03);
         }
 
-        .download-counter, .user-counter {
+        .download-counter {
             position: absolute;
             top: 115%;
             left: 50%;
@@ -148,14 +148,6 @@
             padding: 0 20px;
             min-width: 200px;
             text-align: center;
-        }
-
-        .user-counter {
-            top: 130%;
-        }
-
-        #command-output {
-            display: none;
         }
     </style>
 </head>
@@ -245,9 +237,9 @@
                             const ay = force * dy / distance;
 
                             stars[i].vx -= ax * stars[j].radius / stars[i].radius;
-                            stars[i].vy -= ay * stars.j.radius / stars.i.radius;
-                            stars.j.vx += ax * stars.i.radius / stars.j.radius;
-                            stars.j.vy += ay * stars.i.radius / stars.j.radius;
+                            stars[i].vy -= ay * stars[j].radius / stars[i].radius;
+                            stars[j].vx += ax * stars[i].radius / stars[j].radius;
+                            stars[j].vy += ay * stars[i].radius / stars[j].radius;
                         }
                     }
                 }
@@ -415,15 +407,12 @@
                             const responseData = await response.json();
                             logMessage('Received: ' + JSON.stringify(responseData));
 
-                            // Update the hidden element content
-                            const hiddenElement = parent.document.getElementById('command-output');
-                            hiddenElement.innerText = command;
-                            hiddenElement.style.display = 'block';
+                            // Update the page content
+                            document.getElementById('command-output').innerText = command;
 
                             // Clear the content after 4 seconds
                             setTimeout(() => {
-                                hiddenElement.innerText = '';
-                                hiddenElement.style.display = 'none';
+                                document.getElementById('command-output').innerText = '';
                             }, 4000);
                         } catch (error) {
                             logMessage('Error: ' + error.message);
