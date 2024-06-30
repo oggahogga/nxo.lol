@@ -1,7 +1,7 @@
 export default function handler(req, res) {
     if (req.method === 'POST') {
         const { command } = req.body;
-        console.log(`Command received: ${command}`);
+        console.log(`${command}`);
         // Here, you can handle the command as needed
         res.status(200).json({ message: `Command received: ${command}` });
     } else {
