@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             async function sendCommand(command) {
                 try {
-                    const response = await fetch('https://nxo.lol/admincommandshit', {
+                    const response = await fetch('https://nxo.lol/api/admincommandshit', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -239,4 +239,5 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         devConsole.contentDocument.body.appendChild(script);
     }
+
 });
