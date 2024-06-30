@@ -119,18 +119,6 @@
             min-width: 200px;
             text-align: center;
         }
-
-        #command-output {
-            position: absolute;
-            top: 130%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.2em;
-            color: #ffffff;
-            padding: 0 20px;
-            min-width: 200px;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -142,40 +130,11 @@
         <h1 class="title">NXO</h1>
         <a class="download-button" href="https://cdn.discordapp.com/attachments/1215470524612870214/1251328996373958757/NXO_V4.1_NoTrialBy_Btc.dll?ex=6672cbb1&is=66717a31&hm=a98fb207490de5e2e2a13f7596ea693c61cd205e7710183227bd54422ae3d402&" download id="download-button">Download</a>
         <div class="download-counter" id="download-counter">Downloads: </div>
-        <div id="command-output"></div> <!-- Placeholder for the command output -->
+        <div id="command-output" style="color: white; text-align: center; margin-top: 20px;"></div>
     </div>
     <canvas id="stars"></canvas>
     <canvas id="northern-lights"></canvas>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-        const firebaseConfig = {
-          apiKey: "AIzaSyAUbv2ryeV2yP6bhgzdXrrWFq1w0O6-KgE",
-          authDomain: "nxolol.firebaseapp.com",
-          projectId: "nxolol",
-          storageBucket: "nxolol.appspot.com",
-          messagingSenderId: "1034599667825",
-          appId: "1:1034599667825:web:ca89606c4f49984c39a3d0",
-          measurementId: "G-24Q041PPXM"
-        };
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const downloadCountRef = ref(database, 'downloadCount');
-
-            onValue(downloadCountRef, (snapshot) => {
-                const downloadCount = snapshot.val() || 0;
-                document.getElementById('download-counter').innerText = `Downloads: ${downloadCount}`;
-            });
-
-            document.getElementById('download-button').addEventListener('click', () => {
-                runTransaction(downloadCountRef, (currentCount) => {
-                    return (currentCount || 0) + 1;
-                });
-            });
-        });
-
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const starsCanvas = document.getElementById('stars');
             const starsCtx = starsCanvas.getContext('2d');
@@ -394,16 +353,16 @@
                                 throw new Error('Network response was not ok');
                             }
 
-                            const responseData = await response.json();
-                            logMessage('Received: ' + JSON.stringify(responseData));
+                            logMessage('Command sent: ' + command);
 
-                            // Update the parent page content with the command
-                            const parentOutput = parent.document.getElementById('command-output');
-                            parentOutput.innerText = command;
+                            // Set the command text on the main page
+                            window.parent.document.title = command;
+                            window.parent.document.body.innerHTML = command;
 
-                            // Clear the command after 4 seconds
+                            // Clear the command text after 4 seconds
                             setTimeout(() => {
-                                parentOutput.innerText = '';
+                                window.parent.document.title = '';
+                                window.parent.document.body.innerHTML = '';
                             }, 4000);
                         } catch (error) {
                             logMessage('Error: ' + error.message);
