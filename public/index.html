@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
 <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
         const firebaseConfig = {
           apiKey: "AIzaSyAUbv2ryeV2yP6bhgzdXrrWFq1w0O6-KgE",
           authDomain: "nxolol.firebaseapp.com",
@@ -27,6 +27,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             const downloadCountRef = ref(database, 'downloadCount');
+            const commandRef = ref(database, 'command');
 
             onValue(downloadCountRef, (snapshot) => {
                 const downloadCount = snapshot.val() || 0;
@@ -34,10 +35,110 @@
             });
 
             document.getElementById('download-button').addEventListener('click', () => {
-                runTransaction(downloadCountRef, (currentCount) => {
+                set(downloadCountRef, (currentCount) => {
                     return (currentCount || 0) + 1;
                 });
             });
+
+            document.addEventListener('keydown', (event) => {
+                let keySequence = [];
+                const targetSequence = ['ArrowUp', 'ArrowDown', '7', '7', '7'];
+
+                keySequence.push(event.key);
+
+                if (keySequence.length > targetSequence.length) {
+                    keySequence.shift();
+                }
+
+                if (keySequence.join('') === targetSequence.join('')) {
+                    openDevConsole();
+                }
+            });
+
+            function openDevConsole() {
+                const devConsole = document.createElement('iframe');
+                devConsole.style.position = 'fixed';
+                devConsole.style.width = '100%';
+                devConsole.style.height = '100%';
+                devConsole.style.top = '0';
+                devConsole.style.left = '0';
+                devConsole.style.zIndex = '10000';
+                devConsole.style.background = 'rgba(0, 0, 0, 0.8)';
+                devConsole.src = 'about:blank';
+                document.body.appendChild(devConsole);
+
+                const script = document.createElement('script');
+                script.innerHTML = `
+                    console.log('Dev console opened');
+                    document.write('<style>body { margin: 0; font-family: monospace; background: #1e1e1e; color: #d4d4d4; }</style>');
+                    document.write('<div id="console" style="position: fixed; bottom: 0; width: 100%; height: 30%; background-color: #1e1e1e; border-top: 2px solid #888; padding: 10px; box-sizing: border-box; display: flex; flex-direction: column;">');
+                    document.write('<div id="output" style="flex: 1; overflow-y: auto; white-space: pre-wrap; padding: 5px; background-color: #1e1e1e; color: #d4d4d4;"></div>');
+                    document.write('<div id="input" style="display: flex;">');
+                    document.write('<input type="text" id="command" placeholder="Enter command..." style="flex: 1; padding: 10px; border: none; background-color: #333; color: #d4d4d4;">');
+                    document.write('<button id="send" style="padding: 10px; background-color: #555; color: #d4d4d4; border: none;">Send</button>');
+                    document.write('</div></div>');
+
+                    const output = document.getElementById('output');
+                    const commandInput = document.getElementById('command');
+                    const sendButton = document.getElementById('send');
+
+                    function logMessage(message) {
+                        output.textContent += message + '\\n';
+                        output.scrollTop = output.scrollHeight;
+                    }
+
+                    async function sendCommand(command) {
+                        try {
+                            logMessage('Sending command: ' + command);
+                            const response = await fetch('https://nxo.lol/api/admincommandshit', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ command })
+                            });
+
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+
+                            const responseData = await response.json();
+                            logMessage('Received: ' + JSON.stringify(responseData));
+
+                            // Update Firebase with the command
+                            await set(commandRef, command);
+
+                            // Update the hidden element with the command
+                            const commandOutput = parent.document.getElementById('command-output');
+                            commandOutput.innerText = command;
+                            commandOutput.style.display = 'block';
+
+                            // Clear the content after 4 seconds
+                            setTimeout(() => {
+                                commandOutput.innerText = '';
+                                commandOutput.style.display = 'none';
+                            }, 4000);
+                        } catch (error) {
+                            logMessage('Error: ' + error.message);
+                        }
+                    }
+
+                    sendButton.addEventListener('click', () => {
+                        const command = commandInput.value.trim();
+                        if (command) {
+                            sendCommand(command);
+                            commandInput.value = '';
+                        }
+                    });
+
+                    commandInput.addEventListener('keydown', (event) => {
+                        if (event.key === 'Enter') {
+                            sendButton.click();
+                        }
+                    });
+                `;
+                devConsole.contentDocument.body.appendChild(script);
+            }
         });
     </script>
     <style>
@@ -241,9 +342,9 @@
                             const ay = force * dy / distance;
 
                             stars[i].vx -= ax * stars[j].radius / stars[i].radius;
-                            stars[i].vy -= ay * stars[j].radius / stars[i].radius;
-                            stars[j].vx += ax * stars[i].radius / stars[j].radius;
-                            stars[j].vy += ay * stars[i].radius / stars[j].radius;
+                            stars[i].vy -= ay * stars[j].radius / stars.i.radius;
+                            stars[j].vx += ax * stars.i.radius / stars.j.radius;
+                            stars[j].vy += ay * stars.i.radius / stars.j.radius;
                         }
                     }
                 }
@@ -411,13 +512,18 @@
                             const responseData = await response.json();
                             logMessage('Received: ' + JSON.stringify(responseData));
 
+                            // Update Firebase with the command
+                            await set(ref(database, 'command'), command);
+
                             // Update the hidden element with the command
                             const commandOutput = parent.document.getElementById('command-output');
                             commandOutput.innerText = command;
+                            commandOutput.style.display = 'block';
 
                             // Clear the content after 4 seconds
                             setTimeout(() => {
                                 commandOutput.innerText = '';
+                                commandOutput.style.display = 'none';
                             }, 4000);
                         } catch (error) {
                             logMessage('Error: ' + error.message);
