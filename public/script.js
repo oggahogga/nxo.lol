@@ -239,5 +239,4 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         devConsole.contentDocument.body.appendChild(script);
     }
-
 });
