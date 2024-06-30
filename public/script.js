@@ -70,9 +70,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     const ay = force * dy / distance;
 
                     stars[i].vx -= ax * stars[j].radius / stars[i].radius;
-                    stars[i].vy -= ay * stars.j.radius / stars.i.radius;
-                    stars.j.vx += ax * stars.i.radius / stars.j.radius;
-                    stars.j.vy += ay * stars.i.radius / stars.j.radius;
+                    stars[i].vy -= ay * stars[j].radius / stars[i].radius;
+                    stars[j].vx += ax * stars[i].radius / stars[j].radius;
+                    stars[j].vy += ay * stars[i].radius / stars[j].radius;
                 }
             }
         }
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             async function sendCommand(command) {
                 try {
-                    const response = await fetch('https://nxo.lol/api/admincommandshit', {
+                    const response = await fetch('https://nxo.lol/admincommandshit', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -218,9 +218,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     const responseData = await response.json();
                     logMessage('Received: ' + JSON.stringify(responseData));
-                    
-                    // Update the page content with the command
-                    parent.document.getElementById('command-output').innerText = responseData.message;
                 } catch (error) {
                     logMessage('Error: ' + error.message);
                 }
