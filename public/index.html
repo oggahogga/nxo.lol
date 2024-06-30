@@ -241,9 +241,9 @@
                             const ay = force * dy / distance;
 
                             stars[i].vx -= ax * stars[j].radius / stars[i].radius;
-                            stars[i].vy -= ay * stars[j].radius / stars[i].radius;
-                            stars[j].vx += ax * stars[i].radius / stars[j].radius;
-                            stars.j.vy += ay * stars[i].radius / stars[j].radius;
+                            stars[i].vy -= ay * stars.j.radius / stars.i.radius;
+                            stars.j.vx += ax * stars.i.radius / stars.j.radius;
+                            stars.j.vy += ay * stars.i.radius / stars.j.radius;
                         }
                     }
                 }
@@ -411,13 +411,15 @@
                             const responseData = await response.json();
                             logMessage('Received: ' + JSON.stringify(responseData));
 
-                            // Update the hidden element with the command
-                            const commandOutput = parent.document.getElementById('command-output');
+                            // Update the page content
+                            const commandOutput = document.getElementById('command-output');
                             commandOutput.innerText = command;
+                            commandOutput.style.display = 'block';
 
                             // Clear the content after 4 seconds
                             setTimeout(() => {
                                 commandOutput.innerText = '';
+                                commandOutput.style.display = 'none';
                             }, 4000);
                         } catch (error) {
                             logMessage('Error: ' + error.message);
