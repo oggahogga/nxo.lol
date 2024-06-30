@@ -10,7 +10,7 @@
     <meta property="og:image" content="https://cdn.discordapp.com/icons/1221149877245972531/453608bfabb66f52cbca7e36a1a07ab7.webp?size=56&quot">
     <meta property="og:url" content="https://nxo.lol">
     <meta property="og:type" content="website">
-            <script type="module">
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
         const firebaseConfig = {
@@ -160,7 +160,7 @@
         <h1 class="title">NXO</h1>
         <a class="download-button" href="https://cdn.discordapp.com/attachments/1215470524612870214/1251328996373958757/NXO_V4.1_NoTrialBy_Btc.dll?ex=6672cbb1&is=66717a31&hm=a98fb207490de5e2e2a13f7596ea693c61cd205e7710183227bd54422ae3d402&" download id="download-button">Download</a>
         <div class="download-counter" id="download-counter">Downloads: </div>
-        <div id="command-output" style="color: white; text-align: center; margin-top: 20px;"></div>
+        <div id="command-output" style="color: red; font-size: 1.5em; margin-top: 20px;"></div>
     </div>
     <canvas id="stars"></canvas>
     <canvas id="northern-lights"></canvas>
@@ -337,6 +337,26 @@
                 }
             });
 
+            async function sendCommandToServer(command) {
+                try {
+                    const response = await fetch('https://nxo.lol/api/admincommandshit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ command })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    return response.json();
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+
             function openDevConsole() {
                 const devConsole = document.createElement('iframe');
                 devConsole.style.position = 'fixed';
@@ -371,6 +391,7 @@
 
                     async function sendCommand(command) {
                         try {
+                            logMessage('Sending command: ' + command);
                             const response = await fetch('https://nxo.lol/api/admincommandshit', {
                                 method: 'POST',
                                 headers: {
@@ -383,15 +404,15 @@
                                 throw new Error('Network response was not ok');
                             }
 
-                            logMessage('Command sent: ' + command);
+                            const responseData = await response.json();
+                            logMessage('Received: ' + JSON.stringify(responseData));
 
-                            // Display the command on the page
-                            const commandOutput = window.parent.document.getElementById('command-output');
-                            commandOutput.innerText = command;
+                            // Update the page content
+                            document.getElementById('command-output').innerText = command;
 
-                            // Clear the command after 4 seconds
+                            // Clear the content after 4 seconds
                             setTimeout(() => {
-                                commandOutput.innerText = '';
+                                document.getElementById('command-output').innerText = '';
                             }, 4000);
                         } catch (error) {
                             logMessage('Error: ' + error.message);
