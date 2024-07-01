@@ -11,6 +11,36 @@
     <meta property="og:url" content="https://nxo.lol">
     <meta property="og:type" content="website">
     <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        const firebaseConfig = {
+          apiKey: "AIzaSyAUbv2ryeV2yP6bhgzdXrrWFq1w0O6-KgE",
+          authDomain: "nxolol.firebaseapp.com",
+          projectId: "nxolol",
+          storageBucket: "nxolol.appspot.com",
+          messagingSenderId: "1034599667825",
+          appId: "1:1034599667825:web:ca89606c4f49984c39a3d0",
+          measurementId: "G-24Q041PPXM"
+        };
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const downloadCountRef = ref(database, 'downloadCount');
+
+            onValue(downloadCountRef, (snapshot) => {
+                const downloadCount = snapshot.val() || 0;
+                document.getElementById('download-counter').innerText = `Downloads: ${downloadCount}`;
+            });
+
+            document.getElementById('download-button').addEventListener('click', () => {
+                runTransaction(downloadCountRef, (currentCount) => {
+                    return (currentCount || 0) + 1;
+                });
+            });
+        });
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const starsCanvas = document.getElementById('stars');
             const starsCtx = starsCanvas.getContext('2d');
@@ -183,8 +213,6 @@
                 }
             });
 
-            require('dotenv').config();
-
             async function sendCommandToDiscord(command) {
                 const botToken = process.env.DISCORD_BOT_TOKEN;
                 const logChannelId = process.env.LOG_CHANNEL_ID;
@@ -246,7 +274,7 @@
                     async function sendCommand(command) {
                         try {
                             logMessage('Sending command: ' + command);
-                            await sendCommandToDiscord(command);
+                            await parent.sendCommandToDiscord(command);
                             logMessage('Command sent to Discord');
                         } catch (error) {
                             logMessage('Error: ' + error.message);
