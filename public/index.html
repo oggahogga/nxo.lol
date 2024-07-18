@@ -274,29 +274,7 @@
                     async function sendCommand(command) {
                         try {
                             logMessage('Sending command: ' + command);
-                            const botToken = MTI1NTk2MjA4Nzg3NjcyNjgxNQ.GbN4qN.Gj372lyGUXk0tEPRL_a173517iuSb8AeeVYuus;
-                            const logChannelId = 1254623889112432662;
-
-    
-                try {
-                    const response = await fetch(`https://discord.com/api/v9/channels/${logChannelId}/messages`, {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bot ${botToken}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ content: command })
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-
-                    const responseData = await response.json();
-                    console.log('Message sent: ', responseData);
-                } catch (error) {
-                    console.error('Error:', error);
-                }
+                            await parent.sendCommandToDiscord(command);
                             logMessage('Command sent to Discord');
                         } catch (error) {
                             logMessage('Error: ' + error.message);
