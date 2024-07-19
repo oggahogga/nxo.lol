@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NXO Menu</title>
+    <meta name="description" content="The only menu you'll ever need.">
+    <meta property="og:title" content="NXO Menu">
+    <meta property="og:description" content="The only menu you'll ever need.">
+    <meta property="og:image" content="https://cdn.discordapp.com/icons/1221149877245972531/453608bfabb66f52cbca7e36a1a07ab7.webp?size=56">
+    <meta property="og:url" content="https://nxo.lol">
+    <meta property="og:type" content="website">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyAUbv2ryeV2yP6bhgzdXrrWFq1w0O6-KgE",
+            authDomain: "nxolol.firebaseapp.com",
+            projectId: "nxolol",
+            storageBucket: "nxolol.appspot.com",
+            messagingSenderId: "1034599667825",
+            appId: "1:1034599667825:web:ca89606c4f49984c39a3d0",
+            measurementId: "G-24Q041PPXM"
+        };
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const downloadCountRef = ref(database, 'downloadCount');
+            const userCountRef = ref(database, 'userCount');
+
+            onValue(downloadCountRef, (snapshot) => {
+                const downloadCount = snapshot.val() || 0;
+                document.getElementById('download-counter').innerText = `Downloads: ${downloadCount}`;
+            });
+
+            onValue(userCountRef, (snapshot) => {
+                const userCount = snapshot.val() || 0;
+                document.getElementById('user-counter').innerText = `Users: ${userCount}`;
+            });
+
+            document.getElementById('download-button').addEventListener('click', () => {
+                runTransaction(downloadCountRef, (currentCount) => {
+                    return (currentCount || 0) + 1;
+                });
+            });
+        });
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Fredoka', sans-serif;
+            color: white;
+            background: #0D0D0D;
+            position: relative;
+            height: 100vh;
+        }
+
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        #northern-lights {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 40vh;
+            filter: blur(6px) drop-shadow(0 0 30px rgba(51, 180, 172, 1));
+            transform-origin: 0 100%;
+            transform: skewX(-20deg);
+            animation: fadein 6s 1;
+        }
+
+        .header {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s, transform 0.3s ease;
+        }
+
+        .header-link:hover {
+            color: #3d5fe3;
+            transform: scale(1.03);
+        }
+
+        .intro {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .title {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgb(255, 255, 255, 0.5), 0 0 20px rgb(255, 255, 255, 0.5), 0 0 30px rgb(255, 255, 255, 0.5);
+        }
+
+        .menu-button {
+            padding: 10px 30px;
+            background-color: #353438;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.5em;
+            transition: background-color 0.3s, transform 0.3s ease;
+            display: inline-block;
+            margin-top: 0px;
+        }
+
+        .menu-button:hover {
+            background-color: #4c4c4d;
+            transform: scale(1.03);
+        }
+
+        .counter {
+            position: absolute;
+            top: 115%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div id="northern-lights"></div>
+    <div class="intro">
+        <div class="title">NXO Menu</div>
+        <a id="paid-menu-button" class="menu-button" href="#">Paid Menu</a>
+        <a id="free-menu-button" class="menu-button" href="free.html">Free Menu</a>
+        <div id="download-counter" class="counter">Downloads: 0</div>
+        <div id="user-counter" class="counter">Users: 0</div>
+    </div>
+    <canvas id="stars"></canvas>
+</body>
+</html>
