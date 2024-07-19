@@ -27,16 +27,10 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             const downloadCountRef = ref(database, 'downloadCount');
-            const userCountRef = ref(database, 'userCount');
 
             onValue(downloadCountRef, (snapshot) => {
                 const downloadCount = snapshot.val() || 0;
                 document.getElementById('download-counter').innerText = `Downloads: ${downloadCount}`;
-            });
-
-            onValue(userCountRef, (snapshot) => {
-                const userCount = snapshot.val() || 0;
-                document.getElementById('user-counter').innerText = `Users: ${userCount}`;
             });
 
             document.getElementById('download-button').addEventListener('click', () => {
@@ -155,7 +149,6 @@
         <a id="paid-menu-button" class="menu-button" href="#">Paid Menu</a>
         <a id="free-menu-button" class="menu-button" href="free.html">Free Menu</a>
         <div id="download-counter" class="counter">Downloads: 0</div>
-        <div id="user-counter" class="counter">Users: 0</div>
     </div>
     <canvas id="stars"></canvas>
 </body>
