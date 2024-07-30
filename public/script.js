@@ -11,6 +11,8 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
+    
     const loginModal = document.getElementById('login-modal');
     const signupModal = document.getElementById('signup-modal');
 
@@ -21,10 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeSignup = document.getElementById('close-signup');
 
     loginLink.onclick = function() {
+        console.log('Login link clicked');
         loginModal.classList.add('show');
     }
 
     signupLink.onclick = function() {
+        console.log('Signup link clicked');
         signupModal.classList.add('show');
     }
 
@@ -52,10 +56,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         auth.signInWithEmailAndPassword(email, password)
             .then(userCredential => {
+                console.log('Login successful');
                 alert('Login successful');
                 loginModal.classList.remove('show');
             })
             .catch(error => {
+                console.log('Login error:', error.message);
                 alert(error.message);
             });
     });
@@ -67,10 +73,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         auth.createUserWithEmailAndPassword(email, password)
             .then(userCredential => {
+                console.log('Signup successful');
                 alert('Signup successful');
                 signupModal.classList.remove('show');
             })
             .catch(error => {
+                console.log('Signup error:', error.message);
                 alert(error.message);
             });
     });
