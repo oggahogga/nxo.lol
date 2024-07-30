@@ -219,12 +219,6 @@
             -webkit-background-clip: text;
         }
 
-        .nxotext .N,
-        .nxotext .X,
-        .nxotext .O {
-            font-family: Arial, sans-serif;
-        }
-
         .buttons {
             margin-top: 20px;
         }
@@ -286,12 +280,12 @@
             console.log('DOM fully loaded and parsed');
             
             const loginModal = document.getElementById('login-modal');
-            const signupModal = document.getElementById('signup-modal');
+            const registerModal = document.getElementById('register-modal');
             const userEmailDisplay = document.querySelector('.user-email');
             const loginLink = document.getElementById('login-link');
-            const signupLink = document.getElementById('signup-link');
+            const registerLink = document.getElementById('register-link');
             const closeLogin = document.getElementById('close-login');
-            const closeSignup = document.getElementById('close-signup');
+            const closeRegister = document.getElementById('close-register');
             const purchaseButton = document.querySelector('.purchase-button');
 
             loginLink.onclick = function() {
@@ -299,25 +293,25 @@
                 loginModal.classList.add('show');
             }
 
-            signupLink.onclick = function() {
-                console.log('Signup link clicked');
-                signupModal.classList.add('show');
+            registerLink.onclick = function() {
+                console.log('Register link clicked');
+                registerModal.classList.add('show');
             }
 
             closeLogin.onclick = function() {
                 loginModal.classList.remove('show');
             }
 
-            closeSignup.onclick = function() {
-                signupModal.classList.remove('show');
+            closeRegister.onclick = function() {
+                registerModal.classList.remove('show');
             }
 
             window.onclick = function(event) {
                 if (event.target == loginModal) {
                     loginModal.classList.remove('show');
                 }
-                if (event.target == signupModal) {
-                    signupModal.classList.remove('show');
+                if (event.target == registerModal) {
+                    registerModal.classList.remove('show');
                 }
             }
 
@@ -334,7 +328,7 @@
                         userEmailDisplay.style.display = 'block';
                         loginModal.classList.remove('show');
                         loginLink.classList.add('hidden');
-                        signupLink.classList.add('hidden');
+                        registerLink.classList.add('hidden');
                     })
                     .catch(error => {
                         console.log('Login error:', error.message);
@@ -342,31 +336,31 @@
                     });
             });
 
-            document.getElementById('signup-form').addEventListener('submit', function(event) {
+            document.getElementById('register-form').addEventListener('submit', function(event) {
                 event.preventDefault();
-                const email = document.getElementById('signup-email').value;
-                const password = document.getElementById('signup-password').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
 
                 auth.createUserWithEmailAndPassword(email, password)
                     .then(userCredential => {
-                        console.log('Signup successful');
-                        alert('Signup successful');
+                        console.log('Register successful');
+                        alert('Register successful');
                         userEmailDisplay.textContent = `Logged in as: ${email}`;
                         userEmailDisplay.style.display = 'block';
-                        signupModal.classList.remove('show');
+                        registerModal.classList.remove('show');
                         loginLink.classList.add('hidden');
-                        signupLink.classList.add('hidden');
+                        registerLink.classList.add('hidden');
                         window.location.href = 'payment.html'; // Redirect to payment page
                     })
                     .catch(error => {
-                        console.log('Signup error:', error.message);
+                        console.log('Register error:', error.message);
                         alert(error.message);
                     });
             });
 
             purchaseButton.onclick = function() {
                 console.log('Purchase button clicked');
-                signupModal.classList.add('show');
+                registerModal.classList.add('show');
             }
         });
     </script>
@@ -379,7 +373,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#" id="login-link">Login</a></li>
-                <li><a href="#" id="signup-link">Signup</a></li>
+                <li><a href="#" id="register-link">Register</a></li>
                 <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
             </ul>
         </nav>
@@ -387,9 +381,9 @@
     </header>
     <section id="home">
         <div class="intro">
-            <h1 class="nxotext"><span class="N">N</span><span class="X">X</span><span class="O">O</span></h1>
+            <h1 class="nxotext">NXO</h1>
             <div class="buttons">
-                <a class="button purchase-button" href="#">Sign Up</a>
+                <a class="button purchase-button" href="#">Register</a>
                 <a class="button" href="https://discord.gg/nxoontop">Join Discord</a>
             </div>
         </div>
@@ -452,14 +446,14 @@
             </form>
         </div>
     </div>
-    <div class="modal" id="signup-modal">
+    <div class="modal" id="register-modal">
         <div class="modal-content">
-            <span class="close" id="close-signup">&times;</span>
-            <h2>Signup</h2>
-            <form id="signup-form">
-                <input type="email" id="signup-email" placeholder="Email" required>
-                <input type="password" id="signup-password" placeholder="Password" required>
-                <button type="submit">Signup</button>
+            <span class="close" id="close-register">&times;</span>
+            <h2>Register</h2>
+            <form id="register-form">
+                <input type="email" id="register-email" placeholder="Email" required>
+                <input type="password" id="register-password" placeholder="Password" required>
+                <button type="submit">Register</button>
             </form>
         </div>
     </div>
