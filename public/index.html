@@ -22,16 +22,18 @@
             top: 0;
             background: #1a1a1a;
             z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
         }
 
         nav ul {
             list-style: none;
-            padding: 10px;
-            text-align: center;
             display: flex;
-            justify-content: center;
             gap: 20px;
             margin: 0;
+            padding: 0;
         }
 
         nav ul li {
@@ -47,6 +49,11 @@
 
         nav ul li a:hover {
             color: #3d5fe3;
+        }
+
+        .user-email {
+            display: none;
+            font-size: 1.2em;
         }
 
         .intro {
@@ -232,6 +239,7 @@
             
             const loginModal = document.getElementById('login-modal');
             const signupModal = document.getElementById('signup-modal');
+            const userEmailDisplay = document.querySelector('.user-email');
 
             const loginLink = document.getElementById('login-link');
             const signupLink = document.getElementById('signup-link');
@@ -275,6 +283,8 @@
                     .then(userCredential => {
                         console.log('Login successful');
                         alert('Login successful');
+                        userEmailDisplay.textContent = `Logged in as: ${email}`;
+                        userEmailDisplay.style.display = 'block';
                         loginModal.classList.remove('show');
                     })
                     .catch(error => {
@@ -292,6 +302,8 @@
                     .then(userCredential => {
                         console.log('Signup successful');
                         alert('Signup successful');
+                        userEmailDisplay.textContent = `Logged in as: ${email}`;
+                        userEmailDisplay.style.display = 'block';
                         signupModal.classList.remove('show');
                     })
                     .catch(error => {
@@ -314,6 +326,7 @@
                 <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
             </ul>
         </nav>
+        <div class="user-email"></div>
     </header>
     <section id="home">
         <div class="intro">
