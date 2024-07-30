@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NXO Services</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400&display=swap');
+        body {
+            font-family: Arial, sans-serif;
+        }
 
         .overlay {
             position: fixed;
@@ -89,7 +91,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 40px; /* Increase gap to spread out more vertically */
+            gap: 40px;
         }
 
         .feature-box {
@@ -99,7 +101,7 @@
             width: 300px;
             text-align: center;
             transition: transform 0.3s ease, background-color 0.3s ease;
-            margin: 20px; /* Increase margin to spread out more vertically */
+            margin: 20px;
         }
 
         .feature-box:hover {
@@ -191,7 +193,7 @@
             background-color: #4c4c4d;
             transform: scale(1.03);
         }
-        
+
         body {
             background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center fixed;
             background-size: cover;
@@ -234,7 +236,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 40px; /* Increase gap to spread out more vertically */
+            gap: 40px;
         }
 
         .feature-box {
@@ -244,7 +246,7 @@
             width: 300px;
             text-align: center;
             transition: transform 0.3s ease, background-color 0.3s ease;
-            margin: 20px; /* Increase margin to spread out more vertically */
+            margin: 20px;
         }
 
         .feature-box:hover {
@@ -277,8 +279,6 @@
         const auth = firebase.auth();
 
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM fully loaded and parsed');
-            
             const loginModal = document.getElementById('login-modal');
             const registerModal = document.getElementById('register-modal');
             const userEmailDisplay = document.querySelector('.user-email');
@@ -288,13 +288,25 @@
             const closeRegister = document.getElementById('close-register');
             const purchaseButton = document.querySelector('.purchase-button');
 
+            auth.onAuthStateChanged(function(user) {
+                if (user) {
+                    const { email, displayName } = user;
+                    userEmailDisplay.textContent = `Logged in as: ${displayName || email}`;
+                    userEmailDisplay.style.display = 'block';
+                    loginLink.style.display = 'none';
+                    registerLink.style.display = 'none';
+                } else {
+                    userEmailDisplay.style.display = 'none';
+                    loginLink.style.display = 'block';
+                    registerLink.style.display = 'block';
+                }
+            });
+
             loginLink.onclick = function() {
-                console.log('Login link clicked');
                 loginModal.classList.add('show');
             }
 
             registerLink.onclick = function() {
-                console.log('Register link clicked');
                 registerModal.classList.add('show');
             }
 
@@ -322,44 +334,36 @@
 
                 auth.signInWithEmailAndPassword(email, password)
                     .then(userCredential => {
-                        console.log('Login successful');
                         alert('Login successful');
-                        userEmailDisplay.textContent = `Logged in as: ${email}`;
-                        userEmailDisplay.style.display = 'block';
                         loginModal.classList.remove('show');
-                        loginLink.classList.add('hidden');
-                        registerLink.classList.add('hidden');
                     })
                     .catch(error => {
-                        console.log('Login error:', error.message);
                         alert(error.message);
                     });
             });
 
             document.getElementById('register-form').addEventListener('submit', function(event) {
                 event.preventDefault();
+                const username = document.getElementById('register-username').value;
                 const email = document.getElementById('register-email').value;
                 const password = document.getElementById('register-password').value;
 
                 auth.createUserWithEmailAndPassword(email, password)
                     .then(userCredential => {
-                        console.log('Register successful');
+                        const user = userCredential.user;
+                        return user.updateProfile({ displayName: username });
+                    })
+                    .then(() => {
                         alert('Register successful');
-                        userEmailDisplay.textContent = `Logged in as: ${email}`;
-                        userEmailDisplay.style.display = 'block';
                         registerModal.classList.remove('show');
-                        loginLink.classList.add('hidden');
-                        registerLink.classList.add('hidden');
-                        window.location.href = 'payment.html'; // Redirect to payment page
+                        window.location.href = 'payment.html';
                     })
                     .catch(error => {
-                        console.log('Register error:', error.message);
                         alert(error.message);
                     });
             });
 
             purchaseButton.onclick = function() {
-                console.log('Purchase button clicked');
                 registerModal.classList.add('show');
             }
         });
@@ -451,6 +455,7 @@
             <span class="close" id="close-register">&times;</span>
             <h2>Register</h2>
             <form id="register-form">
+                <input type="text" id="register-username" placeholder="Username" required>
                 <input type="email" id="register-email" placeholder="Email" required>
                 <input type="password" id="register-password" placeholder="Password" required>
                 <button type="submit">Register</button>
