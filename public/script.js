@@ -1,15 +1,12 @@
-// Firebase configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID",
-    measurementId: "YOUR_MEASUREMENT_ID"
+  apiKey: "AIzaSyADJk_U0vAs0wdUomwHc7ZfwPhKuYvTcek",
+  authDomain: "nxololbut.firebaseapp.com",
+  projectId: "nxololbut",
+  storageBucket: "nxololbut.appspot.com",
+  messagingSenderId: "387208256496",
+  appId: "1:387208256496:web:0b07e97acc23666732db35",
+  measurementId: "G-PBRYTM8BB7"
 };
-
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
@@ -47,8 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
             signupModal.classList.remove('show');
         }
     }
-
-    // Handle form submissions
     document.getElementById('login-form').addEventListener('submit', function(event) {
         event.preventDefault();
         const email = document.getElementById('login-email').value;
