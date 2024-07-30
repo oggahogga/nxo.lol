@@ -11,7 +11,8 @@
             margin: 0;
             padding: 0;
             font-family: 'Fredoka', sans-serif;
-            background: #0D0D0D;
+            background: url('path-to-your-image.png') no-repeat center center fixed;
+            background-size: cover;
             color: white;
             overflow: hidden;
         }
@@ -20,7 +21,7 @@
             position: fixed;
             width: 100%;
             top: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(26, 26, 26, 0.8);
             z-index: 10;
             display: flex;
             justify-content: space-between;
@@ -52,7 +53,6 @@
         }
 
         .user-email {
-            display: none;
             font-size: 1.2em;
         }
 
@@ -65,6 +65,7 @@
             font-size: 4em;
             margin-bottom: 20px;
         }
+
         .buttons .button {
             padding: 10px 30px;
             background-color: #353438;
@@ -95,7 +96,7 @@
         }
 
         .feature-box {
-            background: #252525;
+            background: rgba(37, 37, 37, 0.8);
             padding: 20px;
             border-radius: 10px;
             width: 300px;
@@ -106,7 +107,7 @@
 
         .feature-box:hover {
             transform: scale(1.05);
-            background-color: #353535;
+            background-color: rgba(53, 53, 53, 0.8);
         }
 
         .feature-box h3 {
@@ -201,8 +202,10 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: url('https://source.unsplash.com/random/1920x1080') no-repeat center center fixed;
-            background-size: cover;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
@@ -221,21 +224,23 @@
         const auth = firebase.auth();
 
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded and parsed');
+            
             const loginModal = document.getElementById('login-modal');
             const signupModal = document.getElementById('signup-modal');
             const userEmailDisplay = document.querySelector('.user-email');
-
             const loginLink = document.getElementById('login-link');
             const signupLink = document.getElementById('signup-link');
-
             const closeLogin = document.getElementById('close-login');
             const closeSignup = document.getElementById('close-signup');
 
             loginLink.onclick = function() {
+                console.log('Login link clicked');
                 loginModal.classList.add('show');
             }
 
             signupLink.onclick = function() {
+                console.log('Signup link clicked');
                 signupModal.classList.add('show');
             }
 
@@ -263,12 +268,16 @@
 
                 auth.signInWithEmailAndPassword(email, password)
                     .then(userCredential => {
+                        console.log('Login successful');
                         alert('Login successful');
                         userEmailDisplay.textContent = `Logged in as: ${email}`;
                         userEmailDisplay.style.display = 'block';
                         loginModal.classList.remove('show');
+                        loginLink.classList.add('hidden');
+                        signupLink.classList.add('hidden');
                     })
                     .catch(error => {
+                        console.log('Login error:', error.message);
                         alert(error.message);
                     });
             });
@@ -280,12 +289,16 @@
 
                 auth.createUserWithEmailAndPassword(email, password)
                     .then(userCredential => {
+                        console.log('Signup successful');
                         alert('Signup successful');
                         userEmailDisplay.textContent = `Logged in as: ${email}`;
                         userEmailDisplay.style.display = 'block';
                         signupModal.classList.remove('show');
+                        loginLink.classList.add('hidden');
+                        signupLink.classList.add('hidden');
                     })
                     .catch(error => {
+                        console.log('Signup error:', error.message);
                         alert(error.message);
                     });
             });
@@ -293,7 +306,6 @@
     </script>
 </head>
 <body>
-    <div id="background"></div>
     <header>
         <nav>
             <ul>
@@ -309,6 +321,8 @@
     <section id="home">
         <div class="intro">
             <h1 class="title">NXO</h1>
+            <h2>NXO Services</h2>
+            <p>Hey you! Are you tired of using mod menus that are detected, ratted, and unorganized? If so, this mod menu is for you!</p>
             <div class="buttons">
                 <a class="button" href="https://purchase-link">Purchase Now</a>
                 <a class="button" href="https://discord.gg/nxoontop">Join Discord</a>
@@ -341,7 +355,7 @@
                 </div>
                 <div class="feature-box">
                     <h3>Feedback</h3>
-                    <p>Your voice matters and it can be used to add future mods!</p
+                    <p>Your voice matters and it can be used to add future mods!</p>
                 </div>
                 <div class="feature-box">
                     <h3>Unique</h3>
