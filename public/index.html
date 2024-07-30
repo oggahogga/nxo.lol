@@ -20,7 +20,7 @@
             position: fixed;
             width: 100%;
             top: 0;
-            background: #1a1a1a;
+            background: rgba(0, 0, 0, 0.8);
             z-index: 10;
             display: flex;
             justify-content: space-between;
@@ -65,7 +65,6 @@
             font-size: 4em;
             margin-bottom: 20px;
         }
-
         .buttons .button {
             padding: 10px 30px;
             background-color: #353438;
@@ -202,21 +201,8 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(135deg, #1e5799 10%, #2989d8 50%, #207cca 75%);
-            animation: gradient 15s ease infinite;
-            background-size: 400% 400%;
-        }
-
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            background: url('https://source.unsplash.com/random/1920x1080') no-repeat center center fixed;
+            background-size: cover;
         }
     </style>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
@@ -235,8 +221,6 @@
         const auth = firebase.auth();
 
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM fully loaded and parsed');
-            
             const loginModal = document.getElementById('login-modal');
             const signupModal = document.getElementById('signup-modal');
             const userEmailDisplay = document.querySelector('.user-email');
@@ -248,12 +232,10 @@
             const closeSignup = document.getElementById('close-signup');
 
             loginLink.onclick = function() {
-                console.log('Login link clicked');
                 loginModal.classList.add('show');
             }
 
             signupLink.onclick = function() {
-                console.log('Signup link clicked');
                 signupModal.classList.add('show');
             }
 
@@ -281,14 +263,12 @@
 
                 auth.signInWithEmailAndPassword(email, password)
                     .then(userCredential => {
-                        console.log('Login successful');
                         alert('Login successful');
                         userEmailDisplay.textContent = `Logged in as: ${email}`;
                         userEmailDisplay.style.display = 'block';
                         loginModal.classList.remove('show');
                     })
                     .catch(error => {
-                        console.log('Login error:', error.message);
                         alert(error.message);
                     });
             });
@@ -300,14 +280,12 @@
 
                 auth.createUserWithEmailAndPassword(email, password)
                     .then(userCredential => {
-                        console.log('Signup successful');
                         alert('Signup successful');
                         userEmailDisplay.textContent = `Logged in as: ${email}`;
                         userEmailDisplay.style.display = 'block';
                         signupModal.classList.remove('show');
                     })
                     .catch(error => {
-                        console.log('Signup error:', error.message);
                         alert(error.message);
                     });
             });
@@ -331,8 +309,6 @@
     <section id="home">
         <div class="intro">
             <h1 class="title">NXO</h1>
-            <h2>NXO Services</h2>
-            <p>Hey you! Are you tired of using mod menus that are detected, ratted, and unorganized? If so, this mod menu is for you!</p>
             <div class="buttons">
                 <a class="button" href="https://purchase-link">Purchase Now</a>
                 <a class="button" href="https://discord.gg/nxoontop">Join Discord</a>
@@ -365,7 +341,7 @@
                 </div>
                 <div class="feature-box">
                     <h3>Feedback</h3>
-                    <p>Your voice matters and it can be used to add future mods!</p>
+                    <p>Your voice matters and it can be used to add future mods!</p
                 </div>
                 <div class="feature-box">
                     <h3>Unique</h3>
