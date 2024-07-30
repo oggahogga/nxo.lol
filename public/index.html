@@ -7,6 +7,15 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400&display=swap');
 
+        body {
+            background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            margin: 0;
+            padding: 0;
+            font-family: 'Fredoka', sans-serif;
+        }
+
         .overlay {
             position: fixed;
             top: 0;
@@ -56,9 +65,34 @@
             font-size: 1.2em;
         }
 
-        .title {
-            font-size: 4em;
-            margin-bottom: 20px;
+        .intro {
+            text-align: center;
+            padding-top: 50px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .nxotext {
+            font-size: 15em;
+            font-weight: bold;
+            color: transparent;
+            -webkit-text-stroke: 2px white;
+            text-align: center;
+            background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center;
+            background-clip: text;
+            -webkit-background-clip: text;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .nxotext .N,
+        .nxotext .X,
+        .nxotext .O {
+            font-family: Arial, sans-serif;
+        }
+
+        .buttons {
+            margin-top: 20px;
         }
 
         .buttons .button {
@@ -79,7 +113,7 @@
         }
 
         .features-container {
-            margin: 100px 50px 50px 50px;
+            margin: 50px 50px 50px 50px;
             text-align: center;
             z-index: 2;
             position: relative;
@@ -191,81 +225,6 @@
             background-color: #4c4c4d;
             transform: scale(1.03);
         }
-body {
-    background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center fixed;
-    background-size: cover;
-    color: white;
-    height: 100vh;
-    overflow: auto;
-}
-
-.intro {
-    text-align: center;
-    padding-top: 100px;
-    z-index: 2;
-    position: relative;
-}
-
-.nxotext {
-    font-size: 12em;
-    font-weight: bold;
-    color: transparent;
-    -webkit-text-stroke: 2px white;
-    text-align: center;
-    position: relative;
-    background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center;
-    background-clip: text;
-    -webkit-background-clip: text;
-}
-
-.nxotext .N,
-.nxotext .X,
-.nxotext .O {
-    font-family: Arial, sans-serif;
-}
-
-.buttons {
-    margin-top: 20px;
-}
-
-.features-container {
-    margin: 50px 50px 50px 50px;
-    text-align: center;
-    z-index: 2;
-    position: relative;
-}
-
-.features-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.feature-box {
-    background: rgba(37, 37, 37, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    margin: 10px;
-}
-
-.feature-box:hover {
-    transform: scale(1.05);
-    background-color: rgba(53, 53, 53, 0.8);
-}
-
-.feature-box h3 {
-    margin-top: 0;
-    color: #3d5fe3;
-}
-
-.feature-box p {
-    color: #dcdcdc;
-}
-
     </style>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
@@ -284,7 +243,7 @@ body {
 
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM fully loaded and parsed');
-            
+
             const loginModal = document.getElementById('login-modal');
             const signupModal = document.getElementById('signup-modal');
             const userEmailDisplay = document.querySelector('.user-email');
@@ -379,14 +338,13 @@ body {
         <div class="user-email"></div>
     </header>
     <section id="home">
-<div class="intro">
-    <h1 class="nxotext"><span class="N">N</span><span class="X">X</span><span class="O">O</span></h1>
-    <div class="buttons">
-        <a class="button" href="https://purchase-link">Purchase Now</a>
-        <a class="button" href="https://discord.gg/nxoontop">Join Discord</a>
-    </div>
-</div>
-
+        <div class="intro">
+            <h1 class="nxotext"><span class="N">N</span><span class="X">X</span><span class="O">O</span></h1>
+            <div class="buttons">
+                <a class="button" href="https://purchase-link">Purchase Now</a>
+                <a class="button" href="https://discord.gg/nxoontop">Join Discord</a>
+            </div>
+        </div>
     </section>
     <section id="features">
         <div class="features-container">
