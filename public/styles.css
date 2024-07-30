@@ -1,200 +1,89 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400&display=swap');
+document.addEventListener('DOMContentLoaded', function() {
+    const loginModal = document.getElementById('login-modal');
+    const signupModal = document.getElementById('signup-modal');
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Fredoka', sans-serif;
-    background: linear-gradient(135deg, #1e5799 10%, #2989d8 50%, #207cca 75%);
-    background-size: 400% 400%;
-    color: white;
-    overflow: hidden;
-    animation: gradient 15s ease infinite;
-}
+    const loginLink = document.getElementById('login-link');
+    const signupLink = document.getElementById('signup-link');
 
-header {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    background: #1a1a1a;
-    z-index: 10;
-}
+    const closeLogin = document.getElementById('close-login');
+    const closeSignup = document.getElementById('close-signup');
 
-nav ul {
-    list-style: none;
-    padding: 10px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 0;
-}
-
-nav ul li {
-    display: inline;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2em;
-    transition: color 0.3s;
-}
-
-nav ul li a:hover {
-    color: #3d5fe3;
-}
-
-.intro {
-    text-align: center;
-    padding-top: 100px;
-}
-
-.title {
-    font-size: 4em;
-    margin-bottom: 20px;
-}
-
-.download-button {
-    padding: 10px 30px;
-    background-color: #353438;
-    color: white;
-    text-decoration: none;
-    border-radius: 25px;
-    font-size: 1.5em;
-    transition: background-color 0.3s, transform 0.3s ease;
-}
-
-.download-button:hover {
-    background-color: #4c4c4d;
-    transform: scale(1.03);
-}
-
-.download-counter {
-    margin-top: 10px;
-    font-size: 1.2em;
-}
-
-.features-container {
-    margin: 100px 50px 50px 50px;
-    text-align: center;
-}
-
-.features-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.feature-box {
-    background: #252525;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    margin: 10px;
-}
-
-.feature-box:hover {
-    transform: scale(1.05);
-    background-color: #353535;
-}
-
-.feature-box h3 {
-    margin-top: 0;
-    color: #3d5fe3;
-}
-
-.feature-box p {
-    color: #dcdcdc;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 20;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.modal-content {
-    background-color: #1e1e1e;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 400px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    opacity: 1;
-}
-
-.modal.show {
-    display: block;
-    opacity: 1;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-form input {
-    padding: 10px;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-    max-width: 300px;
-}
-
-form button {
-    padding: 10px 30px;
-    background-color: #353438;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s ease;
-}
-
-form button:hover {
-    background-color: #4c4c4d;
-    transform: scale(1.03);
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
+    loginLink.onclick = function() {
+        loginModal.classList.add('show');
     }
-    50% {
-        background-position: 100% 50%;
+
+    signupLink.onclick = function() {
+        signupModal.classList.add('show');
     }
-    100% {
-        background-position: 0% 50%;
+
+    closeLogin.onclick = function() {
+        loginModal.classList.remove('show');
     }
-}
+
+    closeSignup.onclick = function() {
+        signupModal.classList.remove('show');
+    }
+
+    window.onclick = function(event) {
+        if (event.target == loginModal) {
+            loginModal.classList.remove('show');
+        }
+        if (event.target == signupModal) {
+            signupModal.classList.remove('show');
+        }
+    }
+
+    // Handle form submissions
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        fetch('https://your-backend-url/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert(data.message);
+                if (data.message === 'Login successful') {
+                    loginModal.classList.remove('show');
+                }
+            } else {
+                alert('An error occurred. Please try again.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    document.getElementById('signup-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        const key = document.getElementById('signup-key').value;
+
+        fetch('https://your-backend-url/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password, key })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert(data.message);
+                if (data.message === 'Signup successful') {
+                    signupModal.classList.remove('show');
+                }
+            } else {
+                alert('An error occurred. Please try again.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
