@@ -1,11 +1,11 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyADJk_U0vAs0wdUomwHc7ZfwPhKuYvTcek",
-    authDomain: "nxololbut.firebaseapp.com",
-    projectId: "nxololbut",
-    storageBucket: "nxololbut.appspot.com",
-    messagingSenderId: "387208256496",
-    appId: "1:387208256496:web:0b07e97acc23666732db35",
-    measurementId: "G-PBRYTM8BB7"
+  apiKey: "AIzaSyADJk_U0vAs0wdUomwHc7ZfwPhKuYvTcek",
+  authDomain: "nxololbut.firebaseapp.com",
+  projectId: "nxololbut",
+  storageBucket: "nxololbut.appspot.com",
+  messagingSenderId: "387208256496",
+  appId: "1:387208256496:web:0b07e97acc23666732db35",
+  measurementId: "G-PBRYTM8BB7"
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
