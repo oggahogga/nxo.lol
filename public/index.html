@@ -402,10 +402,11 @@
             }
 
             window.addEventListener('scroll', function() {
-                const scrollY = window.scrollY;
-                const scrollThreshold = 100;
+                const featuresContainer = document.querySelector('.features-container');
+                const featuresGrid = document.querySelector('.features-grid');
+                const revealPosition = featuresContainer.getBoundingClientRect().top;
 
-                if (scrollY > scrollThreshold) {
+                if (revealPosition < window.innerHeight) {
                     featuresGrid.classList.add('reveal');
                 }
             });
