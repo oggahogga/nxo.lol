@@ -62,6 +62,8 @@
         .user-info {
             display: flex;
             align-items: center;
+            justify-content: flex-end; /* Align to the right */
+            width: 100%; /* Ensure it fills the header */
             gap: 20px;
             font-size: 1.2em;
             color: white;
@@ -81,7 +83,7 @@
             text-decoration: none;
             border-radius: 10px; /* Changed to rounded boxes */
             font-size: 1.5em;
-            transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
+            transition: background-color 0.3s, transform 0.3s ease;
             display: inline-block;
             margin: 10px;
         }
@@ -89,7 +91,6 @@
         .buttons .button:hover {
             background-color: #4c4c4d;
             transform: scale(1.05);
-            box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.6); /* Bright and larger on hover */
         }
 
         .features-container {
@@ -116,6 +117,14 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 40px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .features-grid.reveal {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .feature-box {
@@ -210,13 +219,12 @@
             border-radius: 10px; /* Changed to rounded boxes */
             font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
+            transition: background-color 0.3s, transform 0.3s ease;
         }
 
         form button:hover {
             background-color: #4c4c4d;
             transform: scale(1.05);
-            box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.6); /* Bright and larger on hover */
         }
 
         .intro {
@@ -263,6 +271,7 @@
             const closeLogin = document.getElementById('close-login');
             const closeRegister = document.getElementById('close-register');
             const purchaseButton = document.querySelector('.purchase-button');
+            const featuresGrid = document.querySelector('.features-grid');
 
             auth.onAuthStateChanged(function(user) {
                 if (user) {
@@ -354,6 +363,15 @@
             purchaseButton.onclick = function() {
                 registerModal.classList.add('show');
             }
+
+            window.addEventListener('scroll', function() {
+                const scrollY = window.scrollY;
+                const scrollThreshold = 100; // Change this value to adjust when the effect triggers
+
+                if (scrollY > scrollThreshold) {
+                    featuresGrid.classList.add('reveal');
+                }
+            });
         });
     </script>
 </head>
