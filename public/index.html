@@ -406,7 +406,10 @@
                 const featuresGrid = document.querySelector('.features-grid');
                 const revealPosition = featuresContainer.getBoundingClientRect().top;
 
-                if (revealPosition < window.innerHeight) {
+                // Make boxes reveal after scrolling further down
+                const revealThreshold = window.innerHeight / 1.5; // Adjust this value for later reveal
+
+                if (revealPosition < revealThreshold) {
                     featuresGrid.classList.add('reveal');
                 }
             });
