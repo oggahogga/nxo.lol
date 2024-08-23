@@ -7,6 +7,11 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            height: 100vh;
+            overflow: auto;
         }
 
         .overlay {
@@ -81,10 +86,16 @@
         }
 
         .features-container {
-            margin: 100px 50px 50px 50px;
+            margin: 50px 50px 50px 50px;
             text-align: center;
             z-index: 2;
             position: relative;
+            transition: margin-left 0.3s ease; /* Add transition for smooth shifting */
+        }
+
+        /* Shift features container when logged in */
+        body.logged-in .features-container {
+            margin-left: 200px;
         }
 
         .features-grid {
@@ -194,14 +205,6 @@
             transform: scale(1.03);
         }
 
-        body {
-            background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            height: 100vh;
-            overflow: auto;
-        }
-
         .intro {
             text-align: center;
             padding-top: 100px;
@@ -219,48 +222,6 @@
             background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center;
             background-clip: text;
             -webkit-background-clip: text;
-        }
-
-        .buttons {
-            margin-top: 20px;
-        }
-
-        .features-container {
-            margin: 50px 50px 50px 50px;
-            text-align: center;
-            z-index: 2;
-            position: relative;
-        }
-
-        .features-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-        }
-
-        .feature-box {
-            background: rgba(37, 37, 37, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            margin: 20px;
-        }
-
-        .feature-box:hover {
-            transform: scale(1.05);
-            background-color: rgba(53, 53, 53, 0.8);
-        }
-
-        .feature-box h3 {
-            margin-top: 0;
-            color: #3d5fe3;
-        }
-
-        .feature-box p {
-            color: #dcdcdc;
         }
     </style>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
@@ -295,10 +256,12 @@
                     userEmailDisplay.style.display = 'block';
                     loginLink.style.display = 'none';
                     registerLink.style.display = 'none';
+                    document.body.classList.add('logged-in'); // Add this line
                 } else {
                     userEmailDisplay.style.display = 'none';
                     loginLink.style.display = 'block';
                     registerLink.style.display = 'block';
+                    document.body.classList.remove('logged-in'); // Add this line
                 }
             });
 
