@@ -12,6 +12,8 @@
             color: white;
             height: 100vh;
             overflow: auto;
+            margin: 0;
+            padding: 0;
         }
 
         .overlay {
@@ -39,7 +41,7 @@
         nav ul {
             list-style: none;
             display: flex;
-            gap: 40px; /* Increased gap for equal spacing */
+            gap: 40px;
             margin: 0;
             padding: 0;
         }
@@ -62,8 +64,8 @@
         .user-info {
             display: flex;
             align-items: center;
-            justify-content: flex-end; /* Align to the right */
-            width: 100%; /* Ensure it fills the header */
+            justify-content: flex-end;
+            width: 100%;
             gap: 20px;
             font-size: 1.2em;
             color: white;
@@ -73,7 +75,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 250px; /* Adjust width to fit the design */
+            max-width: 250px;
         }
 
         .buttons .button {
@@ -81,7 +83,7 @@
             background-color: #353438;
             color: white;
             text-decoration: none;
-            border-radius: 10px; /* Changed to rounded boxes */
+            border-radius: 10px;
             font-size: 1.5em;
             transition: background-color 0.3s, transform 0.3s ease;
             display: inline-block;
@@ -94,11 +96,11 @@
         }
 
         .features-container {
-            margin: 50px 50px 50px 50px;
+            margin: 100px 50px 50px 50px;
             text-align: center;
             z-index: 2;
             position: relative;
-            transition: margin-left 0.3s ease; /* Add transition for smooth shifting */
+            transition: margin-left 0.3s ease;
         }
 
         /* Center the heading */
@@ -107,9 +109,9 @@
             margin-bottom: 40px;
         }
 
-        /* Shift features container when logged in */
+        /* Ensure features container doesn't shift */
         body.logged-in .features-container {
-            margin-left: 200px;
+            margin-left: 50px;
         }
 
         .features-grid {
@@ -216,7 +218,7 @@
             background-color: #353438;
             color: white;
             border: none;
-            border-radius: 10px; /* Changed to rounded boxes */
+            border-radius: 10px;
             font-size: 1.2em;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s ease;
@@ -244,6 +246,25 @@
             background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center;
             background-clip: text;
             -webkit-background-clip: text;
+        }
+
+        /* Custom Alert Styles */
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #1e1e1e;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .custom-alert.show {
+            opacity: 1;
         }
     </style>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
@@ -273,6 +294,22 @@
             const purchaseButton = document.querySelector('.purchase-button');
             const featuresGrid = document.querySelector('.features-grid');
 
+            function showCustomAlert(message) {
+                const alertBox = document.createElement('div');
+                alertBox.className = 'custom-alert';
+                alertBox.innerText = message;
+                document.body.appendChild(alertBox);
+                setTimeout(() => {
+                    alertBox.classList.add('show');
+                }, 100);
+                setTimeout(() => {
+                    alertBox.classList.remove('show');
+                    setTimeout(() => {
+                        document.body.removeChild(alertBox);
+                    }, 500);
+                }, 3000);
+            }
+
             auth.onAuthStateChanged(function(user) {
                 if (user) {
                     const { email, displayName } = user;
@@ -280,13 +317,13 @@
                     userEmailDisplay.style.display = 'block';
                     loginLink.style.display = 'none';
                     registerLink.style.display = 'none';
-                    logoutLink.style.display = 'block'; // Show logout button
+                    logoutLink.style.display = 'block';
                     document.body.classList.add('logged-in');
                 } else {
                     userEmailDisplay.style.display = 'none';
                     loginLink.style.display = 'block';
                     registerLink.style.display = 'block';
-                    logoutLink.style.display = 'none'; // Hide logout button
+                    logoutLink.style.display = 'none';
                     document.body.classList.remove('logged-in');
                 }
             });
@@ -301,9 +338,9 @@
 
             logoutLink.onclick = function() {
                 auth.signOut().then(() => {
-                    alert('Logged out successfully');
+                    showCustomAlert('Logged out successfully');
                 }).catch((error) => {
-                    alert('Error logging out: ' + error.message);
+                    showCustomAlert('Error logging out: ' + error.message);
                 });
             }
 
@@ -331,11 +368,11 @@
 
                 auth.signInWithEmailAndPassword(email, password)
                     .then(userCredential => {
-                        alert('Login successful');
+                        showCustomAlert('Login successful');
                         loginModal.classList.remove('show');
                     })
                     .catch(error => {
-                        alert(error.message);
+                        showCustomAlert(error.message);
                     });
             });
 
@@ -351,12 +388,12 @@
                         return user.updateProfile({ displayName: username });
                     })
                     .then(() => {
-                        alert('Register successful');
+                        showCustomAlert('Register successful');
                         registerModal.classList.remove('show');
                         window.location.href = 'payment.html';
                     })
                     .catch(error => {
-                        alert(error.message);
+                        showCustomAlert(error.message);
                     });
             });
 
@@ -366,7 +403,7 @@
 
             window.addEventListener('scroll', function() {
                 const scrollY = window.scrollY;
-                const scrollThreshold = 100; // Change this value to adjust when the effect triggers
+                const scrollThreshold = 100;
 
                 if (scrollY > scrollThreshold) {
                     featuresGrid.classList.add('reveal');
