@@ -39,7 +39,7 @@
         nav ul {
             list-style: none;
             display: flex;
-            gap: 20px;
+            gap: 40px; /* Increased gap for equal spacing */
             margin: 0;
             padding: 0;
         }
@@ -63,26 +63,22 @@
             font-size: 1.2em;
         }
 
-        .title {
-            font-size: 4em;
-            margin-bottom: 20px;
-        }
-
         .buttons .button {
             padding: 10px 30px;
             background-color: #353438;
             color: white;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 10px; /* Changed to rounded boxes */
             font-size: 1.5em;
-            transition: background-color 0.3s, transform 0.3s ease;
+            transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
             display: inline-block;
             margin: 10px;
         }
 
         .buttons .button:hover {
             background-color: #4c4c4d;
-            transform: scale(1.03);
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.6); /* Bright and larger on hover */
         }
 
         .features-container {
@@ -194,15 +190,16 @@
             background-color: #353438;
             color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 10px; /* Changed to rounded boxes */
             font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s ease;
+            transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         form button:hover {
             background-color: #4c4c4d;
-            transform: scale(1.03);
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.6); /* Bright and larger on hover */
         }
 
         .intro {
@@ -245,6 +242,7 @@
             const userEmailDisplay = document.querySelector('.user-email');
             const loginLink = document.getElementById('login-link');
             const registerLink = document.getElementById('register-link');
+            const logoutLink = document.getElementById('logout-link');
             const closeLogin = document.getElementById('close-login');
             const closeRegister = document.getElementById('close-register');
             const purchaseButton = document.querySelector('.purchase-button');
@@ -256,12 +254,14 @@
                     userEmailDisplay.style.display = 'block';
                     loginLink.style.display = 'none';
                     registerLink.style.display = 'none';
-                    document.body.classList.add('logged-in'); // Add this line
+                    logoutLink.style.display = 'block'; // Show logout button
+                    document.body.classList.add('logged-in');
                 } else {
                     userEmailDisplay.style.display = 'none';
                     loginLink.style.display = 'block';
                     registerLink.style.display = 'block';
-                    document.body.classList.remove('logged-in'); // Add this line
+                    logoutLink.style.display = 'none'; // Hide logout button
+                    document.body.classList.remove('logged-in');
                 }
             });
 
@@ -271,6 +271,14 @@
 
             registerLink.onclick = function() {
                 registerModal.classList.add('show');
+            }
+
+            logoutLink.onclick = function() {
+                auth.signOut().then(() => {
+                    alert('Logged out successfully');
+                }).catch((error) => {
+                    alert('Error logging out: ' + error.message);
+                });
             }
 
             closeLogin.onclick = function() {
@@ -339,12 +347,13 @@
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#features">Features</a></li>
-                <li><a href="#" id="login-link">Login</a></li>
-                <li><a href="#" id="register-link">Register</a></li>
                 <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
             </ul>
         </nav>
         <div class="user-email"></div>
+        <a href="#" id="login-link" style="display:none;">Login</a>
+        <a href="#" id="register-link" style="display:none;">Register</a>
+        <a href="#" id="logout-link" style="display:none;">Log Out</a> <!-- Added log out link -->
     </header>
     <section id="home">
         <div class="intro">
