@@ -7,23 +7,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center fixed;
-            background-size: cover;
             color: white;
-            height: 100vh;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
             margin: 0;
             padding: 0;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 
         header {
@@ -78,81 +65,47 @@
             max-width: 250px;
         }
 
-        .buttons .button {
-            padding: 10px 30px;
-            background-color: #353438;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 1.5em;
-            transition: background-color 0.3s, transform 0.3s ease;
-            display: inline-block;
-            margin: 10px;
-        }
-
-        .buttons .button:hover {
-            background-color: #4c4c4d;
-            transform: scale(1.05);
-        }
-
-        .features-container {
-            margin: 100px 50px 50px 50px;
-            text-align: center;
-            z-index: 2;
+        .section {
             position: relative;
-            transition: margin-left 0.3s ease;
-        }
-
-        /* Center the heading */
-        .features-container h2 {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        /* Ensure features container doesn't shift */
-        body.logged-in .features-container {
-            margin-left: 50px;
-        }
-
-        .features-grid {
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             justify-content: center;
-            gap: 40px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .features-grid.reveal {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .feature-box {
-            background: rgba(37, 37, 37, 0.8);
             padding: 20px;
-            border-radius: 10px;
-            width: 300px;
             text-align: center;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            margin: 20px;
         }
 
-        .feature-box:hover {
-            transform: scale(1.05);
-            background-color: rgba(53, 53, 53, 0.8);
+        .section .content {
+            position: relative;
+            z-index: 2;
+            font-size: 2em;
+            max-width: 800px;
         }
 
-        .feature-box h3 {
-            margin-top: 0;
-            color: #3d5fe3;
+        .section .content h3 {
+            margin: 0 0 20px 0;
+            font-size: 2.5em;
         }
 
-        .feature-box p {
-            color: #dcdcdc;
+        .section .content p {
+            font-size: 1.2em;
         }
 
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Black vignette effect */
+            z-index: 1;
+        }
+
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -400,24 +353,10 @@
             purchaseButton.onclick = function() {
                 registerModal.classList.add('show');
             }
-
-            window.addEventListener('scroll', function() {
-                const featuresContainer = document.querySelector('.features-container');
-                const featuresGrid = document.querySelector('.features-grid');
-                const revealPosition = featuresContainer.getBoundingClientRect().top;
-
-                // Make boxes reveal after scrolling further down
-                const revealThreshold = window.innerHeight / 1.5; // Adjust this value for later reveal
-
-                if (revealPosition < revealThreshold) {
-                    featuresGrid.classList.add('reveal');
-                }
-            });
         });
     </script>
 </head>
 <body>
-    <div class="overlay"></div>
     <header>
         <nav>
             <ul>
@@ -433,62 +372,72 @@
             <a href="#" id="logout-link" style="display:none;">Log Out</a>
         </div>
     </header>
-    <section id="home">
-        <div class="intro">
-            <h1 class="nxotext">NXO</h1>
-            <div class="buttons">
-                <a class="button purchase-button" href="#">Register</a>
-                <a class="button" href="https://discord.gg/nxoontop">Join Discord</a>
-            </div>
+
+    <!-- Sections for each feature -->
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276691184630108231/WhatsApp-Image-2021-09-03-at-10.52.45-AM-696x673.jpeg?ex=66ca72d2&is=66c92152&hm=347ffe7725c7241e44735203ec6852f395c79fed429dfa44b1584bc3781b2608&');">
+        <div class="content">
+            <h3>Undetection</h3>
+            <p>We try our best to find the best methods that way you don't get banned!</p>
         </div>
     </section>
-    <section id="features">
-        <div class="features-container">
-            <h2>Why you should choose us:</h2>
-            <div class="features-grid">
-                <div class="feature-box">
-                    <h3>Undetection</h3>
-                    <p>We try our best to find the best methods that way you don't get banned!</p>
-                </div>
-                <div class="feature-box">
-                    <h3>Safety</h3>
-                    <p>We would never rat or add any malicious files to our menus!</p>
-                </div>
-                <div class="feature-box">
-                    <h3>Simplicity</h3>
-                    <p>We like to keep our menus clean & simple and only keep what's necessary!</p>
-                </div>
-                <div class="feature-box">
-                    <h3>Organization</h3>
-                    <p>We try to keep our menus as organized as possible for easy navigation!</p>
-                </div>
-                <div class="feature-box">
-                    <h3>Support</h3>
-                    <p>We will always help you so feel free to ask any questions!</p>
-                </div>
-                <div class="feature-box">
-                    <h3>Feedback</h3>
-                    <p>Your voice matters and it can be used to add future mods!</p>
-                </div>
-                <div class="feature-box">
-                    <h3>Unique</h3>
-                    <p>We try to not be like others and make unique mods and designs!</p>
-                </div>
-                <div class="feature-box">
-                    <h3>Constant Updates</h3>
-                    <p>We try our best to release menu updates asap so you can be the first to have the latest menus!</p>
-                </div>
-                <div class="feature-box">
-                    <h3>Quality Over Quantity</h3>
-                    <p>Say goodbye to those unnecessary useless bs mods, here we only keep what's necessary!</p>
-                </div>
-                <div class="feature-box">
-                    <h3>It's Free!</h3>
-                    <p>Enjoy our services without any cost!</p>
-                </div>
-            </div>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276692494419099720/image.png?ex=66ca740a&is=66c9228a&hm=9dc83af5608677a9fbee5ab870edc7a200cd3e2ac1b75443d763a130bf0361c1&');">
+        <div class="content">
+            <h3>Safety</h3>
+            <p>We would never rat or add any malicious files to our menus!</p>
         </div>
     </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276693510136922212/image.png?ex=66ca74fc&is=66c9237c&hm=ddfd1107d9375bc4b9a7e196c4bb9dfe13cb869366406be3d1359ddd0678f531&');">
+        <div class="content">
+            <h3>Simplicity</h3>
+            <p>We like to keep our menus clean & simple and only keep what's necessary!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276693843839942806/51-TrKwYtL._AC_UF8941000_QL80_.jpg?ex=66ca754c&is=66c923cc&hm=f36b9d30dbcd6173b5cfa3807fa303aac464522bf075da292cdffac7ad4843db&');">
+        <div class="content">
+            <h3>Organization</h3>
+            <p>We try to keep our menus as organized as possible for easy navigation!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276694327388541082/16-163177_talking-stick-figure-images-pictures-stickman-with-megaphone.png?ex=66ca75bf&is=66c9243f&hm=6f97aeb6e77ea0def032f5de7ec2c022b74f4ff8f6b1c516f576de36c8f9109c&');">
+        <div class="content">
+            <h3>Support</h3>
+            <p>We will always help you so feel free to ask any questions!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276694769514319893/image.png?ex=66ca7628&is=66c924a8&hm=4a4ae446081049c03bef6ca7c2170ed88494e8af755633bde02ea28115088a50&');">
+        <div class="content">
+            <h3>Feedback</h3>
+            <p>Your voice matters and it can be used to add future mods!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276695015397261433/history-controversies-daylight-saving-time.webp?ex=66ca7663&is=66c924e3&hm=64a7fbe26feea32da9815afd6d2af63b08411ccac677ae602f1d9bfebf1143d5&');">
+        <div class="content">
+            <h3>Unique</h3>
+            <p>We try to not be like others and make unique mods and designs!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276695179771777114/Quality-Over-Quantity.png?ex=66ca768a&is=66c9250a&hm=3c82484f9cdd578bb2ccb97c2afede82836dbea34af9062ab91d193b8af5d370&');">
+        <div class="content">
+            <h3>Constant Updates</h3>
+            <p>We try our best to release menu updates asap so you can be the first to have the latest menus!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276695656249036852/f90970bc-91dc-49dd-924e-92f59579fc12.webp?ex=66ca76fc&is=66c9257c&hm=cefc7486cd958c467498bfcf26d1b4b58f91a913a5d56a9260e09809132b5ac7&');">
+        <div class="content">
+            <h3>Quality Over Quantity</h3>
+            <p>Say goodbye to those unnecessary useless bs mods, here we only keep what's necessary!</p>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
     <div class="modal" id="login-modal">
         <div class="modal-content">
             <span class="close" id="close-login">&times;</span>
@@ -500,6 +449,8 @@
             </form>
         </div>
     </div>
+
+    <!-- Register Modal -->
     <div class="modal" id="register-modal">
         <div class="modal-content">
             <span class="close" id="close-register">&times;</span>
