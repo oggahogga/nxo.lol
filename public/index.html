@@ -414,6 +414,9 @@
             const registerButton = document.getElementById('register-button');
             const sections = document.querySelectorAll('.section');
 
+            let lastScrollPosition = 0;
+            let isAutoScrolling = false;
+
             function showCustomAlert(message) {
                 const alertBox = document.createElement('div');
                 alertBox.className = 'custom-alert';
@@ -521,8 +524,10 @@
                     });
             });
 
-            // Scroll event to reveal sections
+            // Scroll event to reveal sections and auto-scroll
             window.addEventListener('scroll', function() {
+                const currentPosition = window.scrollY;
+
                 sections.forEach(section => {
                     const rect = section.getBoundingClientRect();
                     if (rect.top < window.innerHeight * 0.75) {
@@ -530,15 +535,43 @@
                     }
                 });
 
-                // Auto-scroll to the next section
-                if (window.scrollY > 0 && window.scrollY % window.innerHeight === 0) {
-                    setTimeout(() => {
-                        window.scrollBy({
-                            top: window.innerHeight,
-                            behavior: 'smooth'
+                if (!isAutoScrolling) {
+                    if (currentPosition > lastScrollPosition) {
+                        // Scrolling down
+                        sections.forEach((section, index) => {
+                            if (window.scrollY >= section.offsetTop - window.innerHeight / 2 && window.scrollY < section.offsetTop + section.clientHeight) {
+                                if (index + 1 < sections.length) {
+                                    isAutoScrolling = true;
+                                    window.scrollTo({
+                                        top: sections[index + 1].offsetTop,
+                                        behavior: 'smooth'
+                                    });
+                                    setTimeout(() => {
+                                        isAutoScrolling = false;
+                                    }, 800); // Prevents multiple scroll events
+                                }
+                            }
                         });
-                    }, 300);
+                    } else {
+                        // Scrolling up
+                        sections.forEach((section, index) => {
+                            if (window.scrollY <= section.offsetTop + section.clientHeight / 2 && window.scrollY > section.offsetTop) {
+                                if (index - 1 >= 0) {
+                                    isAutoScrolling = true;
+                                    window.scrollTo({
+                                        top: sections[index - 1].offsetTop,
+                                        behavior: 'smooth'
+                                    });
+                                    setTimeout(() => {
+                                        isAutoScrolling = false;
+                                    }, 800); // Prevents multiple scroll events
+                                }
+                            }
+                        });
+                    }
                 }
+
+                lastScrollPosition = currentPosition;
             });
         });
     </script>
