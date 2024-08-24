@@ -95,8 +95,7 @@
             font-weight: bold;
             color: transparent;
             -webkit-text-stroke: 2px white;
-            background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center;
-            background-size: cover;
+            background: inherit; /* The NXO text will now be a window to the darkened background */
             background-clip: text;
             -webkit-background-clip: text;
             z-index: 2;
@@ -139,6 +138,9 @@
             opacity: 0;
             transform: translateY(50px);
             transition: opacity 1s ease, transform 1s ease;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat; /* Ensure background images do not repeat */
         }
 
         .section.visible {
@@ -325,7 +327,7 @@
         </div>
     </section>
 
-    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276694327388541082/16-163177_talking-stick-figure-images-pictures-stickman-with-megaphone.png?ex=66ca75bf&is=66c9243f&hm=6f97aeb6e77ea0def032f5de7ec2c022b74f4ff8f6b1c516f576de36c8f9109c&');">
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276716577001181244/16-163177_talking-stick-figure-images-pictures-stickman-with-megaphone-removebg-preview.png?ex=66ca8a78&is=66c938f8&hm=f3bd799e022614542b05aab1fcd049a83965acc24c3220ae66522a63e96fb1d4&');">
         <div class="content">
             <h3>Support</h3>
             <p>We will always help you so feel free to ask any questions!</p>
