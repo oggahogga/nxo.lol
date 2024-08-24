@@ -228,21 +228,116 @@
             opacity: 1;
         }
     </style>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyADJk_U0vAs0wdUomwHc7ZfwPhKuYvTcek",
-            authDomain: "nxololbut.firebaseapp.com",
-            projectId: "nxololbut",
-            storageBucket: "nxololbut.appspot.com",
-            messagingSenderId: "387208256496",
-            appId: "1:387208256496:web:0b07e97acc23666732db35",
-            measurementId: "G-PBRYTM8BB7"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
+            </ul>
+        </nav>
+        <div class="user-info">
+            <div class="user-email" style="display:none;"></div>
+            <a href="#" id="login-link">Login</a>
+            <a href="#" id="register-link">Register</a>
+            <a href="#" id="logout-link" style="display:none;">Log Out</a>
+        </div>
+    </header>
 
+    <!-- Sections for each feature -->
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276691184630108231/WhatsApp-Image-2021-09-03-at-10.52.45-AM-696x673.jpeg?ex=66ca72d2&is=66c92152&hm=347ffe7725c7241e44735203ec6852f395c79fed429dfa44b1584bc3781b2608&');">
+        <div class="content">
+            <h3>Undetection</h3>
+            <p>We try our best to find the best methods that way you don't get banned!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276692494419099720/image.png?ex=66ca740a&is=66c9228a&hm=9dc83af5608677a9fbee5ab870edc7a200cd3e2ac1b75443d763a130bf0361c1&');">
+        <div class="content">
+            <h3>Safety</h3>
+            <p>We would never rat or add any malicious files to our menus!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276693510136922212/image.png?ex=66ca74fc&is=66c9237c&hm=ddfd1107d9375bc4b9a7e196c4bb9dfe13cb869366406be3d1359ddd0678f531&');">
+        <div class="content">
+            <h3>Simplicity</h3>
+            <p>We like to keep our menus clean & simple and only keep what's necessary!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276693843839942806/51-TrKwYtL._AC_UF8941000_QL80_.jpg?ex=66ca754c&is=66c923cc&hm=f36b9d30dbcd6173b5cfa3807fa303aac464522bf075da292cdffac7ad4843db&');">
+        <div class="content">
+            <h3>Organization</h3>
+            <p>We try to keep our menus as organized as possible for easy navigation!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276694327388541082/16-163177_talking-stick-figure-images-pictures-stickman-with-megaphone.png?ex=66ca75bf&is=66c9243f&hm=6f97aeb6e77ea0def032f5de7ec2c022b74f4ff8f6b1c516f576de36c8f9109c&');">
+        <div class="content">
+            <h3>Support</h3>
+            <p>We will always help you so feel free to ask any questions!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276694769514319893/image.png?ex=66ca7628&is=66c924a8&hm=4a4ae446081049c03bef6ca7c2170ed88494e8af755633bde02ea28115088a50&');">
+        <div class="content">
+            <h3>Feedback</h3>
+            <p>Your voice matters and it can be used to add future mods!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276695015397261433/history-controversies-daylight-saving-time.webp?ex=66ca7663&is=66c924e3&hm=64a7fbe26feea32da9815afd6d2af63b08411ccac677ae602f1d9bfebf1143d5&');">
+        <div class="content">
+            <h3>Unique</h3>
+            <p>We try to not be like others and make unique mods and designs!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276695179771777114/Quality-Over-Quantity.png?ex=66ca768a&is=66c9250a&hm=3c82484f9cdd578bb2ccb97c2afede82836dbea34af9062ab91d193b8af5d370&');">
+        <div class="content">
+            <h3>Constant Updates</h3>
+            <p>We try our best to release menu updates asap so you can be the first to have the latest menus!</p>
+        </div>
+    </section>
+
+    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276695656249036852/f90970bc-91dc-49dd-924e-92f59579fc12.webp?ex=66ca76fc&is=66c9257c&hm=cefc7486cd958c467498bfcf26d1b4b58f91a913a5d56a9260e09809132b5ac7&');">
+        <div class="content">
+            <h3>Quality Over Quantity</h3>
+            <p>Say goodbye to those unnecessary useless bs mods, here we only keep what's necessary!</p>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close" id="close-login">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <span class="close" id="close-register">&times;</span>
+            <h2>Register</h2>
+            <form id="register-form">
+                <input type="text" id="register-username" placeholder="Username" required>
+                <input type="email" id="register-email" placeholder="Email" required>
+                <input type="password" id="register-password" placeholder="Password" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const loginModal = document.getElementById('login-modal');
             const registerModal = document.getElementById('register-modal');
@@ -373,113 +468,5 @@
             });
         });
     </script>
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
-            </ul>
-        </nav>
-        <div class="user-info">
-            <div class="user-email" style="display:none;"></div>
-            <a href="#" id="login-link">Login</a>
-            <a href="#" id="register-link">Register</a>
-            <a href="#" id="logout-link" style="display:none;">Log Out</a>
-        </div>
-    </header>
-
-    <!-- Sections for each feature -->
-    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276691184630108231/WhatsApp-Image-2021-09-03-at-10.52.45-AM-696x673.jpeg?ex=66ca72d2&is=66c92152&hm=347ffe7725c7241e44735203ec6852f395c79fed429dfa44b1584bc3781b2608&');">
-        <div class="content">
-            <h3>Undetection</h3>
-            <p>We try our best to find the best methods that way you don't get banned!</p>
-        </div>
-    </section>
-
-    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276692494419099720/image.png?ex=66ca740a&is=66c9228a&hm=9dc83af5608677a9fbee5ab870edc7a200cd3e2ac1b75443d763a130bf0361c1&');">
-        <div class="content">
-            <h3>Safety</h3>
-            <p>We would never rat or add any malicious files to our menus!</p>
-        </div>
-    </section>
-
-    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276693510136922212/image.png?ex=66ca74fc&is=66c9237c&hm=ddfd1107d9375bc4b9a7e196c4bb9dfe13cb869366406be3d1359ddd0678f531&');">
-        <div class="content">
-            <h3>Simplicity</h3>
-            <p>We like to keep our menus clean & simple and only keep what's necessary!</p>
-        </div>
-    </section>
-
-    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276693843839942806/51-TrKwYtL._AC_UF8941000_QL80_.jpg?ex=66ca754c&is=66c923cc&hm=f36b9d30dbcd6173b5cfa3807fa303aac464522bf075da292cdffac7ad4843db&');">
-        <div class="content">
-            <h3>Organization</h3>
-            <p>We try to keep our menus as organized as possible for easy navigation!</p>
-        </div>
-    </section>
-
-    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276694327388541082/16-163177_talking-stick-figure-images-pictures-stickman-with-megaphone.png?ex=66ca75bf&is=66c9243f&hm=6f97aeb6e77ea0def032f5de7ec2c022b74f4ff8f6b1c516f576de36c8f9109c&');">
-        <div class="content">
-            <h3>Support</h3>
-            <p>We will always help you so feel free to ask any questions!</p>
-        </div>
-    </section>
-
-    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276694769514319893/image.png?ex=66ca7628&is=66c924a8&hm=4a4ae446081049c03bef6ca7c2170ed88494e8af755633bde02ea28115088a50&');">
-        <div class="content">
-            <h3>Feedback</h3>
-            <p>Your voice matters and it can be used to add future mods!</p>
-        </div>
-    </section>
-
-    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276695015397261433/history-controversies-daylight-saving-time.webp?ex=66ca7663&is=66c924e3&hm=64a7fbe26feea32da9815afd6d2af63b08411ccac677ae602f1d9bfebf1143d5&');">
-        <div class="content">
-            <h3>Unique</h3>
-            <p>We try to not be like others and make unique mods and designs!</p>
-        </div>
-    </section>
-
-    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276695179771777114/Quality-Over-Quantity.png?ex=66ca768a&is=66c9250a&hm=3c82484f9cdd578bb2ccb97c2afede82836dbea34af9062ab91d193b8af5d370&');">
-        <div class="content">
-            <h3>Constant Updates</h3>
-            <p>We try our best to release menu updates asap so you can be the first to have the latest menus!</p>
-        </div>
-    </section>
-
-    <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276695656249036852/f90970bc-91dc-49dd-924e-92f59579fc12.webp?ex=66ca76fc&is=66c9257c&hm=cefc7486cd958c467498bfcf26d1b4b58f91a913a5d56a9260e09809132b5ac7&');">
-        <div class="content">
-            <h3>Quality Over Quantity</h3>
-            <p>Say goodbye to those unnecessary useless bs mods, here we only keep what's necessary!</p>
-        </div>
-    </section>
-
-    <!-- Login Modal -->
-    <div class="modal" id="login-modal">
-        <div class="modal-content">
-            <span class="close" id="close-login">&times;</span>
-            <h2>Login</h2>
-            <form id="login-form">
-                <input type="email" id="login-email" placeholder="Email" required>
-                <input type="password" id="login-password" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Register Modal -->
-    <div class="modal" id="register-modal">
-        <div class="modal-content">
-            <span class="close" id="close-register">&times;</span>
-            <h2>Register</h2>
-            <form id="register-form">
-                <input type="text" id="register-username" placeholder="Username" required>
-                <input type="email" id="register-email" placeholder="Email" required>
-                <input type="password" id="register-password" placeholder="Password" required>
-                <button type="submit">Register</button>
-            </form>
-        </div>
-    </div>
 </body>
 </html>
