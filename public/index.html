@@ -65,6 +65,50 @@
             max-width: 250px;
         }
 
+        .intro {
+            height: 100vh;
+            background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .nxotext {
+            font-size: 12em;
+            font-weight: bold;
+            color: transparent;
+            -webkit-text-stroke: 2px white;
+            background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons .button {
+            padding: 10px 30px;
+            background-color: #353438;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.5em;
+            transition: background-color 0.3s, transform 0.3s ease;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .buttons .button:hover {
+            background-color: #4c4c4d;
+            transform: scale(1.03);
+        }
+
         .section {
             position: relative;
             width: 100%;
@@ -190,25 +234,6 @@
             transform: scale(1.05);
         }
 
-        .intro {
-            text-align: center;
-            padding-top: 100px;
-            z-index: 2;
-            position: relative;
-        }
-
-        .nxotext {
-            font-size: 12em;
-            font-weight: bold;
-            color: transparent;
-            -webkit-text-stroke: 2px white;
-            text-align: center;
-            position: relative;
-            background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center;
-            background-clip: text;
-            -webkit-background-clip: text;
-        }
-
         /* Custom Alert Styles */
         .custom-alert {
             position: fixed;
@@ -245,6 +270,15 @@
             <a href="#" id="logout-link" style="display:none;">Log Out</a>
         </div>
     </header>
+
+    <!-- Main Intro Section -->
+    <section class="intro">
+        <h1 class="nxotext">NXO</h1>
+        <div class="buttons">
+            <a class="button" href="#" id="register-button">Register</a>
+            <a class="button" href="https://discord.gg/nxoontop">Join Discord</a>
+        </div>
+    </section>
 
     <!-- Sections for each feature -->
     <section class="section" style="background-image: url('https://cdn.discordapp.com/attachments/1122345103701327982/1276691184630108231/WhatsApp-Image-2021-09-03-at-10.52.45-AM-696x673.jpeg?ex=66ca72d2&is=66c92152&hm=347ffe7725c7241e44735203ec6852f395c79fed429dfa44b1584bc3781b2608&');">
@@ -361,7 +395,7 @@
             const logoutLink = document.getElementById('logout-link');
             const closeLogin = document.getElementById('close-login');
             const closeRegister = document.getElementById('close-register');
-            const purchaseButton = document.querySelector('.purchase-button');
+            const registerButton = document.getElementById('register-button');
             const sections = document.querySelectorAll('.section');
 
             function showCustomAlert(message) {
@@ -422,6 +456,10 @@
                 registerModal.classList.remove('show');
             }
 
+            registerButton.onclick = function() {
+                registerModal.classList.add('show');
+            }
+
             window.onclick = function(event) {
                 if (event.target == loginModal) {
                     loginModal.classList.remove('show');
@@ -466,7 +504,6 @@
                         showCustomAlert(error.message);
                     });
             });
-
 
             // Scroll event to reveal sections
             window.addEventListener('scroll', function() {
