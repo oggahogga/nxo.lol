@@ -76,6 +76,14 @@
             justify-content: center;
             padding: 20px;
             text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section .content {
@@ -245,7 +253,7 @@
             const closeLogin = document.getElementById('close-login');
             const closeRegister = document.getElementById('close-register');
             const purchaseButton = document.querySelector('.purchase-button');
-            const featuresGrid = document.querySelector('.features-grid');
+            const sections = document.querySelectorAll('.section');
 
             function showCustomAlert(message) {
                 const alertBox = document.createElement('div');
@@ -353,6 +361,16 @@
             purchaseButton.onclick = function() {
                 registerModal.classList.add('show');
             }
+
+            // Scroll event to reveal sections
+            window.addEventListener('scroll', function() {
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.75) {
+                        section.classList.add('visible');
+                    }
+                });
+            });
         });
     </script>
 </head>
