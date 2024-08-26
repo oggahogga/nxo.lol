@@ -298,80 +298,64 @@
     }
 </style>
 
-    <script>
-        let scrollTarget = 0;
-        let currentScroll = 0;
-        let isScrolling = false;
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const featuresModal = document.getElementById('features-modal');
+        const closeLogin = document.getElementById('close-login');
+        const closeRegister = document.getElementById('close-register');
+        const closeFeatures = document.getElementById('close-features');
+        const featuresContent = document.getElementById('features-content');
 
-        function smoothScroll() {
-            if (!isScrolling) return;
-
-            currentScroll += (scrollTarget - currentScroll) * 0.05;
-            window.scrollTo(0, currentScroll);
-
-            if (Math.abs(scrollTarget - currentScroll) < 1) {
-                isScrolling = false;
-            } else {
-                requestAnimationFrame(smoothScroll);
-            }
+        document.getElementById('login-link').onclick = function() {
+            loginModal.classList.add('show');
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-    const loginModal = document.getElementById('login-modal');
-    const registerModal = document.getElementById('register-modal');
-    const featuresModal = document.getElementById('features-modal');
-    const closeLogin = document.getElementById('close-login');
-    const closeRegister = document.getElementById('close-register');
-    const closeFeatures = document.getElementById('close-features');
-    const featuresContent = document.getElementById('features-content');
+        document.getElementById('register-link').onclick = function() {
+            registerModal.classList.add('show');
+        }
 
-    document.getElementById('login-link').onclick = function() {
-        loginModal.classList.add('show');
-    }
+        document.querySelector('.button.purchase-button').onclick = function(event) {
+            event.preventDefault();
+            fetch('https://raw.githubusercontent.com/NuggetGT/NXO-V5.1-Features/main/Features.md')
+                .then(response => response.text())
+                .then(data => {
+                    featuresContent.textContent = data;
+                    featuresModal.classList.add('show');
+                })
+                .catch(error => {
+                    featuresContent.textContent = 'Failed to load features. Please try again later.';
+                    featuresModal.classList.add('show');
+                });
+        }
 
-    document.getElementById('register-link').onclick = function() {
-        registerModal.classList.add('show');
-    }
-
-    document.querySelector('.button.purchase-button').onclick = function() {
-        fetch('https://raw.githubusercontent.com/NuggetGT/NXO-V5.1-Features/main/Features.md')
-            .then(response => response.text())
-            .then(data => {
-                featuresContent.textContent = data;
-                featuresModal.classList.add('show');
-            })
-            .catch(error => {
-                featuresContent.textContent = 'Failed to load features. Please try again later.';
-                featuresModal.classList.add('show');
-            });
-    }
-
-    closeLogin.onclick = function() {
-        loginModal.classList.remove('show');
-    }
-
-    closeRegister.onclick = function() {
-        registerModal.classList.remove('show');
-    }
-
-    closeFeatures.onclick = function() {
-        featuresModal.classList.remove('show');
-    }
-
-    window.onclick = function(event) {
-        if (event.target == loginModal) {
+        closeLogin.onclick = function() {
             loginModal.classList.remove('show');
         }
-        if (event.target == registerModal) {
+
+        closeRegister.onclick = function() {
             registerModal.classList.remove('show');
         }
-        if (event.target == featuresModal) {
+
+        closeFeatures.onclick = function() {
             featuresModal.classList.remove('show');
         }
-    }
-});
 
-    </script>
+        window.onclick = function(event) {
+            if (event.target == loginModal) {
+                loginModal.classList.remove('show');
+            }
+            if (event.target == registerModal) {
+                registerModal.classList.remove('show');
+            }
+            if (event.target == featuresModal) {
+                featuresModal.classList.remove('show');
+            }
+        }
+    });
+</script>
+
 </head>
 <body>
     <div class="modal" id="features-modal">
