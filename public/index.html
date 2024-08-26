@@ -3,7 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NXO Services</title>
+    <title>NXO.lol</title>
+    <meta name="title" content="NXO.lol" />
+    <meta name="description" content="The only menu you'll ever need." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://214e964b-8ffd-48d9-bc82-feb01111eaed-00-2pf58jkr28zzi.picard.replit.dev/" />
+    <meta property="og:title" content="NXO.lol" />
+    <meta property="og:description" content="The only menu you'll ever need." />
+    <meta property="og:image" content="https://metatags.io/images/meta-tags.png" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://214e964b-8ffd-48d9-bc82-feb01111eaed-00-2pf58jkr28zzi.picard.replit.dev/" />
+    <meta property="twitter:title" content="NXO.lol" />
+    <meta property="twitter:description" content="The only menu you'll ever need." />
+    <meta property="twitter:image" content="https://metatags.io/images/meta-tags.png" />
+
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,7 +25,11 @@
             background-size: cover;
             color: white;
             height: 100vh;
-            overflow: auto;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s ease-in-out;
         }
 
         .overlay {
@@ -20,8 +38,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.6);
             z-index: 1;
+            pointer-events: none;
+            transition: background 0.3s ease-in-out;
         }
 
         header {
@@ -34,14 +54,16 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 20px;
+            transition: background 0.3s ease-in-out;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 20px;
+            gap: 40px;
             margin: 0;
             padding: 0;
+            transition: gap 0.3s ease-in-out;
         }
 
         nav ul li {
@@ -52,20 +74,27 @@
             color: #fff;
             text-decoration: none;
             font-size: 1.2em;
-            transition: color 0.3s;
+            transition: color 0.2s, transform 0.2s ease-in-out;
         }
 
         nav ul li a:hover {
             color: #3d5fe3;
+            transform: translateY(-2px);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 1.2em;
+            color: white;
         }
 
         .user-email {
-            font-size: 1.2em;
-        }
-
-        .title {
-            font-size: 4em;
-            margin-bottom: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 250px;
         }
 
         .buttons .button {
@@ -73,23 +102,27 @@
             background-color: #353438;
             color: white;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 10px;
             font-size: 1.5em;
-            transition: background-color 0.3s, transform 0.3s ease;
+            transition: background-color 0.2s, transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s;
             display: inline-block;
             margin: 10px;
+            opacity: 0.9;
         }
 
         .buttons .button:hover {
             background-color: #4c4c4d;
-            transform: scale(1.03);
+            transform: scale(1.08);
+            box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.5);
+            opacity: 1;
         }
 
         .features-container {
-            margin: 100px 50px 50px 50px;
+            margin: 50px 50px 50px 50px;
             text-align: center;
             z-index: 2;
             position: relative;
+            animation: fadeInUp 0.8s ease-in-out;
         }
 
         .features-grid {
@@ -97,6 +130,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 40px;
+            transition: gap 0.3s ease-in-out;
         }
 
         .feature-box {
@@ -105,22 +139,27 @@
             border-radius: 10px;
             width: 300px;
             text-align: center;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.3s;
             margin: 20px;
+            opacity: 0.9;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .feature-box:hover {
-            transform: scale(1.05);
-            background-color: rgba(53, 53, 53, 0.8);
+            transform: scale(1.08);
+            background-color: rgba(53, 53, 53, 0.9);
+            opacity: 1;
         }
 
         .feature-box h3 {
             margin-top: 0;
             color: #3d5fe3;
+            transition: color 0.2s ease-in-out;
         }
 
         .feature-box p {
             color: #dcdcdc;
+            transition: color 0.2s ease-in-out;
         }
 
         .modal {
@@ -134,7 +173,7 @@
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.8);
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.3s ease, background-color 0.3s ease;
         }
 
         .modal.show {
@@ -151,6 +190,7 @@
             max-width: 400px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: zoomIn 0.3s ease;
         }
 
         .close {
@@ -158,6 +198,7 @@
             float: right;
             font-size: 28px;
             font-weight: bold;
+            transition: color 0.2s ease-in-out;
         }
 
         .close:hover,
@@ -181,6 +222,7 @@
             border-radius: 5px;
             width: 100%;
             max-width: 300px;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
         }
 
         form button {
@@ -188,23 +230,16 @@
             background-color: #353438;
             color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 10px;
             font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s ease;
+            transition: background-color 0.2s, transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         form button:hover {
             background-color: #4c4c4d;
-            transform: scale(1.03);
-        }
-
-        body {
-            background: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1533390/ss_c449098748fc6891d4bc337b0465df4fd9cc9fb3.1920x1080.jpg?t=1715638911') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            height: 100vh;
-            overflow: auto;
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.5);
         }
 
         .intro {
@@ -212,6 +247,7 @@
             padding-top: 100px;
             z-index: 2;
             position: relative;
+            animation: fadeInDown 0.8s ease-in-out;
         }
 
         .nxotext {
@@ -219,111 +255,78 @@
             font-weight: bold;
             color: transparent;
             -webkit-text-stroke: 2px white;
-            text-align: center;
-            position: relative;
             background: inherit;
             background-clip: text;
             -webkit-background-clip: text;
-        }
-
-        .buttons {
-            margin-top: 20px;
-        }
-
-        .features-container {
-            margin: 50px 50px 50px 50px;
-            text-align: center;
+            mix-blend-mode: screen;
             z-index: 2;
             position: relative;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
-        .features-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .feature-box {
-            background: rgba(37, 37, 37, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            margin: 20px;
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .feature-box:hover {
-            transform: scale(1.05);
-            background-color: rgba(53, 53, 53, 0.8);
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .feature-box h3 {
-            margin-top: 0;
-            color: #3d5fe3;
-        }
-
-        .feature-box p {
-            color: #dcdcdc;
+        @keyframes zoomIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
     </style>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyADJk_U0vAs0wdUomwHc7ZfwPhKuYvTcek",
-            authDomain: "nxololbut.firebaseapp.com",
-            projectId: "nxololbut",
-            storageBucket: "nxololbut.appspot.com",
-            messagingSenderId: "387208256496",
-            appId: "1:387208256496:web:0b07e97acc23666732db35",
-            measurementId: "G-PBRYTM8BB7"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+        let scrollTarget = 0;
+        let currentScroll = 0;
+        let isScrolling = false;
+
+        function smoothScroll() {
+            if (!isScrolling) return;
+
+            currentScroll += (scrollTarget - currentScroll) * 0.05;
+            window.scrollTo(0, currentScroll);
+
+            if (Math.abs(scrollTarget - currentScroll) < 1) {
+                isScrolling = false;
+            } else {
+                requestAnimationFrame(smoothScroll);
+            }
+        }
+
+        document.addEventListener('wheel', function(event) {
+            event.preventDefault();
+
+            const scrollAmount = window.innerHeight;
+            scrollTarget += event.deltaY > 0 ? scrollAmount : -scrollAmount;
+            scrollTarget = Math.max(0, Math.min(scrollTarget, document.body.scrollHeight - window.innerHeight));
+
+            if (!isScrolling) {
+                isScrolling = true;
+                smoothScroll();
+            }
+        }, { passive: false });
 
         document.addEventListener('DOMContentLoaded', function() {
             const loginModal = document.getElementById('login-modal');
             const registerModal = document.getElementById('register-modal');
-            const userEmailDisplay = document.querySelector('.user-email');
-            const loginLink = document.getElementById('login-link');
-            const registerLink = document.getElementById('register-link');
-            const logoutLink = document.getElementById('logout-link');
             const closeLogin = document.getElementById('close-login');
             const closeRegister = document.getElementById('close-register');
-            const purchaseButton = document.querySelector('.purchase-button');
 
-            auth.onAuthStateChanged(function(user) {
-                if (user) {
-                    const { email, displayName } = user;
-                    userEmailDisplay.textContent = `Logged in as: ${displayName || email}`;
-                    userEmailDisplay.style.display = 'block';
-                    loginLink.style.display = 'none';
-                    registerLink.style.display = 'none';
-                    logoutLink.style.display = 'block'; // Show logout button
-                } else {
-                    userEmailDisplay.style.display = 'none';
-                    loginLink.style.display = 'block';
-                    registerLink.style.display = 'block';
-                    logoutLink.style.display = 'none'; // Hide logout button
-                }
-            });
-
-            loginLink.onclick = function() {
+            document.getElementById('login-link').onclick = function() {
                 loginModal.classList.add('show');
             }
 
-            registerLink.onclick = function() {
+            document.getElementById('register-link').onclick = function() {
                 registerModal.classList.add('show');
-            }
-
-            logoutLink.onclick = function() {
-                auth.signOut().then(() => {
-                    alert('Logged out successfully');
-                }).catch((error) => {
-                    alert('Error logging out: ' + error.message);
-                });
             }
 
             closeLogin.onclick = function() {
@@ -342,46 +345,6 @@
                     registerModal.classList.remove('show');
                 }
             }
-
-            document.getElementById('login-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const email = document.getElementById('login-email').value;
-                const password = document.getElementById('login-password').value;
-
-                auth.signInWithEmailAndPassword(email, password)
-                    .then(userCredential => {
-                        alert('Login successful');
-                        loginModal.classList.remove('show');
-                    })
-                    .catch(error => {
-                        alert(error.message);
-                    });
-            });
-
-            document.getElementById('register-form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const username = document.getElementById('register-username').value;
-                const email = document.getElementById('register-email').value;
-                const password = document.getElementById('register-password').value;
-
-                auth.createUserWithEmailAndPassword(email, password)
-                    .then(userCredential => {
-                        const user = userCredential.user;
-                        return user.updateProfile({ displayName: username });
-                    })
-                    .then(() => {
-                        alert('Register successful');
-                        registerModal.classList.remove('show');
-                        window.location.href = 'payment.html';
-                    })
-                    .catch(error => {
-                        alert(error.message);
-                    });
-            });
-
-            purchaseButton.onclick = function() {
-                registerModal.classList.add('show');
-            }
         });
     </script>
 </head>
@@ -395,10 +358,12 @@
                 <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
             </ul>
         </nav>
-        <div class="user-email"></div>
-        <a href="#" id="login-link">Login</a>
-        <a href="#" id="register-link">Register</a>
-        <a href="#" id="logout-link" style="display:none;">Log Out</a>
+        <div class="user-info">
+            <div class="user-email" style="display:none;"></div>
+            <a href="#" id="login-link">Login</a>
+            <a href="#" id="register-link">Register</a>
+            <a href="#" id="logout-link" style="display:none;">Log Out</a>
+        </div>
     </header>
     <section id="home">
         <div class="intro">
@@ -406,6 +371,53 @@
             <div class="buttons">
                 <a class="button purchase-button" href="#">Register</a>
                 <a class="button" href="https://discord.gg/nxoontop">Join Discord</a>
+            </div>
+        </div>
+    </section>
+    <section id="features">
+        <div class="features-container">
+            <h2>Why you should choose us:</h2>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <h3>Undetection</h3>
+                    <p>We try our best to find the best methods that way you don't get banned!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Safety</h3>
+                    <p>We would never rat or add any malicious files to our menus!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Simplicity</h3>
+                    <p>We like to keep our menus clean & simple and only keep what's necessary!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Organization</h3>
+                    <p>We try to keep our menus as organized as possible for easy navigation!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Support</h3>
+                    <p>We will always help you so feel free to ask any questions!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Feedback</h3>
+                    <p>Your voice matters and it can be used to add future mods!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Unique</h3>
+                    <p>We try to not be like others and make unique mods and designs!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Constant Updates</h3>
+                    <p>We try our best to release menu updates asap so you can be the first to have the latest menus!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Quality Over Quantity</h3>
+                    <p>Say goodbye to those unnecessary useless bs mods, here we only keep what's necessary!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>It's Free!</h3>
+                    <p>Enjoy our services without any cost!</p>
+                </div>
             </div>
         </div>
     </section>
