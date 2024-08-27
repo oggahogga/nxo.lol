@@ -123,7 +123,7 @@
         }
 
         .features-container {
-            margin: 80px 50px 50px 50px;
+            margin: 100px 50px 50px 50px;
             text-align: center;
             z-index: 2;
             position: relative;
@@ -131,10 +131,11 @@
         }
 
         .features-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            justify-items: center;
+            margin-top: 50px;
         }
 
         .feature-box {
@@ -142,10 +143,8 @@
             backdrop-filter: blur(8px);
             padding: 30px;
             border-radius: 15px;
-            width: 280px;
             text-align: center;
             transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s;
-            margin: 20px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
             opacity: 0.95;
         }
@@ -159,11 +158,13 @@
         .feature-box h3 {
             margin-top: 0;
             color: #3d5fe3;
+            font-size: 1.8em;
             transition: color 0.3s ease-in-out;
         }
 
         .feature-box p {
             color: #dcdcdc;
+            font-size: 1.1em;
             transition: color 0.3s ease-in-out;
         }
 
@@ -188,7 +189,7 @@
 
         .modal-content {
             background-color: #1e1e1e;
-            margin: 15% auto;
+            margin: 10% auto;
             padding: 25px;
             border: 1px solid #888;
             width: 80%;
@@ -241,7 +242,7 @@
 
         .intro {
             text-align: center;
-            padding-top: 130px;
+            padding-top: 150px;
             z-index: 2;
             position: relative;
             animation: fadeInDown 0.8s ease-in-out;
@@ -281,9 +282,11 @@
         }
 
         .hashtag-line {
-            font-size: 1.5em;
+            font-size: 1.8em;
             font-weight: bold;
             color: #fff;
+            margin-top: 15px;
+            margin-bottom: 10px;
         }
     </style>
 
@@ -296,7 +299,6 @@
             const closeRegister = document.getElementById('close-register');
             const closeFeatures = document.getElementById('close-features');
             const featuresContent = document.getElementById('features-content');
-
 
             document.querySelector('.purchase-button').onclick = function(event) {
                 event.preventDefault(); // Prevent any default action
@@ -311,6 +313,7 @@
                         lines.forEach(line => {
                             if (line.startsWith('#')) {
                                 formattedContent += `<div class="hashtag-line">${line.replace(/#/g, '').trim()}</div>`;
+                                formattedContent += `<div>${line}</div>`;
                             } else {
                                 formattedContent += `<div>${line}</div>`;
                             }
