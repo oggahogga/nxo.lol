@@ -312,65 +312,69 @@ section {
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const loginModal = document.getElementById('login-modal');
-            const registerModal = document.getElementById('register-modal');
-            const featuresModal = document.getElementById('features-modal');
-            const closeLogin = document.getElementById('close-login');
-            const closeRegister = document.getElementById('close-register');
-            const closeFeatures = document.getElementById('close-features');
-            const featuresContent = document.getElementById('features-content');
+    const loginModal = document.getElementById('login-modal');
+    const registerModal = document.getElementById('register-modal');
+    const featuresModal = document.getElementById('features-modal');
+    const closeLogin = document.getElementById('close-login');
+    const closeRegister = document.getElementById('close-register');
+    const closeFeatures = document.getElementById('close-features');
+    const featuresContent = document.getElementById('features-content');
 
-            document.querySelector('.view-features-button').onclick = function(event) {
-                event.preventDefault();
-                fetch('https://raw.githubusercontent.com/NuggetGT/NXO-V5.1-Features/main/Features.md')
-                    .then(response => response.text())
-                    .then(data => {
-                        const lines = data.split('\n');
-                        let formattedContent = '';
-                        lines.forEach(line => {
-                            if (line.startsWith('#')) {
-                                formattedContent += `<div class="hashtag-line">${line.replace(/#/g, '').trim()}</div>`;
-                                formattedContent += `<div>${line}</div>`;
-                                formattedContent -= line;
-                            } else {
-                                formattedContent += `<div>${line}</div>`;
-                            }
-                        });
-                        featuresContent.innerHTML = formattedContent;
-                        featuresModal.classList.add('show');
-                    })
-                    .catch(error => {
-                        featuresContent.textContent = 'Failed to load features. Please try again later.';
-                        featuresModal.classList.add('show');
-                    });
-            }
-            window.onclick = function(event) {
-                if (event.target == loginModal) {
-                    loginModal.classList.remove('show');
-                }
-                if (event.target == registerModal) {
-                    registerModal.classList.remove('show');
-                }
-                if (event.target == featuresModal) {
-                    featuresModal.classList.remove('show');
-                }
-            }
-            closeFeatures.onclick = function() {
-                featuresModal.classList.remove('show');
-            }
-            const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
-            audio.loop = true;
-
-            const muteButton = document.getElementById('mute-button');
-            let isMuted = true;
-
-            muteButton.addEventListener('click', () => {
-                audio.play();
-                isMuted = !isMuted;
-                audio.muted = isMuted;
-                muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
+    document.querySelector('.view-features-button').onclick = function(event) {
+        event.preventDefault();
+        fetch('https://raw.githubusercontent.com/NuggetGT/NXO-V5.1-Features/main/Features.md')
+            .then(response => response.text())
+            .then(data => {
+                const lines = data.split('\n');
+                let formattedContent = '';
+                lines.forEach(line => {
+                    if (line.startsWith('#')) {
+                        const headerLevel = line.match(/^#+/)[0].length; // Get the number of `#` characters
+                        const headerText = line.replace(/^#+/, '').trim(); // Remove `#` characters and trim the text
+                        formattedContent += `<h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>`;
+                    } else {
+                        formattedContent += `<div>${line}</div>`;
+                    }
+                });
+                featuresContent.innerHTML = formattedContent;
+                featuresModal.classList.add('show');
+            })
+            .catch(error => {
+                featuresContent.textContent = 'Failed to load features. Please try again later.';
+                featuresModal.classList.add('show');
             });
-        });
+    }
+
+    window.onclick = function(event) {
+        if (event.target == loginModal) {
+            loginModal.classList.remove('show');
+        }
+        if (event.target == registerModal) {
+            registerModal.classList.remove('show');
+        }
+        if (event.target == featuresModal) {
+            featuresModal.classList.remove('show');
+        }
+    }
+
+    closeFeatures.onclick = function() {
+        featuresModal.classList.remove('show');
+    }
+
+    const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
+    audio.loop = true;
+
+    const muteButton = document.getElementById('mute-button');
+    let isMuted = true;
+
+    muteButton.addEventListener('click', () => {
+        audio.play();
+        isMuted = !isMuted;
+        audio.muted = isMuted;
+        muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
+    });
+});
+
     </script>
 </head>
 <body>
