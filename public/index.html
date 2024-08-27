@@ -86,7 +86,6 @@
         }
 
         .button {
-            padding: 15px 35px;
             background-color: #3d5fe3;
             color: white;
             text-decoration: none;
@@ -96,8 +95,6 @@
             transition: background 0.4s, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s;
             border: none;
             cursor: pointer;
-            width: 220px; /* Same width for both buttons */
-            height: 60px; /* Same height for both buttons */
             text-align: center;
             display: flex;
             align-items: center;
@@ -109,6 +106,26 @@
             transform: scale(1.05);
             box-shadow: none;
             opacity: 1;
+        }
+
+        .dev-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+        }
+
+        .dev-controls label {
+            color: #fff;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .dev-controls input {
+            width: 100%;
         }
 
         .features-container {
@@ -332,6 +349,23 @@
                     featuresModal.classList.remove('show');
                 }
             }
+
+            // Development Tool for Adjusting Button Sizes
+            const widthSlider = document.getElementById('button-width');
+            const heightSlider = document.getElementById('button-height');
+            const buttons = document.querySelectorAll('.button');
+
+            widthSlider.addEventListener('input', function() {
+                buttons.forEach(button => {
+                    button.style.width = widthSlider.value + 'px';
+                });
+            });
+
+            heightSlider.addEventListener('input', function() {
+                buttons.forEach(button => {
+                    button.style.height = heightSlider.value + 'px';
+                });
+            });
         });
     </script>
 </head>
@@ -354,6 +388,16 @@
             </div>
         </div>
     </section>
+
+    <!-- Development Tool -->
+    <div class="dev-controls">
+        <label for="button-width">Button Width: <span id="width-value">220</span>px</label>
+        <input type="range" id="button-width" min="150" max="400" value="220">
+
+        <label for="button-height">Button Height: <span id="height-value">60</span>px</label>
+        <input type="range" id="button-height" min="40" max="100" value="60">
+    </div>
+
     <section id="features">
         <div class="features-container">
             <h2>Why you should choose us:</h2>
