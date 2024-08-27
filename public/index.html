@@ -302,26 +302,23 @@
         }
     </style>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const loginModal = document.getElementById('login-modal');
-        const registerModal = document.getElementById('register-modal');
-        const featuresModal = document.getElementById('features-modal');
-        const closeLogin = document.getElementById('close-login');
-        const closeRegister = document.getElementById('close-register');
-        const closeFeatures = document.getElementById('close-features');
-        const featuresContent = document.getElementById('features-content');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginModal = document.getElementById('login-modal');
+            const registerModal = document.getElementById('register-modal');
+            const featuresModal = document.getElementById('features-modal');
+            const closeLogin = document.getElementById('close-login');
+            const closeRegister = document.getElementById('close-register');
+            const closeFeatures = document.getElementById('close-features');
+            const featuresContent = document.getElementById('features-content');
 
-        document.querySelector('.purchase-button').onclick = function(event) {
+            document.querySelector('.view-features-button').onclick = function(event) {
                 event.preventDefault(); // Prevent any default action
                 fetch('https://raw.githubusercontent.com/NuggetGT/NXO-V5.1-Features/main/Features.md')
                     .then(response => response.text())
                     .then(data => {
-                        // Split the text into lines
                         const lines = data.split('\n');
                         let formattedContent = '';
-
-                        // Loop through lines and format if it contains a hashtag
                         lines.forEach(line => {
                             if (line.startsWith('#')) {
                                 formattedContent += `<div class="hashtag-line">${line.replace(/#/g, '').trim()}</div>`;
@@ -329,7 +326,6 @@
                                 formattedContent += `<div>${line}</div>`;
                             }
                         });
-
                         featuresContent.innerHTML = formattedContent;
                         featuresModal.classList.add('show');
                     })
@@ -338,39 +334,36 @@
                         featuresModal.classList.add('show');
                     });
             }
-
-
-        window.onclick = function(event) {
-            if (event.target == loginModal) {
-                loginModal.classList.remove('show');
+            window.onclick = function(event) {
+                if (event.target == loginModal) {
+                    loginModal.classList.remove('show');
+                }
+                if (event.target == registerModal) {
+                    registerModal.classList.remove('show');
+                }
+                if (event.target == featuresModal) {
+                    featuresModal.classList.remove('show');
+                }
             }
-            if (event.target == registerModal) {
-                registerModal.classList.remove('show');
-            }
-            if (event.target == featuresModal) {
-                featuresModal.classList.remove('show');
-            }
-        };
 
-        // JavaScript to handle audio and mute button
-        const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
-        audio.loop = true;
-        audio.play().catch(function() {
-            // Handle any autoplay restrictions by interacting with the page
-            document.body.addEventListener('click', () => audio.play());
+            // JavaScript to handle audio and mute button
+            const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
+            audio.loop = true;
+            audio.play().catch(function() {
+                // Handle any autoplay restrictions by interacting with the page
+                document.body.addEventListener('click', () => audio.play());
+            });
+
+            const muteButton = document.getElementById('mute-button');
+            let isMuted = true;
+
+            muteButton.addEventListener('click', () => {
+                isMuted = !isMuted;
+                audio.muted = isMuted;
+                muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
+            });
         });
-
-        const muteButton = document.getElementById('mute-button');
-        let isMuted = true;
-
-        muteButton.addEventListener('click', () => {
-            isMuted = !isMuted;
-            audio.muted = isMuted;
-            muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
-        });
-    });
-</script>
-
+    </script>
 </head>
 <body>
     <header>
@@ -465,6 +458,13 @@
                 <input type="password" id="register-password" placeholder="Password" required>
                 <button type="submit">Register</button>
             </form>
+        </div>
+    </div>
+    <div class="modal" id="features-modal">
+        <div class="modal-content">
+            <span class="close" id="close-features">&times;</span>
+            <h2>NXO Features</h2>
+            <pre id="features-content" style="color: #dcdcdc; white-space: pre-wrap;"></pre>
         </div>
     </div>
 </body>
