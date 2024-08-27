@@ -96,7 +96,7 @@
     transition: background 0.4s, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s;
     border: none;
     cursor: pointer;
-    width: 250px; /* Fixed width for both buttons */
+    min-width: 250px; /* Minimum width to accommodate longer text */
     height: 60px; /* Fixed height for both buttons */
     text-align: center;
     display: flex;
@@ -105,6 +105,7 @@
     white-space: nowrap; /* Prevent text from wrapping */
     overflow: hidden; /* Hide overflow text */
     text-overflow: ellipsis; /* Show ellipsis if text overflows */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .button:hover {
@@ -113,6 +114,7 @@
     box-shadow: none;
     opacity: 1;
 }
+
 
 
         .dev-controls {
