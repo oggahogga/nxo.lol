@@ -302,68 +302,73 @@
         }
     </style>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginModal = document.getElementById('login-modal');
-            const registerModal = document.getElementById('register-modal');
-            const featuresModal = document.getElementById('features-modal');
-            const closeLogin = document.getElementById('close-login');
-            const closeRegister = document.getElementById('close-register');
-            const closeFeatures = document.getElementById('close-features');
-            const featuresContent = document.getElementById('features-content');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const featuresModal = document.getElementById('features-modal');
+        const closeLogin = document.getElementById('close-login');
+        const closeRegister = document.getElementById('close-register');
+        const closeFeatures = document.getElementById('close-features');
+        const featuresContent = document.getElementById('features-content');
 
-            document.querySelector('.view-features-button').onclick = function(event) {
-                event.preventDefault(); // Prevent any default action
-                fetch('https://raw.githubusercontent.com/NuggetGT/NXO-V5.1-Features/main/Features.md')
-                    .then(response => response.text())
-                    .then(data => {
-                        const lines = data.split('\n');
-                        let formattedContent = '';
-                        lines.forEach(line => {
-                            if (line.startsWith('#')) {
-                                formattedContent += `<div class="hashtag-line">${line.replace(/#/g, '').trim()}</div>`;
-                            } else {
-                                formattedContent += `<div>${line}</div>`;
-                            }
-                        });
-                        featuresContent.innerHTML = formattedContent;
-                        featuresModal.classList.add('show');
-                    })
-                    .catch(error => {
-                        featuresContent.textContent = 'Failed to load features. Please try again later.';
-                        featuresModal.classList.add('show');
+        document.querySelector('.view-features-button').onclick = function(event) {
+            event.preventDefault(); // Prevent any default action
+            fetch('https://raw.githubusercontent.com/NuggetGT/NXO-V5.1-Features/main/Features.md')
+                .then(response => response.text())
+                .then(data => {
+                    const lines = data.split('\n');
+                    let formattedContent = '';
+                    lines.forEach(line => {
+                        if (line.startsWith('#')) {
+                            const headingLevel = line.match(/^#+/)[0].length;
+                            formattedContent += `<h${headingLevel} class="hashtag-line">${line.replace(/^#+/, '').trim()}</h${headingLevel}>`;
+                        } else if (line.trim() === '') {
+                            formattedContent += `<br />`;
+                        } else {
+                            formattedContent += `<p>${line}</p>`;
+                        }
                     });
+                    featuresContent.innerHTML = formattedContent;
+                    featuresModal.classList.add('show');
+                })
+                .catch(error => {
+                    featuresContent.textContent = 'Failed to load features. Please try again later.';
+                    featuresModal.classList.add('show');
+                });
+        };
+
+        window.onclick = function(event) {
+            if (event.target == loginModal) {
+                loginModal.classList.remove('show');
             }
-            window.onclick = function(event) {
-                if (event.target == loginModal) {
-                    loginModal.classList.remove('show');
-                }
-                if (event.target == registerModal) {
-                    registerModal.classList.remove('show');
-                }
-                if (event.target == featuresModal) {
-                    featuresModal.classList.remove('show');
-                }
+            if (event.target == registerModal) {
+                registerModal.classList.remove('show');
             }
+            if (event.target == featuresModal) {
+                featuresModal.classList.remove('show');
+            }
+        };
 
-            // JavaScript to handle audio and mute button
-            const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
-            audio.loop = true;
-            audio.play().catch(function() {
-                // Handle any autoplay restrictions by interacting with the page
-                document.body.addEventListener('click', () => audio.play());
-            });
-
-            const muteButton = document.getElementById('mute-button');
-            let isMuted = true;
-
-            muteButton.addEventListener('click', () => {
-                isMuted = !isMuted;
-                audio.muted = isMuted;
-                muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
-            });
+        // JavaScript to handle audio and mute button
+        const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
+        audio.loop = true;
+        audio.play().catch(function() {
+            // Handle any autoplay restrictions by interacting with the page
+            document.body.addEventListener('click', () => audio.play());
         });
-    </script>
+
+        const muteButton = document.getElementById('mute-button');
+        let isMuted = true;
+
+        muteButton.addEventListener('click', () => {
+            isMuted = !isMuted;
+            audio.muted = isMuted;
+            muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
+        });
+    });
+</script>
+
 </head>
 <body>
     <header>
