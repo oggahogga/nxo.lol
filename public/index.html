@@ -331,6 +331,7 @@ section {
                             if (line.startsWith('#')) {
                                 formattedContent += `<div class="hashtag-line">${line.replace(/#/g, '').trim()}</div>`;
                                 formattedContent += `<div>${line}</div>`;
+                                formattedContent -= line;
                             } else {
                                 formattedContent += `<div>${line}</div>`;
                             }
