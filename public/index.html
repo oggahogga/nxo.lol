@@ -35,14 +35,14 @@
     font-family: var(--font-family);
     color: var(--text-color);
     margin: 0;
-    padding: 0 0 50px 0; /* Added 50px padding at the bottom */
+    padding: 0 0 50px 0;
     height: 100vh;
     overflow: hidden;
     position: relative;
 }
 
 section {
-    padding-bottom: 50px; /* Additional padding at the bottom of sections */
+    padding-bottom: 50px; 
 }
 
         .video-background {
@@ -330,6 +330,7 @@ section {
                         lines.forEach(line => {
                             if (line.startsWith('#')) {
                                 formattedContent += `<div class="hashtag-line">${line.replace(/#/g, '').trim()}</div>`;
+                                formattedContent += `<div>${line}</div>`;
                             } else {
                                 formattedContent += `<div>${line}</div>`;
                             }
