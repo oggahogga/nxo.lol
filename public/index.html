@@ -345,19 +345,17 @@
                     featuresModal.classList.remove('show');
                 }
             }
-
-            // JavaScript to handle audio and mute button
+            closeFeatures.onclick = function() {
+                featuresModal.classList.remove('show');
+            }
             const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
             audio.loop = true;
-            audio.play().catch(function() {
-                // Handle any autoplay restrictions by interacting with the page
-                document.body.addEventListener('click', () => audio.play());
-            });
 
             const muteButton = document.getElementById('mute-button');
             let isMuted = true;
 
             muteButton.addEventListener('click', () => {
+                audio.play();
                 isMuted = !isMuted;
                 audio.muted = isMuted;
                 muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
