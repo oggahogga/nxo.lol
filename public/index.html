@@ -78,35 +78,42 @@
             color: #fff;
         }
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 40px;
-        }
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
 
-        .button {
-            background-color: #3d5fe3;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 1.3em;
-            font-weight: 600;
-            transition: background 0.4s, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.button {
+    padding: 15px 35px;
+    background-color: #3d5fe3;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 1.3em;
+    font-weight: 600;
+    transition: background 0.4s, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s;
+    border: none;
+    cursor: pointer;
+    width: 250px; /* Fixed width for both buttons */
+    height: 60px; /* Fixed height for both buttons */
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Show ellipsis if text overflows */
+}
 
-        .button:hover {
-            background-color: #2e49b1;
-            transform: scale(1.05);
-            box-shadow: none;
-            opacity: 1;
-        }
+.button:hover {
+    background-color: #2e49b1;
+    transform: scale(1.05);
+    box-shadow: none;
+    opacity: 1;
+}
+
 
         .dev-controls {
             position: fixed;
