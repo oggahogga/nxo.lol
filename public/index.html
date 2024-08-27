@@ -312,31 +312,33 @@
         const closeFeatures = document.getElementById('close-features');
         const featuresContent = document.getElementById('features-content');
 
-        document.querySelector('.view-features-button').onclick = function(event) {
-            event.preventDefault(); // Prevent any default action
-            fetch('https://raw.githubusercontent.com/NuggetGT/NXO-V5.1-Features/main/Features.md')
-                .then(response => response.text())
-                .then(data => {
-                    const lines = data.split('\n');
-                    let formattedContent = '';
-                    lines.forEach(line => {
-                        if (line.startsWith('#')) {
-                            const headingLevel = line.match(/^#+/)[0].length;
-                            formattedContent += `<h${headingLevel} class="hashtag-line">${line.replace(/^#+/, '').trim()}</h${headingLevel}>`;
-                        } else if (line.trim() === '') {
-                            formattedContent += `<br />`;
-                        } else {
-                            formattedContent += `<p>${line}</p>`;
-                        }
+        document.querySelector('.purchase-button').onclick = function(event) {
+                event.preventDefault(); // Prevent any default action
+                fetch('https://raw.githubusercontent.com/NuggetGT/NXO-V5.1-Features/main/Features.md')
+                    .then(response => response.text())
+                    .then(data => {
+                        // Split the text into lines
+                        const lines = data.split('\n');
+                        let formattedContent = '';
+
+                        // Loop through lines and format if it contains a hashtag
+                        lines.forEach(line => {
+                            if (line.startsWith('#')) {
+                                formattedContent += `<div class="hashtag-line">${line.replace(/#/g, '').trim()}</div>`;
+                            } else {
+                                formattedContent += `<div>${line}</div>`;
+                            }
+                        });
+
+                        featuresContent.innerHTML = formattedContent;
+                        featuresModal.classList.add('show');
+                    })
+                    .catch(error => {
+                        featuresContent.textContent = 'Failed to load features. Please try again later.';
+                        featuresModal.classList.add('show');
                     });
-                    featuresContent.innerHTML = formattedContent;
-                    featuresModal.classList.add('show');
-                })
-                .catch(error => {
-                    featuresContent.innerHTML = 'Failed to load features. Please try again later.';
-                    featuresModal.classList.add('show');
-                });
-        };
+            }
+
 
         window.onclick = function(event) {
             if (event.target == loginModal) {
