@@ -115,28 +115,6 @@
     opacity: 1;
 }
 
-
-
-        .dev-controls {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            z-index: 1000;
-        }
-
-        .dev-controls label {
-            color: #fff;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .dev-controls input {
-            width: 100%;
-        }
-
         .features-container {
             margin: 100px 50px;
             text-align: center;
@@ -358,23 +336,6 @@
                     featuresModal.classList.remove('show');
                 }
             }
-
-            // Development Tool for Adjusting Button Sizes
-            const widthSlider = document.getElementById('button-width');
-            const heightSlider = document.getElementById('button-height');
-            const buttons = document.querySelectorAll('.button');
-
-            widthSlider.addEventListener('input', function() {
-                buttons.forEach(button => {
-                    button.style.width = widthSlider.value + 'px';
-                });
-            });
-
-            heightSlider.addEventListener('input', function() {
-                buttons.forEach(button => {
-                    button.style.height = heightSlider.value + 'px';
-                });
-            });
         });
     </script>
 </head>
