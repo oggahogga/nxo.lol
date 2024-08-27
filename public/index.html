@@ -18,6 +18,7 @@
     <meta property="twitter:image" content="https://github.com/oggahogga/nxo.lol/blob/main/public/transparentNXO.png?raw=true" />
 
     <style>
+        /* Styles remain the same as before */
         :root {
             --primary-color: #3d5fe3;
             --primary-color-hover: #2e49b1;
@@ -341,14 +342,18 @@
                     featuresModal.classList.remove('show');
                 }
             }
+
+            // JavaScript to play audio after the page loads
+            const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
+            audio.loop = true;
+            audio.play().catch(function() {
+                // Handle any autoplay restrictions by interacting with the page
+                document.body.addEventListener('click', () => audio.play());
+            });
         });
     </script>
 </head>
 <body>
-    <audio autoplay loop>
-        <source src="https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
     <video autoplay muted loop class="video-background">
         <source src="https://github.com/oggahogga/nxo.lol/raw/main/public/0826.mp4" type="video/mp4">
         Your browser does not support the video tag.
