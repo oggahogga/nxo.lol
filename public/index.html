@@ -78,14 +78,15 @@
             color: #fff;
         }
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
 
-.buttons .button {
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.view-features-button {
     padding: 15px 35px;
     background-color: #3d5fe3;
     color: white;
@@ -96,9 +97,7 @@
     transition: background 0.4s, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s;
     border: none;
     cursor: pointer;
-    flex: 1;
-    max-width: 220px;
-    min-width: 220px;
+    width: 220px; /* Adjust width as needed */
     height: 60px;
     display: flex;
     align-items: center;
@@ -106,12 +105,33 @@
     text-align: center;
 }
 
-.buttons .button:hover {
+.download-button {
+    padding: 15px 35px;
+    background-color: #3d5fe3;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 1.3em;
+    font-weight: 600;
+    transition: background 0.4s, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s;
+    border: none;
+    cursor: pointer;
+    width: 220px; /* Adjust width as needed */
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.view-features-button:hover,
+.download-button:hover {
     background-color: #2e49b1;
     transform: scale(1.1);
     box-shadow: none;
     opacity: 1;
 }
+
 
 
         .features-container {
@@ -343,6 +363,11 @@
     </script>
 </head>
 <body>
+    <div class="buttons">
+    <button class="button view-features-button">View Features</button>
+    <a class="button download-button" href="https://cdn.discordapp.com/attachments/1122346739714760865/1277118728265400352/NXO_V5.2.dll?ex=66cdfb40&is=66cca9c0&hm=a5b4066a474f4063fc779ba39bf3f13d1d665897cd41f3b75df3ef863349af7c&">Download</a>
+</div>
+
     <div class="modal" id="features-modal">
         <div class="modal-content">
             <span class="close" id="close-features">&times;</span>
