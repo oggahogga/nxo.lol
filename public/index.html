@@ -78,62 +78,42 @@
             color: #fff;
         }
 
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+            top: 200px; /* Adjust top value to position buttons correctly */
+        }
 
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
+        .view-features-button,
+        .download-button {
+            padding: 15px 35px;
+            background-color: #3d5fe3;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.3em;
+            font-weight: 600;
+            transition: background 0.4s, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s;
+            border: none;
+            cursor: pointer;
+            width: 220px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
 
-.view-features-button {
-    padding: 15px 35px;
-    background-color: #3d5fe3;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    font-size: 1.3em;
-    font-weight: 600;
-    transition: background 0.4s, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s;
-    border: none;
-    cursor: pointer;
-    width: 220px; /* Set width for the button */
-    height: 60px; /* Set height for the button */
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.download-button {
-    padding: 15px 35px;
-    background-color: #3d5fe3;
-    color: white;
-    text-decoration: none;
-    border-radius: 10px;
-    font-size: 1.3em;
-    font-weight: 600;
-    transition: background 0.4s, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s;
-    border: none;
-    cursor: pointer;
-    width: 220px; /* Set width for the button */
-    height: 60px; /* Set height for the button */
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.view-features-button:hover,
-.download-button:hover {
-    background-color: #2e49b1;
-    transform: scale(1.05);
-    box-shadow: none;
-    opacity: 1;
-}
-
-
-
+        .view-features-button:hover,
+        .download-button:hover {
+            background-color: #2e49b1;
+            transform: scale(1.05);
+            box-shadow: none;
+            opacity: 1;
+        }
 
         .features-container {
             margin: 80px 50px 50px 50px;
@@ -310,7 +290,7 @@
             const closeFeatures = document.getElementById('close-features');
             const featuresContent = document.getElementById('features-content');
 
-            document.querySelector('.purchase-button').onclick = function(event) {
+            document.querySelector('.view-features-button').onclick = function(event) {
                 event.preventDefault(); // Prevent any default action
                 fetch('https://raw.githubusercontent.com/NuggetGT/NXO-V5.1-Features/main/Features.md')
                     .then(response => response.text())
@@ -364,23 +344,6 @@
     </script>
 </head>
 <body>
-   <div class="buttons">
-    <button class="view-features-button">View Features</button>
-    <a class="download-button" href="https://cdn.discordapp.com/attachments/1122346739714760865/1277118728265400352/NXO_V5.2.dll?ex=66cdfb40&is=66cca9c0&hm=a5b4066a474f4063fc779ba39bf3f13d1d665897cd41f3b75df3ef863349af7c&">Download</a>
-</div>
-
-    <button class="button view-features-button">View Features</button>
-    <a class="button download-button" href="https://cdn.discordapp.com/attachments/1122346739714760865/1277118728265400352/NXO_V5.2.dll?ex=66cdfb40&is=66cca9c0&hm=a5b4066a474f4063fc779ba39bf3f13d1d665897cd41f3b75df3ef863349af7c&">Download</a>
-</div>
-
-    <div class="modal" id="features-modal">
-        <div class="modal-content">
-            <span class="close" id="close-features">&times;</span>
-            <h2>NXO Features</h2>
-            <pre id="features-content" style="color: #dcdcdc; white-space: pre-wrap;"></pre>
-        </div>
-    </div>
-
     <div class="overlay"></div>
     <header>
         <nav>
@@ -393,6 +356,10 @@
     <section id="home">
         <div class="intro">
             <h1 class="nxotext">NXO</h1>
+            <div class="buttons">
+                <button class="view-features-button">View Features</button>
+                <a class="download-button" href="https://cdn.discordapp.com/attachments/1122346739714760865/1277118728265400352/NXO_V5.2.dll?ex=66cdfb40&is=66cca9c0&hm=a5b4066a474f4063fc779ba39bf3f13d1d665897cd41f3b75df3ef863349af7c&">Download</a>
+            </div>
         </div>
     </section>
     <section id="features">
