@@ -333,7 +333,7 @@
                     featuresModal.classList.add('show');
                 })
                 .catch(error => {
-                    featuresContent.textContent = 'Failed to load features. Please try again later.';
+                    featuresContent.innerHTML = 'Failed to load features. Please try again later.';
                     featuresModal.classList.add('show');
                 });
         };
