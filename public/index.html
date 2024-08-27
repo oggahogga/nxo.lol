@@ -114,32 +114,36 @@
             margin-top: 40px;
         }
 
-        .button {
-            padding: 15px 35px;
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 1.3em;
-            font-weight: 600;
-            transition: background 0.4s, transform 0.4s ease;
-            cursor: pointer;
-            min-width: 250px;
-            height: 60px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            box-sizing: border-box;
-        }
+.button {
+    padding: 15px 35px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px; /* Reduced radius for less rounded corners */
+    font-size: 1.3em;
+    font-weight: 600;
+    transition: background 0.4s, transform 0.4s ease;
+    cursor: pointer;
+    min-width: 250px;
+    height: 60px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    border: none; /* Remove border if any */
+    box-shadow: none; /* Remove any shadow to flatten the appearance */
+}
 
-        .button:hover {
-            background-color: var(--primary-color-hover);
-            transform: scale(1.05);
-        }
+.button:hover {
+    background-color: var(--primary-color-hover);
+    transform: none; /* Disable scaling on hover for a flat look */
+    box-shadow: none; /* Ensure no shadow on hover */
+}
+
 
         .features-container {
             margin: 100px 50px;
