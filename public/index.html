@@ -85,28 +85,34 @@
             margin-top: 20px;
         }
 
-        .buttons .button {
-            padding: 15px 35px;
-            background-color: #3d5fe3;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 1.3em;
-            font-weight: 600;
-            transition: background 0.4s, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s;
-            border: none;
-            cursor: pointer;
-            flex: 1;
-            max-width: 200px;
-            text-align: center;
-        }
+.buttons .button {
+    padding: 15px 35px;
+    background-color: #3d5fe3;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 1.3em;
+    font-weight: 600;
+    transition: background 0.4s, transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s;
+    border: none;
+    cursor: pointer;
+    flex: 1;
+    max-width: 220px;
+    min-width: 220px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
 
-        .buttons .button:hover {
-            background-color: #2e49b1;
-            transform: scale(1.1);
-            box-shadow: none;
-            opacity: 1;
-        }
+.buttons .button:hover {
+    background-color: #2e49b1;
+    transform: scale(1.1);
+    box-shadow: none;
+    opacity: 1;
+}
+
 
         .features-container {
             margin: 80px 50px 50px 50px;
@@ -282,14 +288,6 @@
             const closeRegister = document.getElementById('close-register');
             const closeFeatures = document.getElementById('close-features');
             const featuresContent = document.getElementById('features-content');
-
-            document.getElementById('login-link').onclick = function() {
-                loginModal.classList.add('show');
-            }
-
-            document.getElementById('register-link').onclick = function() {
-                registerModal.classList.add('show');
-            }
 
             document.querySelector('.purchase-button').onclick = function(event) {
                 event.preventDefault(); // Prevent any default action
