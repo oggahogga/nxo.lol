@@ -119,7 +119,7 @@
     background-color: var(--primary-color);
     color: var(--text-color);
     text-decoration: none;
-    border-radius: 5px; /* Reduced radius for less rounded corners */
+    border-radius: 5px;
     font-size: 1.3em;
     font-weight: 600;
     transition: background 0.4s, transform 0.4s ease;
@@ -134,14 +134,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
     box-sizing: border-box;
-    border: none; /* Remove border if any */
-    box-shadow: none; /* Remove any shadow to flatten the appearance */
+    border: none;
+    box-shadow: none;
 }
 
 .button:hover {
     background-color: var(--primary-color-hover);
-    transform: none; /* Disable scaling on hover for a flat look */
-    box-shadow: none; /* Ensure no shadow on hover */
+    transform: none;
+    box-shadow: none;
+    scale(1.05);
 }
 
 
