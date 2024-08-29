@@ -19,14 +19,14 @@
 
     <style>
 :root {
-    --primary-color: #6a00f4;
-    --primary-color-hover: #5000b7;
-    --bg-color: #121212;
+    --primary-color: #005f99;
+    --primary-color-hover: #004d7a;
+    --bg-color: #0b0b0b;
     --text-color: #e0e0e0;
     --secondary-text-color: #b3b3b3;
     --overlay-color: rgba(0, 0, 0, 0.85);
-    --header-bg: rgba(18, 18, 18, 0.9);
-    --modal-bg: rgba(28, 28, 28, 0.95);
+    --header-bg: rgba(11, 11, 11, 0.9);
+    --modal-bg: #141414;
     --shadow-color: rgba(0, 0, 0, 0.6);
     --font-family: 'Poppins', sans-serif;
 }
@@ -39,6 +39,7 @@ body {
     height: 100vh;
     overflow: hidden;
     position: relative;
+    background-color: var(--bg-color);
 }
 
 section {
@@ -162,7 +163,7 @@ nav ul li a:hover, nav ul li button:hover {
 }
 
 .feature-box {
-    background: rgba(28, 28, 28, 0.95);
+    background: rgba(20, 20, 20, 0.95);
     padding: 30px;
     border-radius: 15px;
     width: 280px;
@@ -174,7 +175,7 @@ nav ul li a:hover, nav ul li button:hover {
 
 .feature-box:hover {
     transform: scale(1.08);
-    background-color: rgba(40, 40, 40, 0.95);
+    background-color: rgba(28, 28, 28, 0.95);
 }
 
 .feature-box h3 {
@@ -188,14 +189,15 @@ nav ul li a:hover, nav ul li button:hover {
     transition: color 0.3s ease-in-out;
 }
 
-/* Transparent NXO Text with Better Animation */
+/* Transparent NXO Text with Darker Outline */
 .nxotext {
     font-size: 10em;
     font-weight: bold;
     color: transparent;
-    background: linear-gradient(90deg, rgba(75, 78, 107, 0.5), rgba(50, 56, 112, 0.5));
+    background: linear-gradient(90deg, rgba(0, 95, 153, 0.5), rgba(0, 77, 122, 0.5));
     background-clip: text;
     -webkit-background-clip: text;
+    -webkit-text-stroke: 2px rgba(0, 45, 72, 0.7); /* Darker outline */
     z-index: 2;
     position: relative;
     animation: fadeIn 1.5s ease-in-out;
@@ -208,7 +210,7 @@ nav ul li a:hover, nav ul li button:hover {
     to { opacity: 1; }
 }
 
-/* Enhanced Popup Modal Styles */
+/* Enhanced Popup Modal Styles with Animations */
 .modal {
     display: none;
     position: fixed;
@@ -217,9 +219,9 @@ nav ul li a:hover, nav ul li button:hover {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(18, 18, 18, 0.85); /* Darker overlay */
+    background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
     opacity: 0;
-    transition: opacity 0.4s ease, background-color 0.4s ease;
+    animation: fadeInModal 0.4s ease-in-out forwards;
 }
 
 .modal.show {
@@ -228,15 +230,17 @@ nav ul li a:hover, nav ul li button:hover {
 }
 
 .modal-content {
-    background-color: var(--bg-color);
-    margin: 10% auto; /* Lower margin for a more centered look */
-    padding: 25px;
+    background-color: var(--modal-bg);
+    margin: 5% auto; /* Lower margin for a more centered look */
+    padding: 30px;
     border: 1px solid #444;
     width: 90%;
     max-width: 600px; /* Tighter width for a cleaner look */
-    border-radius: 10px; /* Slightly reduced border-radius */
+    border-radius: 12px; /* Slightly reduced border-radius */
     box-shadow: 0 4px 12px var(--shadow-color);
-    animation: zoomIn 0.4s ease;
+    transform: translateY(-50px);
+    opacity: 0;
+    animation: slideInUp 0.6s ease forwards; /* Slide in from the top */
 }
 
 .close {
@@ -249,7 +253,7 @@ nav ul li a:hover, nav ul li button:hover {
 
 .close:hover,
 .close:focus {
-    color: var(--text-color);
+    color: var(--primary-color);
     cursor: pointer;
 }
 
@@ -303,9 +307,14 @@ form button:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes zoomIn {
-    from { transform: scale(0.85); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .hashtag-line {
@@ -313,6 +322,7 @@ form button:hover {
     font-weight: bold;
     color: var(--text-color);
 }
+
 
     </style>
 
