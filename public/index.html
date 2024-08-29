@@ -18,7 +18,7 @@
     <meta property="twitter:image" content="https://github.com/oggahogga/nxo.lol/blob/main/public/transparentNXO.png?raw=true" />
 
     <style>
-        :root {
+:root {
     --primary-color: #6a00f4;
     --primary-color-hover: #5000b7;
     --bg-color: #121212;
@@ -188,7 +188,27 @@ nav ul li a:hover, nav ul li button:hover {
     transition: color 0.3s ease-in-out;
 }
 
-/* Popup Modal Styles */
+/* Transparent NXO Text with Better Animation */
+.nxotext {
+    font-size: 10em;
+    font-weight: bold;
+    color: transparent;
+    background: linear-gradient(90deg, rgba(75, 78, 107, 0.5), rgba(50, 56, 112, 0.5));
+    background-clip: text;
+    -webkit-background-clip: text;
+    z-index: 2;
+    position: relative;
+    animation: fadeIn 1.5s ease-in-out;
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Enhanced Popup Modal Styles */
 .modal {
     display: none;
     position: fixed;
@@ -197,7 +217,7 @@ nav ul li a:hover, nav ul li button:hover {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(18, 18, 18, 0.9); /* Darker overlay */
+    background-color: rgba(18, 18, 18, 0.85); /* Darker overlay */
     opacity: 0;
     transition: opacity 0.4s ease, background-color 0.4s ease;
 }
@@ -211,18 +231,18 @@ nav ul li a:hover, nav ul li button:hover {
     background-color: var(--bg-color);
     margin: 10% auto; /* Lower margin for a more centered look */
     padding: 25px;
-    border: 1px solid #888;
+    border: 1px solid #444;
     width: 90%;
-    max-width: 700px; /* Smaller max width for a tighter look */
+    max-width: 600px; /* Tighter width for a cleaner look */
     border-radius: 10px; /* Slightly reduced border-radius */
     box-shadow: 0 4px 12px var(--shadow-color);
     animation: zoomIn 0.4s ease;
 }
 
 .close {
-    color: #999;
+    color: #aaa;
     float: right;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: bold;
     transition: color 0.3s ease-in-out;
 }
@@ -234,15 +254,19 @@ nav ul li a:hover, nav ul li button:hover {
 }
 
 form input {
-    padding: 10px;
-    margin: 10px 0;
+    padding: 12px;
+    margin: 12px 0;
     border: 1px solid #333;
     border-radius: 5px;
     width: 100%;
     max-width: 280px;
-    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
     background-color: #1e1e1e;
     color: var(--text-color);
+    transition: border-color 0.3s ease-in-out;
+}
+
+form input:focus {
+    border-color: var(--primary-color);
 }
 
 form button {
@@ -267,24 +291,6 @@ form button:hover {
     z-index: 2;
     position: relative;
     animation: fadeInDown 0.8s ease-in-out;
-}
-
-.nxotext {
-    font-size: 10em;
-    font-weight: bold;
-    color: transparent;
-    background: linear-gradient(90deg, rgba(90, 0, 230, 1), rgba(60, 0, 150, 1));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-stroke: 2px white;
-    z-index: 2;
-    position: relative;
-    animation: fadeIn 1.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 @keyframes fadeInUp {
