@@ -246,8 +246,8 @@ nav ul li a:hover, nav ul li button:hover {
     transform: translateY(-50px);
     opacity: 0;
     animation: slideInUp 0.6s ease forwards;
-    max-height: 80vh; /* Limit the modal height */
-    overflow-y: auto; /* Enable scrolling within the modal */
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .close {
@@ -285,7 +285,7 @@ form button {
     background-color: var(--primary-color);
     color: var(--text-color);
     border: none;
-    border-radius: 10px; /* Increased border-radius for a more polished look */
+    border-radius: 10px;
     font-size: 1.2em;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s ease;
@@ -340,15 +340,15 @@ form button:hover {
 
     document.querySelector('.view-features-button').onclick = function(event) {
         event.preventDefault();
-        fetch('https://raw.githubusercontent.com/NuggetGT/NXO-V5.1-Features/main/Features.md')
+        fetch('https://raw.githubusercontent.com/NuggetGT/NXO-Mod-Panel/main/Features.md')
             .then(response => response.text())
             .then(data => {
                 const lines = data.split('\n');
                 let formattedContent = '';
                 lines.forEach(line => {
                     if (line.startsWith('#')) {
-                        const headerLevel = line.match(/^#+/)[0].length; // Get the number of `#` characters
-                        const headerText = line.replace(/^#+/, '').trim(); // Remove `#` characters and trim the text
+                        const headerLevel = line.match(/^#+/)[0].length;
+                        const headerText = line.replace(/^#+/, '').trim();
                         formattedContent += `<h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>`;
                     } else {
                         formattedContent += `<div>${line}</div>`;
