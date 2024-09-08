@@ -76,7 +76,7 @@
             top: 0;
             background: var(--header-bg);
             backdrop-filter: blur(10px);
-            z-index: 10;
+            z-index: 100; /* Higher z-index to make the header clickable */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -240,44 +240,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const featuresModal = document.getElementById('features-modal');
-            const closeFeatures = document.getElementById('close-features');
-            const featuresContent = document.getElementById('features-content');
+            const muteButton = document.getElementById('mute-button');
+            let isMuted = true;
+            const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
+            audio.loop = true;
 
-            document.querySelector('.view-features-button').onclick = function(event) {
-                event.preventDefault();
-                fetch('https://github.com/NuggetGT/NXO-Mod-Panel/releases/download/v5.3-beta/NXO-V5.3-Beta-Features.txt')
-                    .then(response => response.text())
-                    .then(data => {
-                        const lines = data.split('\n');
-                        let formattedContent = '';
-                        lines.forEach(line => {
-                            if (line.startsWith('#')) {
-                                const headerLevel = line.match(/^#+/)[0].length;
-                                const headerText = line.replace(/^#+/, '').trim();
-                                formattedContent += `<h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>`;
-                            } else {
-                                formattedContent += `<div>${line}</div>`;
-                            }
-                        });
-                        featuresContent.innerHTML = formattedContent;
-                        featuresModal.classList.add('show');
-                    })
-                    .catch(error => {
-                        featuresContent.textContent = 'Failed to load features. Please try again later.';
-                        featuresModal.classList.add('show');
-                    });
-            }
-
-            window.onclick = function(event) {
-                if (event.target == featuresModal) {
-                    featuresModal.classList.remove('show');
-                }
-            }
-
-            closeFeatures.onclick = function() {
-                featuresModal.classList.remove('show');
-            }
+            muteButton.addEventListener('click', () => {
+                audio.play();
+                isMuted = !isMuted;
+                audio.muted = isMuted;
+                muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
+            });
         });
     </script>
 </head>
@@ -285,7 +258,7 @@
     <header>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
+                <!-- Removed Home Button -->
                 <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
                 <li><button id="mute-button">Unmute</button></li>
             </ul>
