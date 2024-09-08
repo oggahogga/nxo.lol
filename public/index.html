@@ -25,7 +25,7 @@
             --bg-color: #0b0b0b;
             --text-color: #e0e0e0;
             --secondary-text-color: #b3b3b3;
-            --overlay-color: rgba(0, 0, 0, 0.85);
+            --overlay-color: rgba(0, 0, 0, 0.95); /* Increased opacity for better contrast */
             --header-bg: rgba(11, 11, 11, 0.9);
             --modal-bg: #141414;
             --shadow-color: rgba(0, 0, 0, 0.6);
@@ -65,7 +65,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--overlay-color);
+            background: var(--overlay-color); /* Increased opacity */
             z-index: 1;
             pointer-events: none;
         }
@@ -201,11 +201,8 @@
             font-family: 'Bungee', sans-serif;
             font-size: 7em;
             font-weight: bold;
-            color: transparent;
-            background: linear-gradient(90deg, rgba(48, 14, 199, 0.5), rgba(36, 9, 158, 0.5));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-stroke: 2px rgba(0, 0, 0, 0);
+            color: #fff; /* White text for better visibility */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow to make text more readable */
             z-index: 2;
             position: relative;
             animation: fadeIn 1.5s ease-in-out;
