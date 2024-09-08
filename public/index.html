@@ -45,8 +45,8 @@
         }
 
         section {
-            padding-bottom: 50px; 
-            overflow-y: auto; /* Enables scrolling */
+            padding-bottom: 50px;
+            overflow-y: auto;
         }
 
         .video-background {
@@ -151,7 +151,7 @@
         }
 
         .features-container {
-            margin: 100px 20px; /* Smaller margins for mobile */
+            margin: 100px 20px;
             text-align: center;
             z-index: 2;
             position: relative;
@@ -162,12 +162,12 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px; /* Smaller gaps for mobile */
+            gap: 20px;
         }
 
         .feature-box {
             background: rgba(28, 28, 28, 0.95);
-            padding: 15px; /* Smaller padding for mobile */
+            padding: 15px;
             border-radius: 12px;
             width: 280px;
             text-align: left;
@@ -178,9 +178,28 @@
             align-items: flex-start;
         }
 
+        .feature-box:hover {
+            transform: scale(1.05);
+            background-color: rgba(36, 36, 36, 0.95);
+        }
+
+        .feature-box h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.5em;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .feature-box p {
+            color: var(--secondary-text-color);
+            margin-bottom: 0;
+            font-size: 1em;
+            transition: color 0.3s ease-in-out;
+        }
+
         .nxotext {
             font-family: 'Bungee', sans-serif;
-            font-size: 7em; /* Adjust for mobile */
+            font-size: 7em;
             font-weight: bold;
             color: transparent;
             background: linear-gradient(90deg, rgba(48, 14, 199, 0.5), rgba(36, 9, 158, 0.5));
@@ -334,7 +353,6 @@
             </div>
         </div>
     </section>
-
     <div class="modal" id="features-modal">
         <div class="modal-content">
             <span class="close" id="close-features">&times;</span>
