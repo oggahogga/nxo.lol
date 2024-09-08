@@ -342,7 +342,7 @@ form button:hover {
 
     document.querySelector('.view-features-button').onclick = function(event) {
         event.preventDefault();
-        fetch('https://raw.githubusercontent.com/NuggetGT/NXO-Mod-Panel/main/Features.md')
+        fetch('https://github.com/NuggetGT/NXO-Mod-Panel/releases/download/v5.3-beta/NXO-V5.3-Beta-Features.txt')
             .then(response => response.text())
             .then(data => {
                 const lines = data.split('\n');
@@ -417,7 +417,7 @@ form button:hover {
             <h1 class="nxotext">NXO</h1>
             <div class="buttons">
                 <button class="button view-features-button">View Features</button>
-                <a class="button download-button" href="https://cdn.discordapp.com/attachments/1122346739714760865/1277118728265400352/NXO_V5.2.dll?ex=66cdfb40&is=66cca9c0&hm=a5b4066a474f4063fc779ba39bf3f13d1d665897cd41f3b75df3ef863349af7c&">Download</a>
+                <a class="button download-button" href="https://github.com/NuggetGT/NXO-Mod-Panel">Download</a>
             </div>
         </div>
     </section>
