@@ -342,7 +342,7 @@ form button:hover {
 
     document.querySelector('.view-features-button').onclick = function(event) {
         event.preventDefault();
-        fetch('https://github.com/NuggetGT/NXO-Mod-Panel/releases/download/v5.3-beta/NXO-V5.3-Beta-Features.txt')
+        fetch('https://github.com/oggahogga/nxo.lol/raw/main/public/NXO-V5.3-Beta-Features.txt')
             .then(response => response.text())
             .then(data => {
                 const lines = data.split('\n');
@@ -401,7 +401,6 @@ form button:hover {
     <header>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
                 <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
                 <li><button id="mute-button">Unmute</button></li>
             </ul>
