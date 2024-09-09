@@ -80,6 +80,8 @@
             align-items: center;
             padding: 15px 40px;
             box-shadow: 0 4px 12px var(--shadow-color);
+            transform: translateY(-100%);
+            animation: slideDown 1.5s ease-in-out forwards;
         }
 
         nav ul {
@@ -101,7 +103,7 @@
             font-size: 1.2em;
             font-weight: 500;
             padding: 5px 10px;
-            transition: background 0.3s, color 0.3s ease-in-out;
+            transition: background 0.5s, transform 0.5s ease;
             border-radius: 5px;
             background: none;
             border: none;
@@ -110,8 +112,7 @@
 
         nav ul li a:hover, nav ul li button:hover {
             background: var(--primary-color);
-            transition: background 0.4s, transform 0.4s;
-            transform: scale(1.1);
+            transform: rotate(3deg) scale(1.15);
         }
 
         .buttons {
@@ -129,7 +130,7 @@
             border-radius: 5px;
             font-size: 1.3em;
             font-weight: 600;
-            transition: background 0.4s, transform 0.4s ease;
+            transition: background 0.6s, transform 0.6s ease, box-shadow 0.4s ease;
             cursor: pointer;
             min-width: 250px;
             height: 60px;
@@ -142,12 +143,13 @@
             text-overflow: ellipsis;
             box-sizing: border-box;
             border: none;
-            box-shadow: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
         }
 
         .button:hover {
             background-color: var(--primary-color-hover);
-            transform: scale(1.05);
+            transform: scale(1.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
         }
 
         .features-container {
@@ -155,7 +157,7 @@
             text-align: center;
             z-index: 2;
             position: relative;
-            animation: fadeInUp 0.8s ease-in-out;
+            animation: fadeInUp 1s ease-in-out;
         }
 
         .features-grid {
@@ -171,7 +173,7 @@
             border-radius: 12px;
             width: 300px;
             text-align: left;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            transition: transform 0.5s ease, background-color 0.5s ease, box-shadow 0.5s;
             box-shadow: 0 8px 24px var(--shadow-color);
             display: flex;
             flex-direction: column;
@@ -179,22 +181,23 @@
         }
 
         .feature-box:hover {
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(1deg);
             background-color: rgba(36, 36, 36, 0.95);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
         }
 
         .feature-box h3 {
             margin-top: 0;
             color: var(--primary-color);
-            font-size: 1.5em;
-            transition: color 0.3s ease-in-out;
+            font-size: 1.6em;
+            transition: color 0.5s ease-in-out;
         }
 
         .feature-box p {
             color: var(--secondary-text-color);
             margin-bottom: 0;
-            font-size: 1em;
-            transition: color 0.3s ease-in-out;
+            font-size: 1.05em;
+            transition: color 0.5s ease-in-out;
         }
 
         .nxotext {
@@ -208,15 +211,25 @@
             -webkit-text-stroke: 2px rgba(0, 0, 0, 0);
             z-index: 2;
             position: relative;
-            animation: fadeIn 1.5s ease-in-out;
             opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
+            animation: textFadeIn 2.5s ease-in-out forwards;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -228,7 +241,7 @@
             background-color: rgba(0, 0, 0, 0.85);
             overflow-y: auto;
             opacity: 0;
-            animation: fadeInModal 0.4s ease-in-out forwards;
+            animation: fadeInModal 0.6s ease-in-out forwards;
         }
 
         .modal.show {
@@ -247,7 +260,7 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
             transform: translateY(-50px);
             opacity: 0;
-            animation: slideInUp 0.6s ease forwards;
+            animation: slideInUp 0.8s ease forwards;
             max-height: 80vh;
             overflow-y: auto;
         }
@@ -270,12 +283,13 @@
             float: right;
             font-size: 28px;
             font-weight: bold;
-            transition: color 0.3s ease-in-out;
+            transition: color 0.4s ease-in-out, transform 0.4s ease;
         }
 
         .close:hover,
         .close:focus {
             color: var(--primary-color);
+            transform: rotate(45deg);
             cursor: pointer;
         }
 
@@ -303,12 +317,13 @@
             border-radius: 10px;
             font-size: 1.2em;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s ease;
+            transition: background-color 0.3s, transform 0.5s ease, box-shadow 0.4s;
         }
 
         form button:hover {
             background-color: var(--primary-color-hover);
-            transform: scale(1.05);
+            transform: scale(1.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
         }
 
         .intro {
