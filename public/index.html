@@ -110,6 +110,8 @@
 
         nav ul li a:hover, nav ul li button:hover {
             background: var(--primary-color);
+            transition: background 0.4s, transform 0.4s;
+            transform: scale(1.1);
         }
 
         .buttons {
@@ -177,7 +179,7 @@
         }
 
         .feature-box:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
             background-color: rgba(36, 36, 36, 0.95);
         }
 
@@ -233,35 +235,35 @@
             display: block;
             opacity: 1;
         }
-.modal-content {
-    background-color: var(--modal-bg);
-    margin: 5% auto;
-    padding: 40px;
-    border: 1px solid #444;
-    width: 90%;
-    max-width: 600px;
-    border-radius: 15px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
-    transform: translateY(-50px);
-    opacity: 0;
-    animation: slideInUp 0.6s ease forwards;
-    max-height: 80vh;
-    overflow-y: auto;
-}
 
-.modal-content::-webkit-scrollbar {
-    width: 8px;
-}
+        .modal-content {
+            background-color: var(--modal-bg);
+            margin: 5% auto;
+            padding: 40px;
+            border: 1px solid #444;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+            transform: translateY(-50px);
+            opacity: 0;
+            animation: slideInUp 0.6s ease forwards;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
 
-.modal-content::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-}
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
 
-.modal-content::-webkit-scrollbar-track {
-    background: transparent;
-}
+        .modal-content::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
 
+        .modal-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
 
         .close {
             color: #999;
@@ -350,32 +352,29 @@
             const closeFeatures = document.getElementById('close-features');
             const featuresContent = document.getElementById('features-content');
 
-            // Corrected View Features Button Event Handler
             document.querySelector('.view-features-button').onclick = function(event) {
-    event.preventDefault();
-    fetch('https://oggahogga.github.io/nxo.lol/public/NXO-V5.3-Beta-Features.txt')
-        .then(response => response.text())
-        .then(data => {
-            const lines = data.split('\n');
-            let formattedContent = '';
-            lines.forEach(line => {
-                if (line.startsWith('#')) {
-                    const headerLevel = line.match(/^#+/)[0].length;
-                    const headerText = line.replace(/^#+/, '').trim();
-                    formattedContent += `<h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>`;
-                } else {
-                    formattedContent += `<div>${line}</div>`;
-                }
-            });
-            featuresContent.innerHTML = formattedContent;
-            featuresModal.classList.add('show');
-        })
-        .catch(error => {
-            featuresContent.textContent = 'Failed to load features. Please try again later.';
-            featuresModal.classList.add('show');
-        });
-}
-
+                event.preventDefault();
+                fetch('https://oggahogga.github.io/nxo.lol/public/NXO-V5.3-Beta-Features.txt')
+                    .then(response => response.text())
+                    .then(data => {
+                        const lines = data.split('\n');
+                        let formattedContent = '';
+                        lines.forEach(line => {
+                            if (line.startsWith('##')) {
+                                const headerText = line.replace('##', '').trim();
+                                formattedContent += `<h2 class="hashtag-line">${headerText}</h2>`;
+                            } else {
+                                formattedContent += `<div>${line}</div>`;
+                            }
+                        });
+                        featuresContent.innerHTML = formattedContent;
+                        featuresModal.classList.add('show');
+                    })
+                    .catch(error => {
+                        featuresContent.textContent = 'Failed to load features. Please try again later.';
+                        featuresModal.classList.add('show');
+                    });
+            }
 
             window.onclick = function(event) {
                 if (event.target == featuresModal) {
@@ -394,14 +393,13 @@
             let isMuted = true;
 
             muteButton.addEventListener('click', () => {
-    if (isMuted) {
-        audio.play();
-    }
-    isMuted = !isMuted;
-    audio.muted = isMuted;
-    muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
-});
-
+                if (isMuted) {
+                    audio.play();
+                }
+                isMuted = !isMuted;
+                audio.muted = isMuted;
+                muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
+            });
         });
     </script>
 </head>
