@@ -340,7 +340,7 @@
             // Corrected View Features Button Event Handler
             document.querySelector('.view-features-button').onclick = function(event) {
                 event.preventDefault();
-                fetch('https://github.com/oggahogga/nxo.lol/raw/main/public/NXO-V5.3-Beta-Features.txt')
+                fetch('https://oggahogga.github.io/nxo.lol/public/NXO-V5.3-Beta-Features.txt')
                     .then(response => response.text())
                     .then(data => {
                         const lines = data.split('\n');
