@@ -340,6 +340,11 @@ form button:hover {
     const closeFeatures = document.getElementById('close-features');
     const featuresContent = document.getElementById('features-content');
 
+    document.addEventListener('DOMContentLoaded', function() {
+    const featuresModal = document.getElementById('features-modal');
+    const closeFeatures = document.getElementById('close-features');
+    const featuresContent = document.getElementById('features-content');
+
     document.querySelector('.view-features-button').onclick = function(event) {
         event.preventDefault();
         fetch('https://github.com/oggahogga/nxo.lol/raw/main/public/NXO-V5.3-Beta-Features.txt')
@@ -351,9 +356,9 @@ form button:hover {
                     if (line.startsWith('#')) {
                         const headerLevel = line.match(/^#+/)[0].length;
                         const headerText = line.replace(/^#+/, '').trim();
-                        formattedContent += <h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>;
+                        formattedContent += `<h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>`;
                     } else {
-                        formattedContent += <div>${line}</div>;
+                        formattedContent += `<div>${line}</div>`;
                     }
                 });
                 featuresContent.innerHTML = formattedContent;
@@ -366,12 +371,6 @@ form button:hover {
     }
 
     window.onclick = function(event) {
-        if (event.target == loginModal) {
-            loginModal.classList.remove('show');
-        }
-        if (event.target == registerModal) {
-            registerModal.classList.remove('show');
-        }
         if (event.target == featuresModal) {
             featuresModal.classList.remove('show');
         }
