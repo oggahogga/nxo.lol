@@ -32,6 +32,15 @@
             --font-family: 'Audiowide', sans-serif;
         }
 
+        /* Hiding scrollbars globally */
+        * {
+            scrollbar-width: none; /* For Firefox */
+        }
+
+        *::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and Edge */
+        }
+
         body {
             font-family: var(--font-family);
             color: var(--text-color);
@@ -112,7 +121,7 @@
 
         nav ul li a:hover, nav ul li button:hover {
             background: var(--primary-color);
-            transform: rotate(3deg) scale(1.15);
+            transform: scale(1.05);
         }
 
         .buttons {
@@ -181,7 +190,7 @@
         }
 
         .feature-box:hover {
-            transform: scale(1.15) rotate(1deg);
+            transform: scale(1.2) rotate(5deg);
             background-color: rgba(36, 36, 36, 0.95);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
         }
@@ -266,16 +275,15 @@
         }
 
         .modal-content::-webkit-scrollbar {
-            width: 8px;
+            display: none;
         }
 
         .modal-content::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
+            display: none;
         }
 
         .modal-content::-webkit-scrollbar-track {
-            background: transparent;
+            display: none;
         }
 
         .close {
@@ -375,9 +383,10 @@
                         const lines = data.split('\n');
                         let formattedContent = '';
                         lines.forEach(line => {
-                            if (line.startsWith('##')) {
-                                const headerText = line.replace('##', '').trim();
-                                formattedContent += `<h2 class="hashtag-line">${headerText}</h2>`;
+                            if (line.startsWith('#')) {
+                                const headerLevel = line.match(/^#+/)[0].length;
+                                const headerText = line.replace(/^#+/, '').trim();
+                                formattedContent += `<h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>`;
                             } else {
                                 formattedContent += `<div>${line}</div>`;
                             }
