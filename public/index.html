@@ -43,179 +43,6 @@
             background-color: var(--bg-color);
         }
 
-        section {
-            padding-bottom: 50px;
-        }
-
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--overlay-color);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        header {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            background: var(--header-bg);
-            backdrop-filter: blur(10px);
-            z-index: 10;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 40px;
-            box-shadow: 0 4px 12px var(--shadow-color);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: flex;
-            align-items: center;
-        }
-
-        nav ul li a, nav ul li button {
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 1.2em;
-            font-weight: 500;
-            padding: 5px 10px;
-            transition: background 0.3s, color 0.3s ease-in-out;
-            border-radius: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        nav ul li a:hover, nav ul li button:hover {
-            background: var(--primary-color);
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .button {
-            padding: 15px 35px;
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.3em;
-            font-weight: 600;
-            transition: background 0.4s, transform 0.4s ease;
-            cursor: pointer;
-            min-width: 250px;
-            height: 60px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            box-sizing: border-box;
-            border: none;
-            box-shadow: none;
-        }
-
-        .button:hover {
-            background-color: var(--primary-color-hover);
-            transform: scale(1.05);
-        }
-
-        .features-container {
-            margin: 100px 50px;
-            text-align: center;
-            z-index: 2;
-            position: relative;
-            animation: fadeInUp 0.8s ease-in-out;
-        }
-
-        .features-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-        }
-
-        .feature-box {
-            background: rgba(28, 28, 28, 0.95);
-            padding: 20px;
-            border-radius: 12px;
-            width: 300px;
-            text-align: left;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            box-shadow: 0 8px 24px var(--shadow-color);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .feature-box:hover {
-            transform: scale(1.05);
-            background-color: rgba(36, 36, 36, 0.95);
-        }
-
-        .feature-box h3 {
-            margin-top: 0;
-            color: var(--primary-color);
-            font-size: 1.5em;
-            transition: color 0.3s ease-in-out;
-        }
-
-        .feature-box p {
-            color: var(--secondary-text-color);
-            margin-bottom: 0;
-            font-size: 1em;
-            transition: color 0.3s ease-in-out;
-        }
-
-        .nxotext {
-            font-family: 'Bungee', sans-serif;
-            font-size: 10em;
-            font-weight: bold;
-            color: transparent;
-            background: linear-gradient(90deg, rgba(48, 14, 199, 0.5), rgba(36, 9, 158, 0.5));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-stroke: 2px rgba(0, 0, 0, 0);
-            z-index: 2;
-            position: relative;
-            animation: fadeIn 1.5s ease-in-out;
-            opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
         .modal {
             display: none;
             position: fixed;
@@ -225,7 +52,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
-            overflow: hidden; /* Disable modal scroll */
+            overflow-y: auto;
             opacity: 0;
             animation: fadeInModal 0.4s ease-in-out forwards;
         }
@@ -239,7 +66,7 @@
             background-color: var(--modal-bg);
             margin: 5% auto;
             padding: 40px;
-            border: none;
+            border: 1px solid #444;
             width: 90%;
             max-width: 600px;
             border-radius: 15px;
@@ -248,27 +75,7 @@
             opacity: 0;
             animation: slideInUp 0.6s ease forwards;
             max-height: 80vh;
-            overflow: hidden; /* Disable modal-content scroll */
-        }
-
-        .modal-content pre {
-            max-height: 60vh;
-            overflow-y: auto; /* Enable pre-content scroll */
-            scrollbar-width: thin; /* Thin scrollbar */
-            scrollbar-color: var(--primary-color) transparent; /* Custom scrollbar color */
-        }
-
-        .modal-content pre::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .modal-content pre::-webkit-scrollbar-track {
-            background: none;
-        }
-
-        .modal-content pre::-webkit-scrollbar-thumb {
-            background-color: var(--primary-color);
-            border-radius: 10px;
+            overflow-y: auto;
         }
 
         .close {
@@ -284,7 +91,26 @@
             color: var(--primary-color);
             cursor: pointer;
         }
-        
+
+        #features-content {
+            max-height: 70vh; /* Limit height of content for scroll */
+            overflow-y: scroll; /* Enable scrolling */
+            scrollbar-width: thin; /* For Firefox */
+            scrollbar-color: var(--primary-color) transparent; /* For Firefox */
+        }
+
+        #features-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #features-content::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color); /* Scrollbar color */
+            border-radius: 4px;
+        }
+
+        #features-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
     </style>
 
     <script>
@@ -293,6 +119,7 @@
             const closeFeatures = document.getElementById('close-features');
             const featuresContent = document.getElementById('features-content');
 
+            // Corrected View Features Button Event Handler
             document.querySelector('.view-features-button').onclick = function(event) {
                 event.preventDefault();
                 fetch('https://oggahogga.github.io/nxo.lol/public/NXO-V5.3-Beta-Features.txt')
@@ -327,19 +154,6 @@
             closeFeatures.onclick = function() {
                 featuresModal.classList.remove('show');
             }
-
-            const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
-            audio.loop = true;
-
-            const muteButton = document.getElementById('mute-button');
-            let isMuted = true;
-
-            muteButton.addEventListener('click', () => {
-                audio.play();
-                isMuted = !isMuted;
-                audio.muted = isMuted;
-                muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
-            });
         });
     </script>
 </head>
@@ -418,7 +232,7 @@
         <div class="modal-content">
             <span class="close" id="close-features">&times;</span>
             <h2>NXO Features</h2>
-            <pre id="features-content" style="color: #dcdcdc; white-space: pre-wrap;"></pre>
+            <pre id="features-content"></pre>
         </div>
     </div>
 </body>
