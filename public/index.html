@@ -339,29 +339,30 @@
 
             // Corrected View Features Button Event Handler
             document.querySelector('.view-features-button').onclick = function(event) {
-                event.preventDefault();
-                fetch('https://oggahogga.github.io/nxo.lol/public/NXO-V5.3-Beta-Features.txt')
-                    .then(response => response.text())
-                    .then(data => {
-                        const lines = data.split('\n');
-                        let formattedContent = '';
-                        lines.forEach(line => {
-                            if (line.startsWith('#')) {
-                                const headerLevel = line.match(/^#+/)[0].length;
-                                const headerText = line.replace(/^#+/, '').trim();
-                                formattedContent += <h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>;
-                            } else {
-                                formattedContent += <div>${line}</div>;
-                            }
-                        });
-                        featuresContent.innerHTML = formattedContent;
-                        featuresModal.classList.add('show');
-                    })
-                    .catch(error => {
-                        featuresContent.textContent = 'Failed to load features. Please try again later.';
-                        featuresModal.classList.add('show');
-                    });
-            }
+    event.preventDefault();
+    fetch('https://oggahogga.github.io/nxo.lol/public/NXO-V5.3-Beta-Features.txt')
+        .then(response => response.text())
+        .then(data => {
+            const lines = data.split('\n');
+            let formattedContent = '';
+            lines.forEach(line => {
+                if (line.startsWith('#')) {
+                    const headerLevel = line.match(/^#+/)[0].length;
+                    const headerText = line.replace(/^#+/, '').trim();
+                    formattedContent += `<h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>`;
+                } else {
+                    formattedContent += `<div>${line}</div>`;
+                }
+            });
+            featuresContent.innerHTML = formattedContent;
+            featuresModal.classList.add('show');
+        })
+        .catch(error => {
+            featuresContent.textContent = 'Failed to load features. Please try again later.';
+            featuresModal.classList.add('show');
+        });
+}
+
 
             window.onclick = function(event) {
                 if (event.target == featuresModal) {
@@ -380,11 +381,14 @@
             let isMuted = true;
 
             muteButton.addEventListener('click', () => {
-                audio.play();
-                isMuted = !isMuted;
-                audio.muted = isMuted;
-                muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
-            });
+    if (isMuted) {
+        audio.play();
+    }
+    isMuted = !isMuted;
+    audio.muted = isMuted;
+    muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
+});
+
         });
     </script>
 </head>
