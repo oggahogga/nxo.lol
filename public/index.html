@@ -215,6 +215,7 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        
         .modal {
             display: none;
             position: fixed;
@@ -224,7 +225,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
-            overflow-y: auto;
+            overflow: hidden; /* Disable modal scroll */
             opacity: 0;
             animation: fadeInModal 0.4s ease-in-out forwards;
         }
@@ -238,7 +239,7 @@
             background-color: var(--modal-bg);
             margin: 5% auto;
             padding: 40px;
-            border: 1px solid #444;
+            border: none;
             width: 90%;
             max-width: 600px;
             border-radius: 15px;
@@ -247,7 +248,27 @@
             opacity: 0;
             animation: slideInUp 0.6s ease forwards;
             max-height: 80vh;
-            overflow-y: auto;
+            overflow: hidden; /* Disable modal-content scroll */
+        }
+
+        .modal-content pre {
+            max-height: 60vh;
+            overflow-y: auto; /* Enable pre-content scroll */
+            scrollbar-width: thin; /* Thin scrollbar */
+            scrollbar-color: var(--primary-color) transparent; /* Custom scrollbar color */
+        }
+
+        .modal-content pre::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-content pre::-webkit-scrollbar-track {
+            background: none;
+        }
+
+        .modal-content pre::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 10px;
         }
 
         .close {
@@ -263,72 +284,7 @@
             color: var(--primary-color);
             cursor: pointer;
         }
-
-        form input {
-            padding: 15px;
-            margin: 15px 0;
-            border: 1px solid #333;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 300px;
-            background-color: #1e1e1e;
-            color: var(--text-color);
-            transition: border-color 0.3s ease-in-out;
-        }
-
-        form input:focus {
-            border-color: var(--primary-color);
-        }
-
-        form button {
-            padding: 15px 35px;
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s ease;
-        }
-
-        form button:hover {
-            background-color: var(--primary-color-hover);
-            transform: scale(1.05);
-        }
-
-        .intro {
-            text-align: center;
-            padding-top: 130px;
-            z-index: 2;
-            position: relative;
-            animation: fadeInDown 0.8s ease-in-out;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInModal {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideInUp {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .hashtag-line {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: var(--text-color);
-        }
+        
     </style>
 
     <script>
@@ -337,7 +293,6 @@
             const closeFeatures = document.getElementById('close-features');
             const featuresContent = document.getElementById('features-content');
 
-            // Corrected View Features Button Event Handler
             document.querySelector('.view-features-button').onclick = function(event) {
                 event.preventDefault();
                 fetch('https://oggahogga.github.io/nxo.lol/public/NXO-V5.3-Beta-Features.txt')
