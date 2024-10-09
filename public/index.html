@@ -4,96 +4,237 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NXO.lol</title>
+    <meta name="title" content="NXO.lol" />
     <meta name="description" content="The only menu you'll ever need." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nxo.lol" />
+    <meta property="og:title" content="NXO.lol" />
+    <meta property="og:description" content="The only menu you'll ever need." />
+    <meta property="og:image" content="https://github.com/oggahogga/nxo.lol/blob/main/public/transparentNXO.png?raw=true" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://nxo.lol" />
+    <meta property="twitter:title" content="NXO.lol" />
+    <meta property="twitter:description" content="The only menu you'll ever need." />
+    <meta property="twitter:image" content="https://github.com/oggahogga/nxo.lol/blob/main/public/transparentNXO.png?raw=true" />
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-color: #3498db;
-            --primary-hover-color: #2980b9;
-            --text-color: #ffffff;
-            --bg-color: #000000;
-            --modal-bg: rgba(0, 0, 0, 0.8);
-            --button-bg: #2ecc71;
-            --button-hover-bg: #27ae60;
+            --primary-color: #300ec7;
+            --primary-color-hover: #24099e;
+            --bg-color: #0b0b0b;
+            --text-color: #e0e0e0;
+            --secondary-text-color: #b3b3b3;
+            --overlay-color: rgba(0, 0, 0, 0.85);
+            --header-bg: rgba(11, 11, 11, 0.9);
+            --modal-bg: #141414;
+            --shadow-color: rgba(0, 0, 0, 0.6);
+            --font-family: 'Audiowide', sans-serif;
+        }
+        * {
+            scrollbar-width: none;
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
         }
 
         body {
-            margin: 0;
-            font-family: 'Bungee', sans-serif;
-            background-color: var(--bg-color);
+            font-family: var(--font-family);
             color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            margin: 0;
+            padding: 0 0 50px 0;
             height: 100vh;
             overflow: hidden;
+            position: relative;
+            background-color: var(--bg-color);
+        }
+
+        section {
+            padding-bottom: 50px;
+        }
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-color);
+            z-index: 1;
+            pointer-events: none;
         }
 
         header {
-            position: absolute;
-            top: 0;
+            position: fixed;
             width: 100%;
+            top: 0;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            z-index: 10;
             display: flex;
             justify-content: space-between;
-            padding: 20px 40px;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
+            align-items: center;
+            padding: 15px 40px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transform: translateY(-100%);
+            animation: slideDown 1.5s ease-in-out forwards;
         }
 
         nav ul {
-            list-style-type: none;
+            list-style: none;
             display: flex;
-            gap: 20px;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
         }
 
         nav ul li {
-            display: inline;
+            display: flex;
+            align-items: center;
         }
 
-        nav ul li a {
+        nav ul li a, nav ul li button {
             color: var(--text-color);
             text-decoration: none;
-            font-size: 1.5em;
+            font-size: 1.2em;
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: background 0.5s, transform 0.5s ease;
+            border-radius: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
         }
 
-        .intro {
-            text-align: center;
-            z-index: 10;
-        }
-
-        .intro h1 {
-            font-size: 8em;
-            color: #3498db;
-            animation: text-glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes text-glow {
-            from { text-shadow: 0 0 20px #3498db, 0 0 30px #3498db, 0 0 40px #3498db; }
-            to { text-shadow: 0 0 40px #2980b9, 0 0 60px #2980b9, 0 0 80px #2980b9; }
+        nav ul li a:hover, nav ul li button:hover {
+            background: var(--primary-color);
+            transform: scale(1.05);
         }
 
         .buttons {
-            margin-top: 40px;
             display: flex;
+            justify-content: center;
             gap: 20px;
+            margin-top: 40px;
         }
 
         .button {
-            padding: 15px 40px;
-            background-color: var(--button-bg);
+            padding: 15px 35px;
+            background-color: var(--primary-color);
             color: var(--text-color);
-            border: none;
-            border-radius: 10px;
-            font-size: 1.5em;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.3em;
+            font-weight: 600;
+            transition: background 0.6s, transform 0.6s ease, box-shadow 0.4s ease;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            min-width: 250px;
+            height: 60px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-sizing: border-box;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
         }
 
         .button:hover {
-            background-color: var(--button-hover-bg);
-            transform: scale(1.1);
+            background-color: var(--primary-color-hover);
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        .features-container {
+            margin: 100px 50px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        .features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .feature-box {
+            background: rgba(28, 28, 28, 0.95);
+            padding: 20px;
+            border-radius: 12px;
+            width: 300px;
+            text-align: left;
+            transition: transform 0.5s ease, background-color 0.5s ease, box-shadow 0.5s;
+            box-shadow: 0 8px 24px var(--shadow-color);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .feature-box:hover {
+            transform: scale(1.05) rotate(2deg);
+            background-color: rgba(36, 36, 36, 0.95);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
+        }
+
+        .feature-box h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.6em;
+            transition: color 0.5s ease-in-out;
+        }
+
+        .feature-box p {
+            color: var(--secondary-text-color);
+            margin-bottom: 0;
+            font-size: 1.05em;
+            transition: color 0.5s ease-in-out;
+        }
+
+        .nxotext {
+            font-family: 'Bungee', sans-serif;
+            font-size: 10em;
+            font-weight: bold;
+            color: transparent;
+            background: linear-gradient(90deg, rgba(48, 14, 199, 0.5), rgba(36, 9, 158, 0.5));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-stroke: 2px rgba(0, 0, 0, 0);
+            z-index: 2;
+            position: relative;
+            opacity: 0;
+            animation: textFadeIn 2.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .modal {
@@ -104,64 +245,183 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--modal-bg);
+            background-color: rgba(0, 0, 0, 0.85);
             overflow-y: auto;
+            opacity: 0;
+            animation: fadeInModal 0.6s ease-in-out forwards;
         }
 
         .modal.show {
             display: block;
+            opacity: 1;
         }
 
         .modal-content {
-            background-color: #1e1e1e;
-            margin: 10% auto;
+            background-color: var(--modal-bg);
+            margin: 5% auto;
             padding: 40px;
-            border-radius: 10px;
-            width: 80%;
+            border: 1px solid #444;
+            width: 90%;
             max-width: 600px;
-            text-align: center;
-            color: var(--text-color);
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+            transform: translateY(-50px);
+            opacity: 0;
+            animation: slideInUp 0.8s ease forwards;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
-        .modal-content h2 {
-            font-size: 2.5em;
+        .modal-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            display: none;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            display: none;
         }
 
         .close {
-            color: #aaa;
+            color: #999;
             float: right;
             font-size: 28px;
             font-weight: bold;
-            cursor: pointer;
+            transition: color 0.4s ease-in-out, transform 0.4s ease;
         }
 
         .close:hover,
         .close:focus {
             color: var(--primary-color);
-            text-decoration: none;
+            transform: rotate(45deg);
             cursor: pointer;
         }
 
+        form input {
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #333;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 300px;
+            background-color: #1e1e1e;
+            color: var(--text-color);
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        form input:focus {
+            border-color: var(--primary-color);
+        }
+
+        form button {
+            padding: 15px 35px;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.5s ease, box-shadow 0.4s;
+        }
+
+        form button:hover {
+            background-color: var(--primary-color-hover);
+            transform: scale(1.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        .intro {
+            text-align: center;
+            padding-top: 130px;
+            z-index: 2;
+            position: relative;
+            animation: fadeInDown 0.8s ease-in-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .hashtag-line {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--text-color);
+        }
     </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('features-modal');
-            const closeModal = document.querySelector('.close');
+            const featuresModal = document.getElementById('features-modal');
+            const closeFeatures = document.getElementById('close-features');
+            const featuresContent = document.getElementById('features-content');
 
-            document.querySelector('.view-features-button').onclick = function() {
-                modal.classList.add('show');
-            }
-
-            closeModal.onclick = function() {
-                modal.classList.remove('show');
+            document.querySelector('.view-features-button').onclick = function(event) {
+                event.preventDefault();
+                fetch('https://oggahogga.github.io/nxo.lol/public/NXO-V5.3-Beta-Features.txt')
+                    .then(response => response.text())
+                    .then(data => {
+                        const lines = data.split('\n');
+                        let formattedContent = '';
+                        lines.forEach(line => {
+                            if (line.startsWith('#')) {
+                                const headerLevel = line.match(/^#+/)[0].length;
+                                const headerText = line.replace(/^#+/, '').trim();
+                                formattedContent += `<h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>`;
+                            } else {
+                                formattedContent += `<div>${line}</div>`;
+                            }
+                        });
+                        featuresContent.innerHTML = formattedContent;
+                        featuresModal.classList.add('show');
+                    })
+                    .catch(error => {
+                        featuresContent.textContent = 'Failed to load features. Please try again later.';
+                        featuresModal.classList.add('show');
+                    });
             }
 
             window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.classList.remove('show');
+                if (event.target == featuresModal) {
+                    featuresModal.classList.remove('show');
                 }
             }
+
+            closeFeatures.onclick = function() {
+                featuresModal.classList.remove('show');
+            }
+
+            const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
+            audio.loop = true;
+
+            const muteButton = document.getElementById('mute-button');
+            let isMuted = true;
+
+            muteButton.addEventListener('click', () => {
+                if (isMuted) {
+                    audio.play();
+                }
+                isMuted = !isMuted;
+                audio.muted = isMuted;
+                muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
+            });
         });
     </script>
 </head>
@@ -170,24 +430,77 @@
         <nav>
             <ul>
                 <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
-                <li><a href="#">Login</a></li>
+                <li><button id="mute-button">Unmute</button></li>
             </ul>
         </nav>
     </header>
-
-    <section class="intro">
-        <h1>NXO</h1>
-        <div class="buttons">
-            <button class="button view-features-button">View Features</button>
-            <a href="https://github.com/NuggetGT/NXO-Mod-Panel" class="button">Download</a>
+    <video autoplay muted loop class="video-background">
+        <source src="https://github.com/oggahogga/nxo.lol/raw/main/public/0826.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay"></div>
+    <section id="home">
+        <div class="intro">
+            <h1 class="nxotext">NXO</h1>
+            <div class="buttons">
+                <button class="button view-features-button">View Features</button>
+                <a class="button download-button" href="https://github.com/NuggetGT/NXO-Mod-Panel">Download</a>
+            </div>
         </div>
     </section>
 
+    <section id="features">
+        <div class="features-container">
+            <h2>Why you should choose us:</h2>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <h3>Undetection</h3>
+                    <p>We try our best to find the best methods that way you don't get banned!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Safety</h3>
+                    <p>We would never rat or add any malicious files to our menus!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Simplicity</h3>
+                    <p>We like to keep our menus clean & simple and only keep what's necessary!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Organization</h3>
+                    <p>We try to keep our menus as organized as possible for easy navigation!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Support</h3>
+                    <p>We will always help you so feel free to ask any questions!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Feedback</h3>
+                    <p>Your voice matters and it can be used to add future mods!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Unique</h3>
+                    <p>We try to not be like others and make unique mods and designs!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Constant Updates</h3>
+                    <p>We try our best to release menu updates asap so you can be the first to have the latest menus!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>Quality Over Quantity</h3>
+                    <p>Say goodbye to those unnecessary useless bs mods, here we only keep what's necessary!</p>
+                </div>
+                <div class="feature-box">
+                    <h3>It's Free!</h3>
+                    <p>Enjoy our services without any cost!</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <div class="modal" id="features-modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" id="close-features">&times;</span>
             <h2>NXO Features</h2>
-            <p>Here you can add the features information...</p>
+            <pre id="features-content" style="color: #dcdcdc; white-space: pre-wrap;"></pre>
         </div>
     </div>
 </body>
