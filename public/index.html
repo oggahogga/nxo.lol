@@ -27,7 +27,7 @@
             --secondary-text-color: #b3b3b3;
             --overlay-color: rgba(0, 0, 0, 0.85);
             --header-bg: rgba(11, 11, 11, 0.9);
-            --modal-bg: #141414;
+            --modal-bg: rgba(20, 20, 20, 0.95);
             --shadow-color: rgba(0, 0, 0, 0.6);
             --font-family: 'Audiowide', sans-serif;
         }
@@ -249,11 +249,13 @@
             overflow-y: auto;
             opacity: 0;
             animation: fadeInModal 0.6s ease-in-out forwards;
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
         .modal.show {
             display: block;
             opacity: 1;
+            transform: scale(1);
         }
 
         .modal-content {
@@ -270,17 +272,10 @@
             animation: slideInUp 0.8s ease forwards;
             max-height: 80vh;
             overflow-y: auto;
+            transition: transform 0.6s ease, opacity 0.6s ease;
         }
 
         .modal-content::-webkit-scrollbar {
-            display: none;
-        }
-
-        .modal-content::-webkit-scrollbar-thumb {
-            display: none;
-        }
-
-        .modal-content::-webkit-scrollbar-track {
             display: none;
         }
 
@@ -364,6 +359,7 @@
             font-size: 1.5em;
             font-weight: bold;
             color: var(--text-color);
+            margin-top: 15px;
         }
     </style>
 
