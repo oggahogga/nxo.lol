@@ -388,94 +388,102 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const profiles = [
-                {
-                    name: 'Nugget',
-                    img: 'https://cdn.discordapp.com/avatars/1117407760313749544/0a1bb6f05ae083009a5783ad8251fef8.webp?size=160',
-                    modalId: 'nugget-modal'
-                },
-                {
-                    name: 'ogga hogga',
-                    img: 'https://cdn.discordapp.com/avatars/1122344391445590106/ca4f54c52535499322a3829f20166315.webp?size=160',
-                    modalId: 'ogga-modal'
-                }
-            ];
+    const profiles = [
+        {
+            name: 'Nugget',
+            img: 'https://cdn.discordapp.com/avatars/1117407760313749544/0a1bb6f05ae083009a5783ad8251fef8.webp?size=160',
+            modalId: 'nugget-modal'
+        },
+        {
+            name: 'ogga hogga',
+            img: 'https://cdn.discordapp.com/avatars/1122344391445590106/ca4f54c52535499322a3829f20166315.webp?size=160',
+            modalId: 'ogga-modal'
+        }
+    ];
 
-            profiles.forEach(profile => {
-                const profileLink = document.querySelector(.profile[data-name="${profile.name}"]);
-                const modal = document.getElementById(profile.modalId);
-                const closeModalButton = modal.querySelector('.close');
+    profiles.forEach(profile => {
+        // Select the profile link based on the name
+        const profileLink = document.querySelector(`.profile[data-name="${profile.name}"]`);
+        const modal = document.getElementById(profile.modalId);
+        const closeModalButton = modal.querySelector('.close');
 
-                profileLink.onclick = function(event) {
-                    event.preventDefault();
-                    modal.classList.add('show');
-                };
+        // Add click event to open the modal
+        profileLink.onclick = function(event) {
+            event.preventDefault();
+            modal.classList.add('show');
+        };
 
-                closeModalButton.onclick = function() {
-                    modal.classList.remove('show');
-                };
+        // Add click event to close the modal
+        closeModalButton.onclick = function() {
+            modal.classList.remove('show');
+        };
 
-                window.onclick = function(event) {
-                    if (event.target == modal) {
-                        modal.classList.remove('show');
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.classList.remove('show');
+            }
+        };
+    });
+
+    const featuresModal = document.getElementById('features-modal');
+    const closeFeatures = document.getElementById('close-features');
+    const featuresContent = document.getElementById('features-content');
+
+    // Fetch and display features in the modal
+    document.querySelector('.view-features-button').onclick = function(event) {
+        event.preventDefault();
+        fetch('https://oggahogga.github.io/nxo.lol/public/NXO-V5.3-Beta-Features.txt')
+            .then(response => response.text())
+            .then(data => {
+                const lines = data.split('\n');
+                let formattedContent = '';
+                lines.forEach(line => {
+                    if (line.startsWith('#')) {
+                        const headerLevel = line.match(/^#+/)[0].length;
+                        const headerText = line.replace(/^#+/, '').trim();
+                        formattedContent += `<h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>`;
+                    } else {
+                        formattedContent += `<div>${line}</div>`;
                     }
-                };
+                });
+                featuresContent.innerHTML = formattedContent;
+                featuresModal.classList.add('show');
+            })
+            .catch(error => {
+                featuresContent.textContent = 'Failed to load features. Please try again later.';
+                featuresModal.classList.add('show');
             });
+    };
 
-            const featuresModal = document.getElementById('features-modal');
-            const closeFeatures = document.getElementById('close-features');
-            const featuresContent = document.getElementById('features-content');
+    // Close the features modal if clicked outside
+    window.onclick = function(event) {
+        if (event.target == featuresModal) {
+            featuresModal.classList.remove('show');
+        }
+    };
 
-            document.querySelector('.view-features-button').onclick = function(event) {
-                event.preventDefault();
-                fetch('https://oggahogga.github.io/nxo.lol/public/NXO-V5.3-Beta-Features.txt')
-                    .then(response => response.text())
-                    .then(data => {
-                        const lines = data.split('\n');
-                        let formattedContent = '';
-                        lines.forEach(line => {
-                            if (line.startsWith('#')) {
-                                const headerLevel = line.match(/^#+/)[0].length;
-                                const headerText = line.replace(/^#+/, '').trim();
-                                formattedContent += <h${headerLevel} class="hashtag-line">${headerText}</h${headerLevel}>;
-                            } else {
-                                formattedContent += <div>${line}</div>;
-                            }
-                        });
-                        featuresContent.innerHTML = formattedContent;
-                        featuresModal.classList.add('show');
-                    })
-                    .catch(error => {
-                        featuresContent.textContent = 'Failed to load features. Please try again later.';
-                        featuresModal.classList.add('show');
-                    });
-            }
+    closeFeatures.onclick = function() {
+        featuresModal.classList.remove('show');
+    };
 
-            window.onclick = function(event) {
-                if (event.target == featuresModal) {
-                    featuresModal.classList.remove('show');
-                }
-            }
+    // Audio handling for mute/unmute
+    const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
+    audio.loop = true;
 
-            closeFeatures.onclick = function() {
-                featuresModal.classList.remove('show');
-            }
+    const muteButton = document.getElementById('mute-button');
+    let isMuted = true;
 
-            const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
-            audio.loop = true;
+    muteButton.addEventListener('click', () => {
+        if (isMuted) {
+            audio.play();
+        }
+        isMuted = !isMuted;
+        audio.muted = isMuted;
+        muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
+    });
+});
 
-            const muteButton = document.getElementById('mute-button');
-            let isMuted = true;
-
-            muteButton.addEventListener('click', () => {
-                if (isMuted) {
-                    audio.play();
-                }
-                isMuted = !isMuted;
-                audio.muted = isMuted;
-                muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
-            });
-        });
     </script>
 </head>
 <body>
