@@ -43,10 +43,9 @@
             font-family: var(--font-family);
             color: var(--text-color);
             margin: 0;
-            padding: 0 0 50px 0;
+            padding: 0;
             height: 100vh;
-            overflow: hidden;
-            position: relative;
+            overflow: auto;
             background-color: var(--bg-color);
         }
 
@@ -83,12 +82,10 @@
             backdrop-filter: blur(10px);
             z-index: 10;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             padding: 15px 40px;
             box-shadow: 0 4px 12px var(--shadow-color);
-            transform: translateY(-100%);
-            animation: slideDown 1.5s ease-in-out forwards;
         }
 
         nav ul {
@@ -97,9 +94,6 @@
             gap: 30px;
             margin: 0;
             padding: 0;
-            position: absolute;
-            top: 15px;
-            right: 40px;
         }
 
         nav ul li {
@@ -291,7 +285,7 @@
                 const profileLink = document.querySelector(`.profile[data-name="${profile.name}"]`);
                 profileLink.onclick = function(event) {
                     event.preventDefault();
-                    window.location.href = `#${profile.page}`;
+                    document.querySelector(`#${profile.page}`).scrollIntoView({ behavior: 'smooth' });
                 };
             });
 
@@ -442,7 +436,7 @@
         <div class="features-container">
             <div style="background: url('https://cdn.discordapp.com/avatars/1117407760313749544/0a1bb6f05ae083009a5783ad8251fef8.webp?size=160') center center / cover; filter: blur(10px); height: 200px; width: 100%;"></div>
             <h2>Nugget's Bio</h2>
-            <h3># Nugget</h3>
+            <h3>Nugget</h3>
             <p><strong>This is Nugget's bio</strong></p>
             <p><em>italicized text</em></p>
         </div>
@@ -452,7 +446,7 @@
         <div class="features-container">
             <div style="background: url('https://cdn.discordapp.com/avatars/1122344391445590106/ca4f54c52535499322a3829f20166315.webp?size=160') center center / cover; filter: blur(10px); height: 200px; width: 100%;"></div>
             <h2>ogga hogga's Bio</h2>
-            <h3># ogga hogga</h3>
+            <h3>ogga hogga</h3>
             <p><strong>This is ogga hogga's bio</strong></p>
             <p><em>italicized text</em></p>
         </div>
