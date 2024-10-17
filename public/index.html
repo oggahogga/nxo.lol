@@ -43,9 +43,10 @@
             font-family: var(--font-family);
             color: var(--text-color);
             margin: 0;
-            padding: 0;
+            padding: 0 0 50px 0;
             height: 100vh;
-            overflow: auto;
+            overflow: hidden;
+            position: relative;
             background-color: var(--bg-color);
         }
 
@@ -82,10 +83,12 @@
             backdrop-filter: blur(10px);
             z-index: 10;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
             padding: 15px 40px;
             box-shadow: 0 4px 12px var(--shadow-color);
+            transform: translateY(-100%);
+            animation: slideDown 1.5s ease-in-out forwards;
         }
 
         nav ul {
@@ -258,6 +261,124 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 20;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            overflow-y: auto;
+            opacity: 0;
+            animation: fadeInModal 0.6s ease-in-out forwards;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .modal.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .modal-content {
+            background-color: var(--modal-bg);
+            margin: 5% auto;
+            padding: 40px;
+            border: 1px solid #444;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+            transform: translateY(-50px);
+            opacity: 0;
+            animation: slideInUp 0.8s ease forwards;
+            max-height: 80vh;
+            overflow-y: auto;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .close {
+            color: #999;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            transition: color 0.4s ease-in-out, transform 0.4s ease;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--primary-color);
+            transform: rotate(45deg);
+            cursor: pointer;
+        }
+
+        form input {
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #333;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 300px;
+            background-color: #1e1e1e;
+            color: var(--text-color);
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        form input:focus {
+            border-color: var(--primary-color);
+        }
+
+        form button {
+            padding: 15px 35px;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.5s ease, box-shadow 0.4s;
+        }
+
+        form button:hover {
+            background-color: var(--primary-color-hover);
+            transform: scale(1.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        .intro {
+            text-align: center;
+            padding-top: 130px;
+            z-index: 2;
+            position: relative;
+            animation: fadeInDown 0.8s ease-in-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
         .hashtag-line {
             font-size: 1.5em;
             font-weight: bold;
@@ -272,20 +393,33 @@
                 {
                     name: 'Nugget',
                     img: 'https://cdn.discordapp.com/avatars/1117407760313749544/0a1bb6f05ae083009a5783ad8251fef8.webp?size=160',
-                    page: 'nugget-bio'
+                    modalId: 'nugget-modal'
                 },
                 {
                     name: 'ogga hogga',
                     img: 'https://cdn.discordapp.com/avatars/1122344391445590106/ca4f54c52535499322a3829f20166315.webp?size=160',
-                    page: 'ogga-hogga-bio'
+                    modalId: 'ogga-modal'
                 }
             ];
 
             profiles.forEach(profile => {
                 const profileLink = document.querySelector(`.profile[data-name="${profile.name}"]`);
+                const modal = document.getElementById(profile.modalId);
+                const closeModalButton = modal.querySelector('.close');
+
                 profileLink.onclick = function(event) {
                     event.preventDefault();
-                    document.querySelector(`#${profile.page}`).scrollIntoView({ behavior: 'smooth' });
+                    modal.classList.add('show');
+                };
+
+                closeModalButton.onclick = function() {
+                    modal.classList.remove('show');
+                };
+
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.classList.remove('show');
+                    }
                 };
             });
 
@@ -432,24 +566,26 @@
         </div>
     </div>
 
-    <section id="nugget-bio">
-        <div class="features-container">
+    <div class="modal" id="nugget-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
             <div style="background: url('https://cdn.discordapp.com/avatars/1117407760313749544/0a1bb6f05ae083009a5783ad8251fef8.webp?size=160') center center / cover; filter: blur(10px); height: 200px; width: 100%;"></div>
             <h2>Nugget's Bio</h2>
-            <h3>Nugget</h3>
-            <p><strong>This is Nugget's bio</strong></p>
-            <p><em>italicized text</em></p>
+            <pre style="color: #dcdcdc; white-space: pre-wrap;"># Nugget
+**This is Nugget's bio**
+*italicized text*</pre>
         </div>
-    </section>
+    </div>
 
-    <section id="ogga-hogga-bio">
-        <div class="features-container">
+    <div class="modal" id="ogga-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
             <div style="background: url('https://cdn.discordapp.com/avatars/1122344391445590106/ca4f54c52535499322a3829f20166315.webp?size=160') center center / cover; filter: blur(10px); height: 200px; width: 100%;"></div>
             <h2>ogga hogga's Bio</h2>
-            <h3>ogga hogga</h3>
-            <p><strong>This is ogga hogga's bio</strong></p>
-            <p><em>italicized text</em></p>
+            <pre style="color: #dcdcdc; white-space: pre-wrap;"># ogga hogga
+**This is ogga hogga's bio**
+*italicized text*</pre>
         </div>
-    </section>
+    </div>
 </body>
 </html>
