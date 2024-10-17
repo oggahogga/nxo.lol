@@ -122,6 +122,30 @@
             transform: scale(1.05);
         }
 
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: transform 0.4s ease;
+        }
+
+        .profile:hover img {
+            transform: scale(1.1);
+        }
+
+        .profile-name {
+            font-size: 1.2em;
+            color: var(--text-color);
+        }
+
         .buttons {
             display: flex;
             justify-content: center;
@@ -365,6 +389,40 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const profiles = [
+                {
+                    name: 'Nugget',
+                    img: 'https://cdn.discordapp.com/avatars/1117407760313749544/0a1bb6f05ae083009a5783ad8251fef8.webp?size=160',
+                    modalId: 'nugget-modal'
+                },
+                {
+                    name: 'ogga hogga',
+                    img: 'https://cdn.discordapp.com/avatars/1122344391445590106/ca4f54c52535499322a3829f20166315.webp?size=160',
+                    modalId: 'ogga-modal'
+                }
+            ];
+
+            profiles.forEach(profile => {
+                const profileLink = document.querySelector(`.profile[data-name="${profile.name}"]`);
+                const modal = document.getElementById(profile.modalId);
+                const closeModalButton = modal.querySelector('.close');
+
+                profileLink.onclick = function(event) {
+                    event.preventDefault();
+                    modal.classList.add('show');
+                };
+
+                closeModalButton.onclick = function() {
+                    modal.classList.remove('show');
+                };
+
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.classList.remove('show');
+                    }
+                };
+            });
+
             const featuresModal = document.getElementById('features-modal');
             const closeFeatures = document.getElementById('close-features');
             const featuresContent = document.getElementById('features-content');
@@ -427,6 +485,14 @@
             <ul>
                 <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
                 <li><button id="mute-button">Unmute</button></li>
+                <li><a href="#" class="profile" data-name="Nugget">
+                    <img src="https://cdn.discordapp.com/avatars/1117407760313749544/0a1bb6f05ae083009a5783ad8251fef8.webp?size=160" alt="Nugget">
+                    <span class="profile-name">Nugget</span>
+                </a></li>
+                <li><a href="#" class="profile" data-name="ogga hogga">
+                    <img src="https://cdn.discordapp.com/avatars/1122344391445590106/ca4f54c52535499322a3829f20166315.webp?size=160" alt="ogga hogga">
+                    <span class="profile-name">ogga hogga</span>
+                </a></li>
             </ul>
         </nav>
     </header>
@@ -497,6 +563,28 @@
             <span class="close" id="close-features">&times;</span>
             <h2>NXO Features</h2>
             <pre id="features-content" style="color: #dcdcdc; white-space: pre-wrap;"></pre>
+        </div>
+    </div>
+
+    <div class="modal" id="nugget-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div style="background: url('https://cdn.discordapp.com/avatars/1117407760313749544/0a1bb6f05ae083009a5783ad8251fef8.webp?size=160') center center / cover; filter: blur(10px); height: 200px; width: 100%;"></div>
+            <h2>Nugget's Bio</h2>
+            <pre style="color: #dcdcdc; white-space: pre-wrap;"># Nugget
+**This is Nugget's bio**
+*italicized text*</pre>
+        </div>
+    </div>
+
+    <div class="modal" id="ogga-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div style="background: url('https://cdn.discordapp.com/avatars/1122344391445590106/ca4f54c52535499322a3829f20166315.webp?size=160') center center / cover; filter: blur(10px); height: 200px; width: 100%;"></div>
+            <h2>ogga hogga's Bio</h2>
+            <pre style="color: #dcdcdc; white-space: pre-wrap;"># ogga hogga
+**This is ogga hogga's bio**
+*italicized text*</pre>
         </div>
     </div>
 </body>
