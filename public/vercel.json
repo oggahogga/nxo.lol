@@ -14,11 +14,11 @@
     },
     {
       "source": "/api/auth",
-      "destination": "/api/auth.js"
+      "destination": "/api/auth"
     },
     {
       "source": "/api/unity",
-      "destination": "/api/unity.js"
+      "destination": "/api/unity"
     }
   ]
 }
