@@ -197,23 +197,36 @@
             });
         });
 
-        function checkPassword() {
+       function checkPassword() {
             const password = document.getElementById('password').value;
-            fetch('/api/auth', {
+            if (!password) {
+                alert('Please enter a password');
+                return;
+            }
+        
+            fetch('/api/auth', {  // This should work fine now
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ password })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     document.getElementById('login').style.display = 'none';
                     document.getElementById('panel').classList.add('active');
                 } else {
-                    alert('Incorrect password');
+                    alert(data.error || 'Incorrect password');
                 }
             })
-            .catch(() => alert('Error during login'));
+            .catch(error => {
+                console.error('Login error:', error);
+                alert(`Login failed: ${error.message}`);
+            });
         }
 
         function sendToUnity() {
