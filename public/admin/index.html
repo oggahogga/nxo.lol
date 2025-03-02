@@ -169,9 +169,7 @@
         </div>
     </div>
     <script>
-        // Hardcoded password (replace with your secret; not secure for production)
-        const PASSWORD = 'supersecret123'; // Ideally fetched from a secure source
-        let messages = []; // Client-side storage (won't persist or sync with Unity)
+        let messages = []; // Client-side storage
 
         document.addEventListener('DOMContentLoaded', () => {
             const cursor = document.createElement('div');
@@ -199,6 +197,17 @@
                 el.addEventListener('touchstart', () => cursor.classList.add('hover'), { passive: true });
                 el.addEventListener('touchend', () => cursor.classList.remove('hover'), { passive: true });
             });
+
+            // Fetch password on load
+            fetch('/api/test')
+                .then(response => response.json())
+                .then(data => {
+                    window.PASSWORD = data.key; // Store password globally
+                })
+                .catch(() => {
+                    window.PASSWORD = 'supersecret123'; // Fallback
+                    console.error('Failed to fetch password, using fallback');
+                });
         });
 
         function checkPassword() {
@@ -207,7 +216,7 @@
                 alert('Please enter a password');
                 return;
             }
-            if (password === PASSWORD) {
+            if (password === window.PASSWORD) {
                 document.getElementById('login').style.display = 'none';
                 document.getElementById('panel').classList.add('active');
             } else {
@@ -224,10 +233,8 @@
             messages.push({ message, timestamp: new Date().toISOString() });
             alert('Message stored locally: ' + message);
             document.getElementById('message').value = '';
-            // Note: This doesn’t send to Unity without a server
         }
 
-        // Test endpoint simulation (for debugging)
         function testEndpoint() {
             alert('Test endpoint triggered. Stored messages: ' + JSON.stringify(messages));
         }
