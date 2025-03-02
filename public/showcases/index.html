@@ -43,8 +43,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             position: relative;
+            padding-top: 60px;
         }
         .cursor {
             width: 10px;
@@ -63,7 +63,7 @@
             height: 100%;
             object-fit: cover;
             z-index: -1;
-            filter: brightness(0.5);
+            filter: brightness(0.3);
             animation: darkPulse 12s ease-in-out infinite;
         }
         @keyframes darkPulse {
@@ -73,20 +73,24 @@
         .showcases-container {
             text-align: center;
             z-index: 1;
-            padding: 40px 20px;
+            padding: 20px;
         }
         h1 {
             font-size: clamp(2em, 8vw, 4em);
             color: var(--primary-color);
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             animation: fadeIn 1s ease-out;
         }
         .showcases-list {
             list-style: none;
             padding: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         .showcases-list li {
-            margin: 20px 0;
             opacity: 0;
             animation: slideUp 0.5s ease-out forwards;
         }
@@ -99,10 +103,17 @@
             text-decoration: none;
             font-size: 1.2em;
             transition: all 0.3s ease;
+            display: block;
         }
         .showcases-list a:hover {
             color: var(--primary-color);
             text-shadow: 0 0 10px rgba(142, 68, 173, 0.7);
+        }
+        .showcases-list img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -114,8 +125,11 @@
         }
         @media (max-width: 768px) {
             h1 { font-size: clamp(1.5em, 6vw, 2.5em); }
+            .showcases-list { grid-template-columns: repeat(2, 1fr); }
             .showcases-list a { font-size: 1em; }
-            .showcases-container { padding: 20px 10px; }
+        }
+        @media (max-width: 480px) {
+            .showcases-list { grid-template-columns: 1fr; }
         }
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
@@ -145,7 +159,16 @@
             showcasesList.innerHTML = lines.map(line => {
                 const [name, ...urlParts] = line.split(':');
                 const url = urlParts.join(':');
-                return `<li><a href="${url}" target="_blank">${name}</a></li>`;
+                const videoId = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/)?.[1];
+                const thumbnail = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : '';
+                return `
+                    <li>
+                        <a href="${url}" target="_blank">
+                            <img src="${thumbnail}" alt="${name} thumbnail">
+                            ${name}
+                        </a>
+                    </li>
+                `;
             }).join('');
         });
     </script>
