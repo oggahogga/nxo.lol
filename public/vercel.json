@@ -13,12 +13,8 @@
       "destination": "/admin/index.html"
     },
     {
-      "source": "/api/auth",
-      "destination": "/api/auth"
-    },
-    {
-      "source": "/api/unity",
-      "destination": "/api/unity"
+      "source": "/api/test",
+      "destination": "/api/test"
     }
   ]
 }
