@@ -11,6 +11,14 @@
     {
       "source": "/admin",
       "destination": "/admin/index.html"
+    },
+    {
+      "source": "/api/auth",
+      "destination": "/api/auth.js"
+    },
+    {
+      "source": "/api/unity",
+      "destination": "/api/unity.js"
     }
   ]
 }
