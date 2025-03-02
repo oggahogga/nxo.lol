@@ -30,6 +30,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none; /* Hide default cursor */
         }
         *::-webkit-scrollbar {
             display: none;
@@ -44,6 +45,15 @@
             align-items: center;
             justify-content: center;
             position: relative;
+        }
+        .cursor {
+            width: 10px;
+            height: 10px;
+            background: #ff69b4;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
         }
         .video-background {
             position: fixed;
@@ -111,22 +121,9 @@
             * { animation: none !important; transition: none !important; }
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const showcasesList = document.getElementById('showcases-list');
-            data = 'LuminousGT:https://www.youtube.com/watch?v=bM0nAU8Z0M4' 
-            {
-                    const lines = data.trim().split('\n');
-                    showcasesList.innerHTML = lines.map(line => {
-                        const [name, url] = line.split(':');
-                        return `<li><a href="${url}" target="_blank">${name}</a></li>`;
-                    }).join('');
-                })
-                .catch(() => showcasesList.innerHTML = '<li>Failed to load showcases.</li>');
-        });
-    </script>
 </head>
 <body>
+    <div class="cursor" id="cursor"></div>
     <video autoplay muted loop class="video-background">
         <source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0wp3S1XhRInFcUc3IB40F8-dM5BcNJ0iF4bChnwM98~0NtNhVsFZj1rTy-ZTnaQakihUNrFygFVQiP3tIGmvvu~I73-wyHL15HIBgnf9lmrWKcXwpNqjhzKTRofoorHuZjEVNoCHu7pevi8USTv1UMPK5Z58yw0m60KnWtuyg2KN1mvVxx5FD~NXeqh1HFeThcbWnojwJ~OI-Ojepz~eXlHS2wfB-Go7nli3Tw4EA__" type="video/mp4">
     </video>
@@ -134,5 +131,24 @@
         <h1>Showcases</h1>
         <ul id="showcases-list" class="showcases-list"></ul>
     </div>
+    <script>
+        // Cursor movement
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.pageX + 'px';
+            cursor.style.top = e.pageY + 'px';
+        });
+
+        // Showcase list
+        document.addEventListener('DOMContentLoaded', () => {
+            const showcasesList = document.getElementById('showcases-list');
+            const data = 'LuminousGT:https://www.youtube.com/watch?v=bM0nAU8Z0M4'; // Fixed syntax
+            const lines = data.trim().split('\n');
+            showcasesList.innerHTML = lines.map(line => {
+                const [name, url] = line.split(':');
+                return `<li><a href="${url}" target="_blank">${name}</a></li>`;
+            }).join('');
+        });
+    </script>
 </body>
 </html>
