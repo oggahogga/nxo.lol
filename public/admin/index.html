@@ -169,6 +169,7 @@
         </div>
     </div>
     <script>
+        const PASSWORD = "__VERCEL_ENV_PASSWORD__"; // Placeholder, replaced at build time
         let messages = []; // Client-side storage
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -197,17 +198,6 @@
                 el.addEventListener('touchstart', () => cursor.classList.add('hover'), { passive: true });
                 el.addEventListener('touchend', () => cursor.classList.remove('hover'), { passive: true });
             });
-
-            // Fetch password on load
-            fetch('/api/test.js')
-                .then(response => response.json())
-                .then(data => {
-                    window.PASSWORD = data.key; // Store password globally
-                })
-                .catch(() => {
-                    window.PASSWORD = process.env.ADMIN_PASSWORD1 || process.env.ADMIN_PASSWORD2 // Fallback
-                    console.error('Failed to fetch password, using fallback');
-                });
         });
 
         function checkPassword() {
@@ -216,7 +206,7 @@
                 alert('Please enter a password');
                 return;
             }
-            if (password === window.PASSWORD) {
+            if (password === PASSWORD) {
                 document.getElementById('login').style.display = 'none';
                 document.getElementById('panel').classList.add('active');
             } else {
