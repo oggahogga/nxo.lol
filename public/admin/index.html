@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Same head content as before -->
+</head>
+<body>
+    <div class="logo">
+        <a href="https://nxo.lol">nxo.lol</a>
+    </div>
+    <video autoplay muted loop class="video-background">
+        <source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0wp3S1XhRInFcUc3IB40F8-dM5BcNJ0iF4bChnwM98~0NtNhVsFZj1rTy-ZTnaQakihUNrFygFVQiP3tIGmvvu~I73-wyHL15HIBgnf9lmrWKcXwpNqjhzKTRofoorHuZjEVNoCHu7pevi8USTv1UMPK5Z58yw0m60KnWtuyg2KN1mvVxx5FD~NXeqh1HFeThcbWnojwJ~OI-Ojepz~eXlHS2wfB-Go7nli3Tw4EA__" type="video/mp4">
+    </video>
+    <div class="admin-container">
+        <h1>Admin Panel</h1>
+        <div id="login">
+            <input type="password" id="password" placeholder="Enter Password">
+            <button onclick="checkPassword()">Login</button>
+        </div>
+        <div id="panel" class="panel">
+            <textarea id="message" placeholder="Enter message to send to Unity"></textarea>
+            <button onclick="sendToUnity()">Send to Unity</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Same cursor logic as before
+            const cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            let cursorX = -100, cursorY = -100;
+            function updateCursor(x, y) {
+                cursorX = x - 8;
+                cursorY = y - 8;
+                cursor.style.left = `${cursorX}px`;
+                cursor.style.top = `${cursorY}px`;
+            }
+
+            document.addEventListener('mousemove', e => updateCursor(e.clientX, e.clientY));
+            document.addEventListener('touchmove', e => {
+                const touch = e.touches[0];
+                updateCursor(touch.clientX, touch.clientY);
+            }, { passive: true });
+
+            const hoverElements = document.querySelectorAll('a, button');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                el.addEventListener('touchstart', () => cursor.classList.add('hover'), { passive: true });
+                el.addEventListener('touchend', () => cursor.classList.remove('hover'), { passive: true });
+            });
+        });
+
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            fetch('/api/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('login').style.display = 'none';
+                    document.getElementById('panel').classList.add('active');
+                } else {
+                    alert('Incorrect password');
+                }
+            })
+            .catch(() => alert('Error during login'));
+        }
+
+        function sendToUnity() {
+            const message = document.getElementById('message').value;
+            if (!message) {
+                alert('Please enter a message');
+                return;
+            }
+
+            fetch('/api/unity', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message, timestamp: new Date().toISOString() })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Message sent to Unity');
+                    document.getElementById('message').value = '';
+                } else {
+                    alert('Failed to send message');
+                }
+            })
+            .catch(() => alert('Error sending message'));
+        }
+    </script>
+</body>
+</html>
