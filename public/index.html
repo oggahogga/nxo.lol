@@ -19,17 +19,18 @@
     <style>
         :root{--primary-color:#8e44ad;--primary-color-hover:#2c3e50;--bg-color:#0a0a0a;--text-color:#e6f0ff;--secondary-text-color:#b0c4de;--overlay-color:rgba(0,0,0,0.8);--header-bg:rgba(10,10,10,0.9);--modal-bg:rgba(15,15,20,0.95);--shadow-color:rgba(0,0,0,0.5);--font-family:'Bungee',sans-serif}
         *{scrollbar-width:none;margin:0;padding:0;box-sizing:border-box}*::-webkit-scrollbar{display:none}
-        body{font-family:var(--font-family);color:var(--text-color);background:var(--bg-color);height:100vh;overflow:hidden;position:relative}
+        body{font-family:var(--font-family);color:var(--text-color);background:var(--bg-color);height:100vh;overflow-x:hidden;position:relative}
         .video-background{position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1;filter:brightness(0.8)}
         .overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--overlay-color);z-index:1;pointer-events:none}
         header{position:fixed;width:100%;top:0;background:var(--header-bg);backdrop-filter:blur(15px);z-index:10;padding:15px 40px;box-shadow:0 4px 15px var(--shadow-color);animation:slideDown 1s ease-in-out}
-        nav ul{list-style:none;display:flex;justify-content:center;gap:30px}
+        nav ul{list-style:none;display:flex;justify-content:center;gap:30px;align-items:center}
         nav ul li a,nav ul li button{color:var(--text-color);text-decoration:none;font-size:1.2em;padding:8px 15px;transition:.3s ease;background:none;border:none;cursor:pointer;font-family:var(--font-family)}
+        nav ul li button{min-width:100px;text-align:center}
         nav ul li a:hover,nav ul li button:hover{background:var(--primary-color);border-radius:5px;transform:translateY(-2px);box-shadow:0 0 10px var(--primary-color)}
         .intro{text-align:center;padding-top:150px;z-index:2;position:relative;animation:fadeInDown 1s ease-in-out}
         .nxotext{font-size:12em;color:transparent;background:linear-gradient(90deg,var(--primary-color),#2c3e50);background-clip:text;-webkit-background-clip:text;animation:textFadeIn 2s ease-in-out}
         .buttons{display:flex;justify-content:center;gap:25px;margin-top:50px}
-        .button{padding:15px 40px;background:var(--primary-color);color:var(--text-color);text-decoration:none;border-radius:8px;font-size:1.4em;transition:.4s ease;cursor:pointer;min-width:200px;box-shadow:0 5px 15px var(--shadow-color);font-family:var(--font-family)}
+        .button{padding:15px 0;background:var(--primary-color);color:var(--text-color);text-decoration:none;border-radius:8px;font-size:1.4em;transition:.4s ease;cursor:pointer;width:220px;text-align:center;box-shadow:0 5px 15px var(--shadow-color);font-family:var(--font-family)}
         .button:hover{background:var(--primary-color-hover);transform:translateY(-5px) scale(1.05);box-shadow:0 8px 20px var(--shadow-color),0 0 15px var(--primary-color)}
         .features-container{margin:120px 50px;text-align:center;z-index:2;position:relative;animation:fadeInUp 1s ease-in-out}
         .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;padding:20px}
@@ -37,7 +38,7 @@
         .feature-box:hover{transform:translateY(-5px) scale(1.02);background:rgba(30,30,35,0.9);box-shadow:0 8px 20px var(--shadow-color),0 0 15px var(--primary-color)}
         .feature-box h3{color:var(--primary-color);font-size:1.5em}
         .feature-box p{color:var(--secondary-text-color);font-size:1em}
-        .modal{display:none;position:fixed;z-index:20;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.9);overflow-y:auto;opacity:0}.modal.show{display:block;animation:fadeInModal .5s ease-in-out forwards}
+        .modal{display:none;position:fixed;z-index:20;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.9);overflow-y:auto}.modal.show{display:block;animation:fadeInModal .5s ease-in-out forwards}
         .modal-content{background:var(--modal-bg);margin:10% auto;padding:30px;width:90%;max-width:700px;border-radius:12px;box-shadow:0 5px 20px var(--shadow-color);animation:slideInUp .6s ease}
         .close{color:#aaa;float:right;font-size:30px;cursor:pointer;transition:.3s ease}.close:hover{color:var(--primary-color);transform:rotate(90deg)}
         #features-content{font-family:monospace;font-size:1.1em;line-height:1.5;color:var(--text-color);background:rgba(0,0,0,0.2);padding:15px;border-radius:5px;max-height:60vh;overflow-y:auto;white-space:pre-wrap;animation:fadeIn .5s ease-in-out}
@@ -56,7 +57,7 @@
 </head>
 <body>
     <header><nav><ul><li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li><li><button id="mute-button">Unmute</button></li></ul></nav></header>
-    <video autoplay muted loop class="video-background"><source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0wp3S1XhRInFcUc3IB40F8-dM5BcNJ0iF4bChnwM98~0NtNhVsFZj1rTy-ZTnaQakihUNrFygFVQiP3tIGmvvu~I73-wyHL15HIBgnf9lmrWKcXwpNqjhzKTRofoorHuZjEVNoCHu7pevi8USTv1UMPK5Z58yw0m60KnWtuyg2KN1mvVxx5FD~NXeqh1HFeThcbWnojwJ~OI-Ojepz~eXlHS2wfB-Go7nli3Tw4EA__" type="video/mp4"></video>
+    <video autoplay muted loop class="video-background"><source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0w" type="video/mp4"></video>
     <div class="overlay"></div>
     <section id="home"><div class="intro"><h1 class="nxotext">NXO</h1><div class="buttons"><button class="button view-features-button">View Features</button><a class="button download-button" href="https://github.com/NuggetGT/NXO-Mod-Panel">Download</a></div></div></section>
     <section id="features"><div class="features-container"><h2>Why Choose Us:</h2><div class="features-grid"><div class="feature-box"><h3>Undetection</h3><p>Best methods to avoid bans.</p></div><div class="feature-box"><h3>Safety</h3><p>No malicious files ever.</p></div><div class="feature-box"><h3>Simplicity</h3><p>Clean and necessary only.</p></div><div class="feature-box"><h3>Organization</h3><p>Easy navigation.</p></div><div class="feature-box"><h3>Support</h3><p>Always here to help.</p></div><div class="feature-box"><h3>Feedback</h3><p>Your voice shapes mods.</p></div><div class="feature-box"><h3>Unique</h3><p>Standout mods and designs.</p></div><div class="feature-box"><h3>Constant Updates</h3><p>Fresh menus fast.</p></div><div class="feature-box"><h3>Quality Over Quantity</h3><p>Only the essentials.</p></div><div class="feature-box"><h3>It's Free!</h3><p>No cost, full access.</p></div></div></div></section>
