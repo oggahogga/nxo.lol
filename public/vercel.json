@@ -10,15 +10,19 @@
     },
     {
       "source": "/admin",
-      "destination": "/admin/index.html"
+      "destination": "/public/admin/index.html"  # Adjusted path
     },
     {
       "source": "/api/test",
-      "destination": "/api/test.js"
+      "destination": "/public/api/test.js"      # If this exists
     },
     {
       "source": "/api/login",
-      "destination": "/api/login.js"
+      "destination": "/api/login.js"            # Points to root/api/
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/public/index.html"       # Default to main HTML
     }
   ]
 }
