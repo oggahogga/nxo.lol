@@ -199,7 +199,7 @@
             justify-content: center; /* Centers incomplete rows */
             max-width: 1200px; /* Limits width for better centering */
             margin: 0 auto; /* Centers the grid container */
-            align-items: stretch; /* Ensures all items stretch vertically */
+            align-items: stretch; /* Ensures boxes align properly */
         }
         .feature-box {
             background: rgba(20, 20, 25, 0.9);
@@ -213,8 +213,8 @@
             max-width: 300px; /* Caps width for uniformity */
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centers content within each box */
-            text-align: center; /* Centers text within the box */
+            justify-content: center; /* Centers content vertically within each box */
+            text-align: center; /* Centers text horizontally */
         }
         .feature-box.animate {
             opacity: 1;
@@ -317,6 +317,7 @@
             nav ul li a { font-size: 1em; padding: 6px 10px; }
             .logo a { font-size: 1em; padding: 3px 6px; }
             header { padding: 10px 20px; }
+            .features-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } /* Adjust for smaller screens */
         }
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
