@@ -56,26 +56,14 @@
             z-index: -2;
             filter: brightness(0.8);
         }
-        .starfield {
+        #particles-js {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        .star {
-            position: absolute;
-            background: radial-gradient(circle, #8e44ad 25%, transparent 75%);
-            box-shadow: 0 0 20px #8e44ad, 0 0 30px rgba(142, 68, 173, 0.9), 0 0 50px rgba(142, 68, 173, 0.7);
-            animation: fly 5s linear infinite;
-            will-change: transform;
-        }
-        @keyframes fly {
-            0% { transform: translate(110vw, 0) scale(1); opacity: 1; }
-            100% { transform: translate(-50px, 0) scale(0); opacity: 0; }
+            pointer-events: auto; /* Allows interaction with particles */
         }
         .overlay {
             position: fixed;
@@ -136,11 +124,6 @@
             min-width: 100px;
             text-align: center;
         }
-        nav ul li button:focus, nav ul li button:active, nav ul li button:hover {
-            outline: none !important;
-            border: none;
-            -webkit-focus-ring-color: transparent;
-        }
         nav ul li a:hover, nav ul li button:hover {
             background: var(--primary-color);
             border-radius: 5px;
@@ -189,11 +172,6 @@
             background: var(--primary-color);
             box-shadow: 0 0 20px var(--primary-color);
         }
-        .button:focus, .button:active {
-            outline: none !important;
-            border: none;
-            -webkit-focus-ring-color: transparent;
-        }
         .features-container {
             margin: 120px 50px;
             text-align: center;
@@ -211,7 +189,7 @@
             background: rgba(20, 20, 25, 0.9);
             padding: 20px;
             border-radius: 10px;
-            transition: .4s ease, opacity 0.5s ease, transform 0.5s ease;
+            transition: .4s ease;
             box-shadow: 0 5px 15px var(--shadow-color);
             opacity: 0;
             transform: translateY(20px);
@@ -219,6 +197,7 @@
         .feature-box.animate {
             opacity: 1;
             transform: translateY(0);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
         .feature-box:hover {
             transform: translateY(-5px) scale(1.02);
@@ -282,9 +261,6 @@
             white-space: pre-wrap;
             animation: fadeIn .5s ease-in-out;
         }
-        #features-content:where([style*=" # "]) {
-            font-size: 1.5em;
-        }
         @keyframes slideDown {
             from { transform: translateY(-100%); }
             to { transform: translateY(0); }
@@ -320,11 +296,10 @@
             .modal-content { width: 95%; margin: 20% auto; }
         }
         @media (prefers-reduced-motion: reduce) {
-            .star { animation: none; }
-            .modal.show { animation: none; }
-            .feature-box { transition: none; }
+            .modal.show, .feature-box { animation: none; transition: none; }
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const featuresModal = document.getElementById('features-modal');
@@ -355,6 +330,7 @@
             audio.loop = true;
             const muteButton = document.getElementById('mute-button');
             let isMuted = true;
+            muteButton.textContent = 'Unmute';
             muteButton.addEventListener('click', () => {
                 if (isMuted) audio.play();
                 isMuted = !isMuted;
@@ -362,25 +338,24 @@
                 muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
             });
 
-            function createStars(numStars) {
-                const starfield = document.querySelector('.starfield');
-                for (let i = 0; i < numStars; i++) {
-                    const star = document.createElement('div');
-                    star.classList.add('star');
-                    const size = Math.random() * 5 + 1;
-                    star.style.width = `${size}px`;
-                    star.style.height = `${size}px`;
-                    const top = Math.random() * 100;
-                    const left = Math.random() * 100;
-                    star.style.top = `${top}%`;
-                    star.style.left = `${left}%`;
-                    const delay = Math.random() * 5;
-                    star.style.animationDelay = `-${delay}s`;
-                    starfield.appendChild(star);
-                }
-            }
-            let numStars = window.innerWidth > 768 ? 50 : 20;
-            createStars(numStars);
+            // Particle system configuration
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 150, density: { enable: true, value_area: 800 } },
+                    color: { value: ['#ff00ff', '#00ffff', '#00ff00'] }, // Neon colors
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.8, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
+                    size: { value: 3, random: true },
+                    line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.4, width: 1 },
+                    move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+                    modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+                },
+                retina_detect: true
+            });
 
             const featureBoxes = document.querySelectorAll('.feature-box');
             const observer = new IntersectionObserver(entries => {
@@ -404,7 +379,7 @@
     <video autoplay muted loop class="video-background">
         <source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0wp3S1XhRInFcUc3IB40F8-dM5BcNJ0iF4bChnwM98~0NtNhVsFZj1rTy-ZTnaQakihUNrFygFVQiP3tIGmvvu~I73-wyHL15HIBgnf9lmrWKcXwpNqjhzKTRofoorHuZjEVNoCHu7pevi8USTv1UMPK5Z58yw0m60KnWtuyg2KN1mvVxx5FD~NXeqh1HFeThcbWnojwJ~OI-Ojepz~eXlHS2wfB-Go7nli3Tw4EA__" type="video/mp4">
     </video>
-    <div class="starfield"></div>
+    <div id="particles-js"></div>
     <div class="overlay"></div>
     <section id="home">
         <div class="intro">
