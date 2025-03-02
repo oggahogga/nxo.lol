@@ -48,14 +48,18 @@
             position: relative;
             padding-top: 60px;
         }
-        .cursor {
-            width: 10px;
-            height: 10px;
-            background: #ff69b4;
-            border-radius: 50%;
+        .custom-cursor {
             position: fixed;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(142, 68, 173, 0.7) 20%, transparent 80%);
             pointer-events: none;
             z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+        .custom-cursor.hover {
+            transform: scale(1.8);
         }
         .logo {
             position: fixed;
@@ -162,7 +166,6 @@
     </style>
 </head>
 <body>
-    <div class="cursor" id="cursor"></div>
     <div class="logo">
         <a href="https://nxo.lol" target="_blank">nxo.lol</a>
     </div>
@@ -174,13 +177,33 @@
         <ul id="showcases-list" class="showcases-list"></ul>
     </div>
     <script>
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.pageX + 'px';
-            cursor.style.top = e.pageY + 'px';
-        });
-
         document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            let cursorX = -100, cursorY = -100;
+            function updateCursor(x, y) {
+                cursorX = x - 8;
+                cursorY = y - 8;
+                cursor.style.left = `${cursorX}px`;
+                cursor.style.top = `${cursorY}px`;
+            }
+
+            document.addEventListener('mousemove', e => updateCursor(e.clientX, e.clientY));
+            document.addEventListener('touchmove', e => {
+                const touch = e.touches[0];
+                updateCursor(touch.clientX, touch.clientY);
+            }, { passive: true });
+
+            const hoverElements = document.querySelectorAll('a');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                el.addEventListener('touchstart', () => cursor.classList.add('hover'), { passive: true });
+                el.addEventListener('touchend', () => cursor.classList.remove('hover'), { passive: true });
+            });
+
             const showcasesList = document.getElementById('showcases-list');
             const data = 'LuminousGT:https://www.youtube.com/watch?v=bM0nAU8Z0M4';
             const lines = data.trim().split('\n');
