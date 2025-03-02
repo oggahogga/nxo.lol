@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="https://nxo.lol/reviews/">
+    <title>NXO.lol | Reviews</title>
+    <meta name="description" content="See what people say about NXO">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nxo.lol/reviews">
+    <meta property="og:title" content="NXO.lol | Reviews">
+    <meta property="og:description" content="See what people say about NXO">
+    <meta property="og:image" content="https://github.com/oggahogga/nxo.lol/raw/refs/heads/main/public/transparentNXO.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://nxo.lol/reviews">
+    <meta property="twitter:title" content="NXO.lol | Reviews">
+    <meta property="twitter:description" content="See what people say about NXO!">
+    <meta property="twitter:image" content="https://github.com/oggahogga/nxo.lol/raw/refs/heads/main/public/transparentNXO.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8e44ad;
+            --bg-color: #0a0a0a;
+            --text-color: #e6f0ff;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --font-family: 'Bungee', sans-serif;
+            --logo-font: 'Orbitron', sans-serif;
+        }
+        * {
+            scrollbar-width: none;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+        *::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            font-family: var(--font-family);
+            color: var(--text-color);
+            background: var(--bg-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            padding-top: 60px;
+        }
+        .custom-cursor {
+            position: fixed;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(142, 68, 173, 0.7) 20%, transparent 80%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+        .custom-cursor.hover {
+            transform: scale(1.8);
+        }
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+        .logo a {
+            font-family: var(--logo-font);
+            font-size: 1.5em;
+            color: var(--text-color);
+            text-decoration: none;
+            background: rgba(142, 68, 173, 0.2);
+            padding: 5px 10px;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .logo a:hover {
+            color: var(--primary-color);
+            background: rgba(142, 68, 173, 0.4);
+            box-shadow: 0 0 10px rgba(142, 68, 173, 0.7);
+        }
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.3);
+            animation: darkPulse 12s ease-in-out infinite;
+        }
+        @keyframes darkPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.03); opacity: 1; }
+        }
+        .reviews-container {
+            text-align: center;
+            z-index: 1;
+            padding: 20px;
+        }
+        h1 {
+            font-size: clamp(2em, 8vw, 4em);
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-out;
+        }
+        .reviews-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .reviews-list li {
+            opacity: 0;
+            animation: slideUp 0.5s ease-out forwards;
+            background: rgba(142, 68, 173, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .reviews-list li:nth-child(1) { animation-delay: 0.1s; }
+        .reviews-list li:nth-child(2) { animation-delay: 0.2s; }
+        .reviews-list span {
+            color: var(--text-color);
+            font-size: 1.2em;
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: clamp(1.5em, 6vw, 2.5em); }
+            .reviews-list { grid-template-columns: 1fr; }
+            .reviews-list span { font-size: 1em; }
+            .logo a { font-size: 1.2em; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <a href="https://nxo.lol" target="_blank">nxo.lol</a>
+    </div>
+    <video autoplay muted loop class="video-background">
+        <source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0wp3S1XhRInFcUc3IB40F8-dM5BcNJ0iF4bChnwM98~0NtNhVsFZj1rTy-ZTnaQakihUNrFygFVQiP3tIGmvvu~I73-wyHL15HIBgnf9lmrWKcXwpNqjhzKTRofoorHuZjEVNoCHu7pevi8USTv1UMPK5Z58yw0m60KnWtuyg2KN1mvVxx5FD~NXeqh1HFeThcbWnojwJ~OI-Ojepz~eXlHS2wfB-Go7nli3Tw4EA__" type="video/mp4">
+    </video>
+    <div class="reviews-container">
+        <h1>Reviews</h1>
+        <ul id="reviews-list" class="reviews-list"></ul>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            let cursorX = -100, cursorY = -100;
+            function updateCursor(x, y) {
+                cursorX = x - 8;
+                cursorY = y - 8;
+                cursor.style.left = `${cursorX}px`;
+                cursor.style.top = `${cursorY}px`;
+            }
+
+            document.addEventListener('mousemove', e => updateCursor(e.clientX, e.clientY));
+            document.addEventListener('touchmove', e => {
+                const touch = e.touches[0];
+                updateCursor(touch.clientX, touch.clientY);
+            }, { passive: true });
+
+            const hoverElements = document.querySelectorAll('a');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                el.addEventListener('touchstart', () => cursor.classList.add('hover'), { passive: true });
+                el.addEventListener('touchend', () => cursor.classList.remove('hover'), { passive: true });
+            });
+
+            const reviewsList = document.getElementById('reviews-list');
+            const data = 'Terry Eager:This menu so good my juices are going everywhere\nDaxxyy:This menu makes my weiner gets so hard, I nut in the menu, all over the buttons';
+            const lines = data.trim().split('\n');
+            reviewsList.innerHTML = lines.map(line => {
+                const [name, review] = line.split(':');
+                return `<li><span>${name}: ${review}</span></li>`;
+            }).join('');
+        });
+    </script>
+</body>
+</html>
