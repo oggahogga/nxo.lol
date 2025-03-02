@@ -199,6 +199,7 @@
             justify-content: center; /* Centers incomplete rows */
             max-width: 1200px; /* Limits width for better centering */
             margin: 0 auto; /* Centers the grid container */
+            align-items: stretch; /* Ensures all items stretch vertically */
         }
         .feature-box {
             background: rgba(20, 20, 25, 0.9);
@@ -210,6 +211,10 @@
             transform: translateY(20px);
             width: 100%; /* Ensures consistent sizing */
             max-width: 300px; /* Caps width for uniformity */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centers content within each box */
+            text-align: center; /* Centers text within the box */
         }
         .feature-box.animate {
             opacity: 1;
@@ -224,10 +229,12 @@
         .feature-box h3 {
             color: var(--primary-color);
             font-size: 1.3em;
+            margin-bottom: 5px; /* Adds spacing between title and text */
         }
         .feature-box p {
             color: var(--secondary-text-color);
             font-size: 0.9em;
+            margin: 0; /* Removes default margin */
         }
         .modal {
             display: none;
