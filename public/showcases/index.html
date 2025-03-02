@@ -17,6 +17,7 @@
     <meta property="twitter:description" content="Explore NXO showcases!">
     <meta property="twitter:image" content="https://github.com/oggahogga/nxo.lol/raw/refs/heads/main/public/transparentNXO.png">
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #8e44ad;
@@ -24,6 +25,7 @@
             --text-color: #e6f0ff;
             --shadow-color: rgba(0, 0, 0, 0.5);
             --font-family: 'Bungee', sans-serif;
+            --logo-font: 'Orbitron', sans-serif;
         }
         * {
             scrollbar-width: none;
@@ -54,6 +56,28 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
+        }
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+        .logo a {
+            font-family: var(--logo-font);
+            font-size: 1.5em;
+            color: var(--text-color);
+            text-decoration: none;
+            background: rgba(142, 68, 173, 0.2);
+            padding: 5px 10px;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .logo a:hover {
+            color: var(--primary-color);
+            background: rgba(142, 68, 173, 0.4);
+            box-shadow: 0 0 10px rgba(142, 68, 173, 0.7);
         }
         .video-background {
             position: fixed;
@@ -127,6 +151,7 @@
             h1 { font-size: clamp(1.5em, 6vw, 2.5em); }
             .showcases-list { grid-template-columns: repeat(2, 1fr); }
             .showcases-list a { font-size: 1em; }
+            .logo a { font-size: 1.2em; }
         }
         @media (max-width: 480px) {
             .showcases-list { grid-template-columns: 1fr; }
@@ -138,6 +163,9 @@
 </head>
 <body>
     <div class="cursor" id="cursor"></div>
+    <div class="logo">
+        <a href="https://nxo.lol" target="_blank">nxo.lol</a>
+    </div>
     <video autoplay muted loop class="video-background">
         <source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0wp3S1XhRInFcUc3IB40F8-dM5BcNJ0iF4bChnwM98~0NtNhVsFZj1rTy-ZTnaQakihUNrFygFVQiP3tIGmvvu~I73-wyHL15HIBgnf9lmrWKcXwpNqjhzKTRofoorHuZjEVNoCHu7pevi8USTv1UMPK5Z58yw0m60KnWtuyg2KN1mvVxx5FD~NXeqh1HFeThcbWnojwJ~OI-Ojepz~eXlHS2wfB-Go7nli3Tw4EA__" type="video/mp4">
     </video>
