@@ -10,15 +10,21 @@
     },
     {
       "source": "/admin",
-      "destination": "/admin/index.html"
+      "destination": "/public/admin/index.html"
     },
     {
       "source": "/api/test",
-      "destination": "/api/test.js"
+      "destination": "/public/api/test.js"
     },
     {
-      "source": "/api/login",
-      "destination": "/api/login.js"
+      "source": "/(.*)",
+      "destination": "/public/index.html"
+    }
+  ],
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
     }
   ]
 }
