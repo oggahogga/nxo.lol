@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="https://nxo.lol/showcases/">
-    <title>NXO.lol | Showcases</title>
-    <meta name="description" content="The only menu you'll ever need. Explore our showcases!">
+    <title>NXO.lol</title>
+    <meta name="description" content="The only menu you'll ever need.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://nxo.lol/showcases">
-    <meta property="og:title" content="NXO.lol | Showcases">
-    <meta property="og:description" content="The only menu you'll ever need. Explore our showcases!">
+    <meta property="og:url" content="https://nxo.lol">
+    <meta property="og:title" content="NXO.lol">
+    <meta property="og:description" content="The only menu you'll ever need.">
     <meta property="og:image" content="https://github.com/oggahogga/nxo.lol/raw/refs/heads/main/public/transparentNXO.png">
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://nxo.lol/showcases">
-    <meta property="twitter:title" content="NXO.lol | Showcases">
-    <meta property="twitter:description" content="The only menu you'll ever need. Explore our showcases!">
+    <meta property="twitter:url" content="https://nxo.lol">
+    <meta property="twitter:title" content="NXO.lol">
+    <meta property="twitter:description" content="The only menu you'll ever need.">
     <meta property="twitter:image" content="https://github.com/oggahogga/nxo.lol/raw/refs/heads/main/public/transparentNXO.png">
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     <style>
@@ -85,11 +84,9 @@
             pointer-events: none;
             z-index: 9999;
             transition: transform 0.1s ease;
-            will-change: transform;
         }
         .custom-cursor.hover {
             transform: scale(1.8);
-            background: radial-gradient(circle, rgba(142, 68, 173, 0.9) 20%, transparent 80%);
         }
         header {
             position: fixed;
@@ -162,7 +159,7 @@
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
         }
-        .features-container, .showcases-container {
+        .features-container {
             margin: 100px 40px;
             text-align: center;
             z-index: 2;
@@ -200,22 +197,6 @@
         .feature-box p {
             color: var(--secondary-text-color);
             font-size: 0.9em;
-        }
-        .showcases-list {
-            list-style: none;
-            padding: 20px;
-        }
-        .showcases-list li {
-            margin: 15px 0;
-        }
-        .showcases-list a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 1.1em;
-            transition: color 0.3s ease;
-        }
-        .showcases-list a:hover {
-            color: var(--text-color);
         }
         .modal {
             display: none;
@@ -291,7 +272,7 @@
             .intro { padding-top: 80px; }
             .buttons { flex-direction: column; gap: 15px; }
             .button { width: 100%; max-width: 250px; font-size: 1em; }
-            .features-container, .showcases-container { margin: 60px 20px; }
+            .features-container { margin: 60px 20px; }
             .custom-cursor { width: 14px; height: 14px; }
             .modal-content { width: 95%; margin: 15% auto; }
             nav ul { gap: 15px; }
@@ -306,7 +287,6 @@
             const featuresModal = document.getElementById('features-modal');
             const closeFeatures = document.getElementById('close-features');
             const featuresContent = document.getElementById('features-content');
-            const showcasesList = document.getElementById('showcases-list');
 
             document.querySelector('.view-features-button').onclick = e => {
                 e.preventDefault();
@@ -328,18 +308,6 @@
                 if (e.key === 'Escape' && featuresModal.classList.contains('show')) featuresModal.classList.remove('show');
             });
 
-            // Fetch and display showcases
-            fetch('https://github.com/oggahogga/nxo.lol/raw/refs/heads/main/public/showcases.txt')
-                .then(r => r.text())
-                .then(data => {
-                    const lines = data.trim().split('\n');
-                    showcasesList.innerHTML = lines.map(line => {
-                        const [name, url] = line.split(':');
-                        return `<li><a href="${url}" target="_blank">${name}</a></li>`;
-                    }).join('');
-                })
-                .catch(() => showcasesList.innerHTML = '<li>Failed to load showcases.</li>');
-
             const featureBoxes = document.querySelectorAll('.feature-box');
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -348,24 +316,18 @@
             }, { threshold: 0.5 });
             featureBoxes.forEach(box => observer.observe(box));
 
-            // Optimized custom cursor
+            // Fixed custom cursor
             const cursor = document.createElement('div');
             cursor.classList.add('custom-cursor');
             document.body.appendChild(cursor);
 
-            let lastX = 0, lastY = 0;
+            let cursorX = -100, cursorY = -100;
             function updateCursor(x, y) {
-                lastX = x - 8; // Offset by half width
-                lastY = y - 8; // Offset by half height
-                cursor.style.transform = `translate(${lastX}px, ${lastY}px)`;
+                cursorX = x - 8; // Offset by half size
+                cursorY = y - 8;
+                cursor.style.left = `${cursorX}px`;
+                cursor.style.top = `${cursorY}px`;
             }
-
-            function animateCursor() {
-                cursor.style.left = `${lastX}px`;
-                cursor.style.top = `${lastY}px`;
-                requestAnimationFrame(animateCursor);
-            }
-            requestAnimationFrame(animateCursor);
 
             document.addEventListener('mousemove', e => updateCursor(e.clientX, e.clientY));
             document.addEventListener('touchmove', e => {
@@ -388,11 +350,12 @@
         <nav>
             <ul>
                 <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
+                <li><a href="/showcases">Showcases</a></li>
             </ul>
         </nav>
     </header>
     <video autoplay muted loop class="video-background">
-        <source src="https://github.com/oggahogga/nxo.lol/raw/refs/heads/main/public/no6ivf.mp4" type="video/mp4">
+        <source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0wp3S1XhRInFcUc3IB40F8-dM5BcNJ0iF4bChnwM98~0NtNhVsFZj1rTy-ZTnaQakihUNrFygFVQiP3tIGmvvu~I73-wyHL15HIBgnf9lmrWKcXwpNqjhzKTRofoorHuZjEVNoCHu7pevi8USTv1UMPK5Z58yw0m60KnWtuyg2KN1mvVxx5FD~NXeqh1HFeThcbWnojwJ~OI-Ojepz~eXlHS2wfB-Go7nli3Tw4EA__" type="video/mp4">
     </video>
     <div class="overlay"></div>
     <section id="home">
@@ -419,12 +382,6 @@
                 <div class="feature-box"><h3>Quality Over Quantity</h3><p>Only the essentials.</p></div>
                 <div class="feature-box"><h3>It's Free!</h3><p>No cost, full access.</p></div>
             </div>
-        </div>
-    </section>
-    <section id="showcases">
-        <div class="showcases-container">
-            <h2>Showcases</h2>
-            <ul id="showcases-list" class="showcases-list"></ul>
         </div>
     </section>
     <div class="modal" id="features-modal">
