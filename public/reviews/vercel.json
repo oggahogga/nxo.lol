@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/reviews",
+      "destination": "/reviews/index.html"
+    }
+  ]
+}
