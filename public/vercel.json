@@ -15,12 +15,10 @@
     {
       "source": "/api/test",
       "destination": "/api/test.js"
-    }
-  ],
-  "builds": [
+    },
     {
-      "src": "package.json",
-      "use": "@vercel/static-build"
+      "source": "/api/login",
+      "destination": "/api/login.js"
     }
   ]
 }
