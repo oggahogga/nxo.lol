@@ -18,8 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #1e90ff;
-            --primary-color-hover: #104e8b;
+            --primary-color: #39ff14;           /* Neon green */
+            --primary-color-hover: #2cba00;     /* Darker green */
             --bg-color: #0a0a0a;
             --text-color: #e6f0ff;
             --secondary-text-color: #b0c4de;
@@ -97,6 +97,7 @@
             background: var(--primary-color);
             border-radius: 5px;
             transform: translateY(-2px);
+            box-shadow: 0 0 10px var(--primary-color);
         }
         .intro {
             text-align: center;
@@ -108,7 +109,7 @@
         .nxotext {
             font-size: 12em;
             color: transparent;
-            background: linear-gradient(90deg, var(--primary-color), #4682b4);
+            background: linear-gradient(90deg, var(--primary-color), #2cba00);
             background-clip: text;
             -webkit-background-clip: text;
             animation: textFadeIn 2s ease-in-out forwards;
@@ -133,8 +134,8 @@
         }
         .button:hover {
             background: var(--primary-color-hover);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--primary-color);
         }
         .features-container {
             margin: 120px 50px;
@@ -157,9 +158,9 @@
             box-shadow: 0 5px 15px var(--shadow-color);
         }
         .feature-box:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
             background: rgba(30, 30, 35, 0.9);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 0 15px var(--primary-color);
         }
         .feature-box h3 {
             color: var(--primary-color);
@@ -207,12 +208,65 @@
             color: var(--primary-color);
             transform: rotate(90deg);
         }
-        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
-        @keyframes textFadeIn { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideInUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        #features-content {
+            font-family: monospace;
+            font-size: 1.1em;
+            line-height: 1.5;
+            color: var(--text-color);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            max-height: 60vh;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            .nxotext {
+                font-size: 6em;
+            }
+            .buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .button {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            .modal-content {
+                width: 95%;
+                margin: 20% auto;
+            }
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -244,6 +298,12 @@
                 }
             };
 
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && featuresModal.classList.contains('show')) {
+                    featuresModal.classList.remove('show');
+                }
+            });
+
             const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
             audio.loop = true;
             const muteButton = document.getElementById('mute-button');
@@ -267,10 +327,10 @@
             </ul>
         </nav>
     </header>
-  <video autoplay muted loop class="video-background">
-      <source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0wp3S1XhRInFcUc3IB40F8-dM5BcNJ0iF4bChnwM98~0NtNhVsFZj1rTy-ZTnaQakihUNrFygFVQiP3tIGmvvu~I73-wyHL15HIBgnf9lmrWKcXwpNqjhzKTRofoorHuZjEVNoCHu7pevi8USTv1UMPK5Z58yw0m60KnWtuyg2KN1mvVxx5FD~NXeqh1HFeThcbWnojwJ~OI-Ojepz~eXlHS2wfB-Go7nli3Tw4EA__" type="video/mp4">
-      Your browser does not support the video tag.
-  </video>
+    <video autoplay muted loop class="video-background">
+        <source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0wp3S1XhRInFcUc3IB40F8-dM5BcNJ0iF4bChnwM98~0NtNhVsFZj1rTy-ZTnaQakihUNrFygFVQiP3tIGmvvu~I73-wyHL15HIBgnf9lmrWKcXwpNqjhzKTRofoorHuZjEVNoCHu7pevi8USTv1UMPK5Z58yw0m60KnWtuyg2KN1mvVxx5FD~NXeqh1HFeThcbWnojwJ~OI-Ojepz~eXlHS2wfB-Go7nli3Tw4EA__" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <div class="overlay"></div>
     <section id="home">
         <div class="intro">
@@ -302,7 +362,7 @@
         <div class="modal-content">
             <span class="close" id="close-features">×</span>
             <h2>NXO Features</h2>
-            <pre id="features-content" style="color: var(--text-color); white-space: pre-wrap;"></pre>
+            <pre id="features-content"></pre>
         </div>
     </div>
 </body>
