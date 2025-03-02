@@ -16,6 +16,7 @@
     <meta property="twitter:description" content="The only menu you'll ever need.">
     <meta property="twitter:image" content="https://github.com/oggahogga/nxo.lol/raw/refs/heads/main/public/transparentNXO.png">
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #8e44ad;
@@ -28,6 +29,7 @@
             --modal-bg: rgba(15, 15, 20, 0.95);
             --shadow-color: rgba(0, 0, 0, 0.5);
             --font-family: 'Bungee', sans-serif;
+            --logo-font: 'Orbitron', sans-serif;
         }
         * {
             scrollbar-width: none;
@@ -45,6 +47,28 @@
             overflow-x: hidden;
             position: relative;
             cursor: none;
+        }
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 11;
+        }
+        .logo a {
+            font-family: var(--logo-font);
+            font-size: 1.5em;
+            color: var(--text-color);
+            text-decoration: none;
+            background: rgba(142, 68, 173, 0.2);
+            padding: 5px 10px;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .logo a:hover {
+            color: var(--primary-color);
+            background: rgba(142, 68, 173, 0.4);
+            box-shadow: 0 0 10px rgba(142, 68, 173, 0.7);
         }
         .video-background {
             position: fixed;
@@ -277,6 +301,7 @@
             .modal-content { width: 95%; margin: 15% auto; }
             nav ul { gap: 15px; }
             nav ul li a { font-size: 1em; padding: 6px 10px; }
+            .logo a { font-size: 1.2em; }
         }
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
@@ -316,14 +341,13 @@
             }, { threshold: 0.5 });
             featureBoxes.forEach(box => observer.observe(box));
 
-            // Fixed custom cursor
             const cursor = document.createElement('div');
             cursor.classList.add('custom-cursor');
             document.body.appendChild(cursor);
 
             let cursorX = -100, cursorY = -100;
             function updateCursor(x, y) {
-                cursorX = x - 8; // Offset by half size
+                cursorX = x - 8;
                 cursorY = y - 8;
                 cursor.style.left = `${cursorX}px`;
                 cursor.style.top = `${cursorY}px`;
@@ -346,6 +370,9 @@
     </script>
 </head>
 <body>
+    <div class="logo">
+        <a href="https://nxo.lol" target="_blank">nxo.lol</a>
+    </div>
     <header>
         <nav>
             <ul>
