@@ -45,6 +45,7 @@
             height: 100vh;
             overflow-x: hidden;
             position: relative;
+            cursor: none; /* Hide default cursor */
         }
         .video-background {
             position: fixed;
@@ -54,11 +55,13 @@
             height: 100%;
             object-fit: cover;
             z-index: -1;
-            animation: videoZoom 20s ease-in-out infinite;
+            filter: brightness(0.5); /* Darken the video */
+            animation: panFade 25s ease-in-out infinite;
         }
-        @keyframes videoZoom {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes panFade {
+            0% { transform: translateX(0); opacity: 0.9; }
+            50% { transform: translateX(-5%); opacity: 1; }
+            100% { transform: translateX(0); opacity: 0.9; }
         }
         .overlay {
             position: fixed;
@@ -73,6 +76,20 @@
         @keyframes pulseOverlay {
             0%, 100% { opacity: 0.4; }
             50% { opacity: 0.6; }
+        }
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(142, 68, 173, 0.8) 20%, transparent 80%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .custom-cursor.hover {
+            transform: scale(1.5);
+            background: radial-gradient(circle, rgba(142, 68, 173, 1) 20%, transparent 80%);
         }
         header {
             position: fixed;
@@ -132,7 +149,7 @@
             border-radius: 8px;
             font-size: 1.4em;
             transition: all 0.3s ease;
-            cursor: pointer;
+            cursor: none; /* Custom cursor handles this */
             width: 220px;
             text-align: center;
             font-family: var(--font-family);
@@ -212,7 +229,7 @@
             color: #aaa;
             float: right;
             font-size: 30px;
-            cursor: pointer;
+            cursor: none; /* Custom cursor */
             transition: all 0.3s ease;
         }
         .close:hover {
@@ -295,6 +312,22 @@
                 });
             }, { threshold: 0.5 });
             featureBoxes.forEach(box => observer.observe(box));
+
+            // Custom cursor logic
+            const cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            document.addEventListener('mousemove', e => {
+                cursor.style.left = `${e.clientX - 10}px`; // Offset by half width
+                cursor.style.top = `${e.clientY - 10}px`;  // Offset by half height
+            });
+
+            const hoverElements = document.querySelectorAll('a, button, .close');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
         });
     </script>
 </head>
