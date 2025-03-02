@@ -30,7 +30,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none; /* Hide default cursor */
+            cursor: none;
         }
         *::-webkit-scrollbar {
             display: none;
@@ -132,20 +132,19 @@
         <ul id="showcases-list" class="showcases-list"></ul>
     </div>
     <script>
-        // Cursor movement
         const cursor = document.getElementById('cursor');
         document.addEventListener('mousemove', (e) => {
             cursor.style.left = e.pageX + 'px';
             cursor.style.top = e.pageY + 'px';
         });
 
-        // Showcase list
         document.addEventListener('DOMContentLoaded', () => {
             const showcasesList = document.getElementById('showcases-list');
-            const data = 'LuminousGT:https://www.youtube.com/watch?v=bM0nAU8Z0M4'; // Fixed syntax
+            const data = 'LuminousGT:https://www.youtube.com/watch?v=bM0nAU8Z0M4';
             const lines = data.trim().split('\n');
             showcasesList.innerHTML = lines.map(line => {
-                const [name, url] = line.split(':');
+                const [name, ...urlParts] = line.split(':');
+                const url = urlParts.join(':');
                 return `<li><a href="${url}" target="_blank">${name}</a></li>`;
             }).join('');
         });
