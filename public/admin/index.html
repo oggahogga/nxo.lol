@@ -205,7 +205,7 @@
                     window.PASSWORD = data.key; // Store password globally
                 })
                 .catch(() => {
-                    window.PASSWORD = 'supersecret123'; // Fallback
+                    window.PASSWORD = process.env.ADMIN_PASSWORD1 || process.env.ADMIN_PASSWORD2 // Fallback
                     console.error('Failed to fetch password, using fallback');
                 });
         });
