@@ -169,6 +169,10 @@
         </div>
     </div>
     <script>
+        // Hardcoded password (replace with your secret; not secure for production)
+        const PASSWORD = 'supersecret123'; // Ideally fetched from a secure source
+        let messages = []; // Client-side storage (won't persist or sync with Unity)
+
         document.addEventListener('DOMContentLoaded', () => {
             const cursor = document.createElement('div');
             cursor.classList.add('custom-cursor');
@@ -197,36 +201,18 @@
             });
         });
 
-       function checkPassword() {
+        function checkPassword() {
             const password = document.getElementById('password').value;
             if (!password) {
                 alert('Please enter a password');
                 return;
             }
-        
-            fetch('/api/auth', {  // This should work fine now
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('login').style.display = 'none';
-                    document.getElementById('panel').classList.add('active');
-                } else {
-                    alert(data.error || 'Incorrect password');
-                }
-            })
-            .catch(error => {
-                console.error('Login error:', error);
-                alert(`Login failed: ${error.message}`);
-            });
+            if (password === PASSWORD) {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('panel').classList.add('active');
+            } else {
+                alert('Incorrect password');
+            }
         }
 
         function sendToUnity() {
@@ -235,22 +221,17 @@
                 alert('Please enter a message');
                 return;
             }
+            messages.push({ message, timestamp: new Date().toISOString() });
+            alert('Message stored locally: ' + message);
+            document.getElementById('message').value = '';
+            // Note: This doesn’t send to Unity without a server
+        }
 
-            fetch('/api/unity', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message, timestamp: new Date().toISOString() })
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('Message sent to Unity');
-                    document.getElementById('message').value = '';
-                } else {
-                    alert('Failed to send message');
-                }
-            })
-            .catch(() => alert('Error sending message'));
+        // Test endpoint simulation (for debugging)
+        function testEndpoint() {
+            alert('Test endpoint triggered. Stored messages: ' + JSON.stringify(messages));
         }
     </script>
+    <button onclick="testEndpoint()" style="position: fixed; bottom: 20px; right: 20px;">Test</button>
 </body>
 </html>
