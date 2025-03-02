@@ -49,21 +49,23 @@
             cursor: none;
         }
         .logo {
-            position: fixed;
-            top: 20px;
+            position: absolute;
+            top: 50%;
             left: 20px;
+            transform: translateY(-50%);
             z-index: 11;
         }
         .logo a {
             font-family: var(--logo-font);
-            font-size: 1.5em;
+            font-size: 1.2em; /* Reduced size to fit better */
             color: var(--text-color);
             text-decoration: none;
             background: rgba(142, 68, 173, 0.2);
-            padding: 5px 10px;
+            padding: 4px 8px; /* Smaller padding */
             border: 2px solid var(--primary-color);
             border-radius: 4px;
             transition: all 0.3s ease;
+            display: inline-block;
         }
         .logo a:hover {
             color: var(--primary-color);
@@ -301,7 +303,7 @@
             .modal-content { width: 95%; margin: 15% auto; }
             nav ul { gap: 15px; }
             nav ul li a { font-size: 1em; padding: 6px 10px; }
-            .logo a { font-size: 1.2em; }
+            .logo a { font-size: 1em; padding: 3px 6px; }
         }
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
