@@ -196,6 +196,9 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px;
             padding: 20px;
+            justify-content: center; /* Centers incomplete rows */
+            max-width: 1200px; /* Limits width for better centering */
+            margin: 0 auto; /* Centers the grid container */
         }
         .feature-box {
             background: rgba(20, 20, 25, 0.9);
@@ -205,6 +208,8 @@
             box-shadow: 0 5px 15px var(--shadow-color);
             opacity: 0;
             transform: translateY(20px);
+            width: 100%; /* Ensures consistent sizing */
+            max-width: 300px; /* Caps width for uniformity */
         }
         .feature-box.animate {
             opacity: 1;
@@ -375,7 +380,7 @@
 <body>
     <header>
         <div class="logo">
-            <a href="https://nxo.lol">nxo.lol</a> <!-- Removed target="_blank" -->
+            <a href="https://nxo.lol">nxo.lol</a>
         </div>
         <nav>
             <ul>
