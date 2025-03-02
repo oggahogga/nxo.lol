@@ -14,7 +14,7 @@
     },
     {
       "source": "/api/test",
-      "destination": "/api/test"
+      "destination": "/api/test.js"
     }
   ]
 }
