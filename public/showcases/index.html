@@ -114,9 +114,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const showcasesList = document.getElementById('showcases-list');
-            fetch('https://github.com/oggahogga/nxo.lol/raw/refs/heads/main/public/showcases.txt')
-                .then(r => r.text())
-                .then(data => {
+            data = 'LuminousGT:https://www.youtube.com/watch?v=bM0nAU8Z0M4' 
+            {
                     const lines = data.trim().split('\n');
                     showcasesList.innerHTML = lines.map(line => {
                         const [name, url] = line.split(':');
