@@ -199,7 +199,7 @@
             });
 
             // Fetch password on load
-            fetch('/public/api/test')
+            fetch('/api/test.js')
                 .then(response => response.json())
                 .then(data => {
                     window.PASSWORD = data.key; // Store password globally
