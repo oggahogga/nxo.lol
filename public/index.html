@@ -25,16 +25,15 @@
         .overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--overlay-color);z-index:1;pointer-events:none}
         header{position:fixed;width:100%;top:0;background:var(--header-bg);backdrop-filter:blur(15px);z-index:10;padding:15px 40px;box-shadow:0 4px 15px var(--shadow-color);animation:slideDown 1s ease-in-out}
         nav ul{list-style:none;display:flex;justify-content:center;gap:30px;align-items:center}
-        nav ul li a,nav ul li button{color:var(--text-color);text-decoration:none;font-size:1.2em;padding:8px 15px;transition:.3s ease;background:none;border:none;cursor:pointer;font-family:var(--font-family);outline:none}
+        nav ul li a,nav ul li button{color:var(--text-color);text-decoration:none;font-size:1.2em;padding:8px 15px;transition:.3s ease;background:none;border:none;cursor:pointer;font-family:var(--font-family);outline:none!important;-webkit-tap-highlight-color:transparent}
         nav ul li button{min-width:100px;text-align:center}
-        nav ul li button:focus,nav ul li button:active{outline:none}
+        nav ul li button:focus,nav ul li button:active,nav ul li button:hover{outline:none!important;border:none;-webkit-focus-ring-color:transparent}
         nav ul li a:hover,nav ul li button:hover{background:var(--primary-color);border-radius:5px;transform:translateY(-2px);box-shadow:0 0 10px var(--primary-color)}
         .intro{text-align:center;padding-top:150px;z-index:2;position:relative;animation:fadeInDown 1s ease-in-out}
         .nxotext{font-size:12em;color:transparent;background:linear-gradient(90deg,var(--primary-color),#2c3e50);background-clip:text;-webkit-background-clip:text;animation:textFadeIn 2s ease-in-out}
         .buttons{display:flex;justify-content:center;gap:25px;margin-top:50px}
-        .button{padding:15px 0;background:var(--primary-color);color:var(--text-color);text-decoration:none;border-radius:8px;font-size:1.4em;transition:.4s ease;cursor:pointer;width:220px;text-align:center;box-shadow:0 5px 15px var(--shadow-color);font-family:var(--font-family);outline:none}
-        .button:focus,.button:active{outline:none}
-        .button:hover{background:var(--primary-color-hover);transform:translateY(-5px) scale(1.05);box-shadow:0 8px 20px var(--shadow-color),0 0 15px var(--primary-color)}
+        .button{padding:15px 0;background:var(--primary-color-hover);color:var(--text-color);text-decoration:none;border-radius:8px;font-size:1.4em;transition:.4s ease;cursor:pointer;width:220px;text-align:center;box-shadow:0 0 15px rgba(142,68,173,0.5);font-family:var(--font-family);outline:none!important;-webkit-tap-highlight-color:transparent;border:none}
+        .button:focus,.button:active,.button:hover{outline:none!important;border:none;-webkit-focus-ring-color:transparent;background:var(--primary-color);box-shadow:0 0 20px var(--primary-color)}
         .features-container{margin:120px 50px;text-align:center;z-index:2;position:relative;animation:fadeInUp 1s ease-in-out}
         .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;padding:20px}
         .feature-box{background:rgba(20,20,25,0.9);padding:20px;border-radius:10px;transition:.4s ease;box-shadow:0 5px 15px var(--shadow-color)}
