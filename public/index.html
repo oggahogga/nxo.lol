@@ -23,7 +23,7 @@
             --bg-color: #0a0a0a;
             --text-color: #e6f0ff;
             --secondary-text-color: #b0c4de;
-            --overlay-color: rgba(0, 0, 0, 0.5);
+            --overlay-color: rgba(0, 0, 0, 0.3);
             --header-bg: rgba(10, 10, 10, 0.9);
             --modal-bg: rgba(15, 15, 20, 0.95);
             --shadow-color: rgba(0, 0, 0, 0.5);
@@ -46,24 +46,21 @@
             overflow-x: hidden;
             position: relative;
         }
-        .video-background {
+        .wave-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            z-index: -2;
-            filter: brightness(0.8);
+            z-index: -1;
+            background: linear-gradient(45deg, #1e1e2f, #2c3e50, #8e44ad);
+            background-size: 200% 200%;
+            animation: waveFlow 15s ease-in-out infinite;
         }
-        #particles-js {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: auto; /* Allows interaction with particles */
+        @keyframes waveFlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
         .overlay {
             position: fixed;
@@ -84,7 +81,7 @@
             z-index: 10;
             padding: 15px 40px;
             box-shadow: 0 4px 15px var(--shadow-color);
-            animation: slideDown 1s ease-in-out;
+            animation: slideDown 0.8s ease-out;
         }
         nav ul {
             list-style: none;
@@ -93,49 +90,38 @@
             gap: 30px;
             align-items: center;
         }
-        nav ul li a, nav ul li button {
+        nav ul li a {
             color: var(--text-color);
             text-decoration: none;
             font-size: 1.2em;
             padding: 8px 15px;
-            transition: .3s ease;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-family: var(--font-family);
-            outline: none !important;
-            -webkit-tap-highlight-color: transparent;
+            transition: color 0.3s ease, transform 0.3s ease;
             position: relative;
         }
         nav ul li a::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
+            left: 50%;
             width: 0;
             height: 2px;
             background: var(--primary-color);
-            transition: width 0.3s ease;
+            transition: width 0.3s ease, left 0.3s ease;
         }
         nav ul li a:hover::after {
             width: 100%;
+            left: 0;
         }
-        nav ul li button {
-            min-width: 100px;
-            text-align: center;
-        }
-        nav ul li a:hover, nav ul li button:hover {
-            background: var(--primary-color);
-            border-radius: 5px;
+        nav ul li a:hover {
+            color: var(--primary-color);
             transform: translateY(-2px);
-            box-shadow: 0 0 10px var(--primary-color);
         }
         .intro {
             text-align: center;
             padding-top: 150px;
             z-index: 2;
             position: relative;
-            animation: fadeInDown 1s ease-in-out;
+            animation: fadeInScale 1s ease-out;
         }
         .nxotext {
             font-size: 12em;
@@ -143,7 +129,7 @@
             background: linear-gradient(90deg, var(--primary-color), #2c3e50);
             background-clip: text;
             -webkit-background-clip: text;
-            animation: textFadeIn 2s ease-in-out;
+            animation: textFade 1.5s ease-out;
         }
         .buttons {
             display: flex;
@@ -158,26 +144,23 @@
             text-decoration: none;
             border-radius: 8px;
             font-size: 1.4em;
-            transition: .4s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
             width: 220px;
             text-align: center;
             font-family: var(--font-family);
-            outline: none !important;
-            -webkit-tap-highlight-color: transparent;
             border: none;
         }
         .button:hover {
-            transform: scale(1.05) rotate(2deg);
             background: var(--primary-color);
-            box-shadow: 0 0 20px var(--primary-color);
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(142, 68, 173, 0.5);
         }
         .features-container {
             margin: 120px 50px;
             text-align: center;
             z-index: 2;
             position: relative;
-            animation: fadeInUp 1s ease-in-out;
         }
         .features-grid {
             display: grid;
@@ -189,7 +172,7 @@
             background: rgba(20, 20, 25, 0.9);
             padding: 20px;
             border-radius: 10px;
-            transition: .4s ease;
+            transition: all 0.4s ease;
             box-shadow: 0 5px 15px var(--shadow-color);
             opacity: 0;
             transform: translateY(20px);
@@ -197,12 +180,11 @@
         .feature-box.animate {
             opacity: 1;
             transform: translateY(0);
-            transition: opacity 0.5s ease, transform 0.5s ease;
         }
         .feature-box:hover {
-            transform: translateY(-5px) scale(1.02);
             background: rgba(30, 30, 35, 0.9);
-            box-shadow: 0 8px 20px var(--shadow-color), 0 0 15px var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow-color);
         }
         .feature-box h3 {
             color: var(--primary-color);
@@ -225,7 +207,7 @@
         }
         .modal.show {
             display: block;
-            animation: slideInFromTop 0.5s ease-in-out forwards;
+            animation: fadeIn 0.5s ease-out;
         }
         .modal-content {
             background: var(--modal-bg);
@@ -235,14 +217,14 @@
             max-width: 700px;
             border-radius: 12px;
             box-shadow: 0 5px 20px var(--shadow-color);
-            animation: slideInUp .6s ease;
+            animation: scaleIn 0.5s ease-out;
         }
         .close {
             color: #aaa;
             float: right;
             font-size: 30px;
             cursor: pointer;
-            transition: .3s ease;
+            transition: all 0.3s ease;
         }
         .close:hover {
             color: var(--primary-color);
@@ -259,35 +241,26 @@
             max-height: 60vh;
             overflow-y: auto;
             white-space: pre-wrap;
-            animation: fadeIn .5s ease-in-out;
         }
         @keyframes slideDown {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
-        }
-        @keyframes textFadeIn {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideInFromTop {
             from { transform: translateY(-100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-        @keyframes slideInUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        @keyframes textFade {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
         @media (max-width: 768px) {
             .nxotext { font-size: 6em; }
@@ -296,10 +269,9 @@
             .modal-content { width: 95%; margin: 20% auto; }
         }
         @media (prefers-reduced-motion: reduce) {
-            .modal.show, .feature-box { animation: none; transition: none; }
+            * { animation: none !important; transition: none !important; }
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const featuresModal = document.getElementById('features-modal');
@@ -326,37 +298,6 @@
                 if (e.key === 'Escape' && featuresModal.classList.contains('show')) featuresModal.classList.remove('show');
             });
 
-            const audio = new Audio('https://github.com/oggahogga/nxo.lol/raw/main/public/go.mp3');
-            audio.loop = true;
-            const muteButton = document.getElementById('mute-button');
-            let isMuted = true;
-            muteButton.textContent = 'Unmute';
-            muteButton.addEventListener('click', () => {
-                if (isMuted) audio.play();
-                isMuted = !isMuted;
-                audio.muted = isMuted;
-                muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
-            });
-
-            // Particle system configuration
-            particlesJS('particles-js', {
-                particles: {
-                    number: { value: 150, density: { enable: true, value_area: 800 } },
-                    color: { value: ['#ff00ff', '#00ffff', '#00ff00'] }, // Neon colors
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.8, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
-                    size: { value: 3, random: true },
-                    line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.4, width: 1 },
-                    move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
-                },
-                interactivity: {
-                    detect_on: 'canvas',
-                    events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
-                    modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
-                },
-                retina_detect: true
-            });
-
             const featureBoxes = document.querySelectorAll('.feature-box');
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -372,14 +313,10 @@
         <nav>
             <ul>
                 <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
-                <li><button id="mute-button">Unmute</button></li>
             </ul>
         </nav>
     </header>
-    <video autoplay muted loop class="video-background">
-        <source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0wp3S1XhRInFcUc3IB40F8-dM5BcNJ0iF4bChnwM98~0NtNhVsFZj1rTy-ZTnaQakihUNrFygFVQiP3tIGmvvu~I73-wyHL15HIBgnf9lmrWKcXwpNqjhzKTRofoorHuZjEVNoCHu7pevi8USTv1UMPK5Z58yw0m60KnWtuyg2KN1mvVxx5FD~NXeqh1HFeThcbWnojwJ~OI-Ojepz~eXlHS2wfB-Go7nli3Tw4EA__" type="video/mp4">
-    </video>
-    <div id="particles-js"></div>
+    <div class="wave-bg"></div>
     <div class="overlay"></div>
     <section id="home">
         <div class="intro">
