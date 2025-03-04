@@ -11,14 +11,6 @@
     {
       "source": "/admin",
       "destination": "/admin/index.html"
-    },
-    {
-      "source": "/api/test",
-      "destination": "/api/test.js"
-    },
-    {
-      "source": "/api/login",
-      "destination": "/api/login.js"
     }
   ]
 }
