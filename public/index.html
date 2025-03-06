@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
+       :root {
             --primary-color: #6200EA;
             --primary-color-hover: #2c3e50;
             --bg-color: #0a0a0a;
@@ -196,37 +196,25 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px;
             padding: 20px;
-            justify-content: center;
+            justify-content: center; 
             max-width: 1200px;
-            margin: 0 auto;
-            align-items: stretch;
+            margin: 0 auto; 
+            align-items: stretch; 
         }
         .feature-box {
             background: rgba(20, 20, 25, 0.9);
             padding: 15px;
-            border-radius: 15px;
+            border-radius: 10px;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px var(--shadow-color);
             opacity: 0;
             transform: translateY(20px);
-            width: 100%;
+            width: 100%; 
             max-width: 300px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            text-align: center;
-        }
-        .feature-box p {
-            color: var(--secondary-text-color);
-            font-size: 0.9em;
-            margin: 0;
-            white-space: pre-wrap;
-        }
-        .feature-box p span.hashtag {
-            font-size: 1.5em;
-            color: #7289DA;
-            font-weight: bold;
-            text-transform: uppercase;
+            justify-content: center; 
+            text-align: center; 
         }
         .feature-box.animate {
             opacity: 1;
@@ -239,151 +227,173 @@
             box-shadow: 0 8px 20px var(--shadow-color);
         }
         .feature-box h3 {
+            color: var(--primary-color);
             font-size: 1.3em;
-            margin-bottom: 10px;
-            color: var(--text-color);
+            margin-bottom: 5px;
         }
-        .feature-box button {
-            background: var(--primary-color);
-            color: var(--text-color);
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            margin-top: 15px;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-        }
-        .feature-box button:hover {
-            background: #8e44ad;
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.7);
+        .feature-box p {
+            color: var(--secondary-text-color);
+            font-size: 0.9em;
+            margin: 0;
         }
         .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--modal-bg);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px var(--shadow-color);
-            z-index: 100;
             display: none;
+            position: fixed;
+            z-index: 20;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            overflow-y: auto;
         }
         .modal.show {
             display: block;
+            animation: fadeIn 0.5s ease-out;
         }
-        .modal .modal-header {
+        .modal-content {
+            background: rgba(50, 50, 50, 0.9);
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            animation: slideInUp 0.5s ease-out;
+        }
+        .modal-header {
             font-size: 1.5em;
             margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        .modal-body p {
             color: var(--text-color);
         }
-        .modal p {
-            color: var(--secondary-text-color);
-        }
-        .modal button {
+        .modal-footer {
             margin-top: 20px;
-            background: var(--primary-color);
-            padding: 10px;
-            border-radius: 5px;
-            color: var(--text-color);
-            font-size: 1.1em;
-            border: none;
-            cursor: pointer;
         }
-        .modal button:hover {
-            background: #8e44ad;
+        .close {
+            color: var(--primary-color);
+            font-size: 1.4em;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .close:hover {
+            color: #f39c12;
         }
         @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         @keyframes bounceIn {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
         }
         @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% { transform: translateY(10px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <a href="#">NXO.lol</a>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <video class="video-background" autoplay loop muted>
-        <source src="your-video.mp4" type="video/mp4">
-    </video>
-
-    <div class="overlay"></div>
-
-    <div class="custom-cursor"></div>
-
-    <section class="intro">
-        <h1 class="nxotext">NXO.lol</h1>
-        <div class="buttons">
-            <a href="#" class="button">Get Started</a>
-            <a href="#features" class="button">Features</a>
-        </div>
-    </section>
-
-    <section class="features-container" id="features">
-        <h2>Features</h2>
-        <div class="features-grid">
-            <div class="feature-box">
-                <h3>Feature One</h3>
-                <p><span class="hashtag">#Innovation</span> New and exciting things coming your way!</p>
-                <button>Learn More</button>
-            </div>
-            <div class="feature-box">
-                <h3>Feature Two</h3>
-                <p><span class="hashtag">#Technology</span> Advanced tools for modern needs.</p>
-                <button>Learn More</button>
-            </div>
-            <div class="feature-box">
-                <h3>Feature Three</h3>
-                <p><span class="hashtag">#Security</span> Your privacy is our priority.</p>
-                <button>Learn More</button>
-            </div>
-        </div>
-    </section>
-
-    <div class="modal">
-        <div class="modal-header">Modal Title</div>
-        <p>This is a modal content. You can put any info here.</p>
-        <button>Close</button>
+<header>
+    <div class="logo">
+        <a href="/">NXO.lol</a>
     </div>
+</header>
 
-    <script>
-        document.querySelector('.custom-cursor').style.display = 'block';
+<video class="video-background" autoplay loop muted>
+    <source src="path_to_your_video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 
-        document.body.addEventListener('mousemove', function (e) {
-            let cursor = document.querySelector('.custom-cursor');
-            cursor.style.top = e.clientY + 'px';
-            cursor.style.left = e.clientX + 'px';
-        });
+<div class="overlay"></div>
 
-        document.querySelector('.custom-cursor').classList.add('hover');
+<div class="intro">
+    <div class="nxotext">NXO.lol</div>
+    <div class="buttons">
+        <a href="#" class="button">Get Started</a>
+        <a href="#" class="button">Learn More</a>
+    </div>
+</div>
 
-        let featureBoxes = document.querySelectorAll('.feature-box');
-        window.addEventListener('scroll', function () {
-            featureBoxes.forEach(box => {
-                if (box.getBoundingClientRect().top < window.innerHeight - 150) {
+<section id="features">
+        <div class="features-container">
+            <h2>Why Choose Us:</h2>
+            <div class="features-grid">
+                <div class="feature-box"><h3>Undetection</h3><p>Best methods to avoid bans.</p></div>
+                <div class="feature-box"><h3>Safety</h3><p>No malicious files ever.</p></div>
+                <div class="feature-box"><h3>Simplicity</h3><p>Clean and necessary only.</p></div>
+                <div class="feature-box"><h3>Organization</h3><p>Easy navigation.</p></div>
+                <div class="feature-box"><h3>Support</h3><p>Always here to help.</p></div>
+                <div class="feature-box"><h3>Feedback</h3><p>Your voice shapes mods.</p></div>
+                <div class="feature-box"><h3>Unique</h3><p>Standout mods and designs.</p></div>
+                <div class="feature-box"><h3>Constant Updates</h3><p>Fresh menus fast.</p></div>
+                <div class="feature-box"><h3>Quality Over Quantity</h3><p>Only the essentials.</p></div>
+                <div class="feature-box"><h3>It's Free!</h3><p>No cost, full access.</p></div>
+            </div>
+        </div>
+    </section> 
+
+<!-- Modal Section -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <div class="modal-header">Welcome to NXO.lol</div>
+        <div class="modal-body">
+            <p>Explore the features of NXO.lol and have a great time!</p>
+        </div>
+        <div class="modal-footer">
+            <span class="close" onclick="closeModal()">×</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const featureBoxes = document.querySelectorAll('.feature-box');
+        setTimeout(() => {
+            featureBoxes.forEach((box, index) => {
+                setTimeout(() => {
                     box.classList.add('animate');
-                }
+                }, index * 200);
             });
+        }, 500);
+    });
+
+    function openModal() {
+        document.getElementById('modal').classList.add('show');
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('show');
+    }
+
+    document.querySelector('.logo').addEventListener('click', openModal);
+
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = `${e.pageX - cursor.offsetWidth / 2}px`;
+        cursor.style.top = `${e.pageY - cursor.offsetHeight / 2}px`;
+    });
+
+    document.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('mouseover', () => {
+            cursor.classList.add('hover');
         });
-    </script>
+        link.addEventListener('mouseout', () => {
+            cursor.classList.remove('hover');
+        });
+    });
+</script>
+
 </body>
 </html>
