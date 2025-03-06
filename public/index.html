@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
-       :root {
+        :root {
             --primary-color: #6200EA;
             --primary-color-hover: #2c3e50;
             --bg-color: #0a0a0a;
@@ -196,15 +196,15 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px;
             padding: 20px;
-            justify-content: center; /* Centers incomplete rows */
-            max-width: 1200px; /* Limits width for better centering */
-            margin: 0 auto; /* Centers the grid container */
-            align-items: stretch; /* Ensures boxes align properly */
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: stretch;
         }
         .feature-box {
             background: rgba(20, 20, 25, 0.9);
             padding: 15px;
-            border-radius: 15px; /* This rounds the corners */
+            border-radius: 15px;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px var(--shadow-color);
             opacity: 0;
@@ -216,18 +216,15 @@
             justify-content: center;
             text-align: center;
         }
-        
-        /* Make the hashtag text look like Discord */
         .feature-box p {
             color: var(--secondary-text-color);
             font-size: 0.9em;
             margin: 0;
-            white-space: pre-wrap; /* Allows wrapping text after hashtags */
+            white-space: pre-wrap;
         }
-        
         .feature-box p span.hashtag {
-            font-size: 1.5em; /* Increases the size */
-            color: #7289DA; /* Discord blue */
+            font-size: 1.5em;
+            color: #7289DA;
             font-weight: bold;
             text-transform: uppercase;
         }
@@ -242,219 +239,151 @@
             box-shadow: 0 8px 20px var(--shadow-color);
         }
         .feature-box h3 {
-            color: var(--primary-color);
             font-size: 1.3em;
-            margin-bottom: 5px; /* Adds spacing between title and text */
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+        .feature-box button {
+            background: var(--primary-color);
+            color: var(--text-color);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+        .feature-box button:hover {
+            background: #8e44ad;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.7);
         }
         .modal {
-            display: none;
             position: fixed;
-            z-index: 20;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            overflow-y: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--modal-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px var(--shadow-color);
+            z-index: 100;
+            display: none;
         }
         .modal.show {
             display: block;
-            animation: fadeIn 0.5s ease-out;
         }
-        .modal-content {
-            background: var(--modal-bg);
-            margin: 10% auto;
-            padding: 25px;
-            width: 90%;
-            max-width: 700px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px var(--shadow-color);
-            animation: slideUp 0.5s ease-out;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            cursor: none;
-            transition: all 0.3s ease;
-        }
-        .close:hover {
-            color: var(--primary-color);
-            transform: rotate(90deg);
-        }
-        #features-content {
-            font-family: monospace;
-            font-size: 1.1em;
-            line-height: 1.5;
+        .modal .modal-header {
+            font-size: 1.5em;
+            margin-bottom: 15px;
             color: var(--text-color);
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 5px;
-            max-height: 60vh;
-            overflow-y: auto;
-            white-space: pre-wrap;
         }
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .modal p {
+            color: var(--secondary-text-color);
+        }
+        .modal button {
+            margin-top: 20px;
+            background: var(--primary-color);
+            padding: 10px;
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 1.1em;
+            border: none;
+            cursor: pointer;
+        }
+        .modal button:hover {
+            background: #8e44ad;
         }
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
         @keyframes bounceIn {
             0% { opacity: 0; transform: translateY(30px); }
-            60% { opacity: 1; transform: translateY(-10px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @media (max-width: 768px) {
-            .nxotext { font-size: clamp(3em, 10vw, 6em); }
-            .intro { padding-top: 80px; }
-            .buttons { flex-direction: column; gap: 15px; }
-            .button { width: 100%; max-width: 250px; font-size: 1em; }
-            .features-container { margin: 60px 20px; }
-            .custom-cursor { width: 14px; height: 14px; }
-            .modal-content { width: 95%; margin: 15% auto; }
-            nav ul { gap: 15px; }
-            nav ul li a { font-size: 1em; padding: 6px 10px; }
-            .logo a { font-size: 1em; padding: 3px 6px; }
-            header { padding: 10px 20px; }
-            .features-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } /* Adjust for smaller screens */
-        }
-        @media (prefers-reduced-motion: reduce) {
-            * { animation: none !important; transition: none !important; }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const featuresModal = document.getElementById('features-modal');
-            const closeFeatures = document.getElementById('close-features');
-            const featuresContent = document.getElementById('features-content');
-            document.querySelectorAll('.feature-box p').forEach(p => {
-                let text = p.innerHTML;
-                text = text.replace(/#(\w+)/g, (match, p1) => {
-                    return `<span class="hashtag">#${p1}</span>`;
-                });
-                p.innerHTML = text;
-            });
-            document.querySelector('.view-features-button').onclick = e => {
-                e.preventDefault();
-                fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
-                    .then(r => {
-                        console.log(r);  // see if we are getting the response
-                        return r.text();
-                    })
-                    .then(d => {
-                        console.log(d);  // log the content to see if it's being fetched
-                        featuresContent.textContent = d;
-                        featuresModal.classList.add('show');
-                    })
-                    .catch((err) => {
-                        console.error(err);  // log any errors to the console
-                        featuresContent.textContent = 'Failed to load features.';
-                        featuresModal.classList.add('show');
-                    });
-            };
-
-            closeFeatures.onclick = () => featuresModal.classList.remove('show');
-            window.onclick = e => { if (e.target == featuresModal) featuresModal.classList.remove('show'); };
-            document.addEventListener('keydown', e => {
-                if (e.key === 'Escape' && featuresModal.classList.contains('show')) featuresModal.classList.remove('show');
-            });
-
-            const featureBoxes = document.querySelectorAll('.feature-box');
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('animate');
-                });
-            }, { threshold: 0.5 });
-            featureBoxes.forEach(box => observer.observe(box));
-
-            const cursor = document.createElement('div');
-            cursor.classList.add('custom-cursor');
-            document.body.appendChild(cursor);
-
-            let cursorX = -100, cursorY = -100;
-            function updateCursor(x, y) {
-                cursorX = x - 8;
-                cursorY = y - 8;
-                cursor.style.left = `${cursorX}px`;
-                cursor.style.top = `${cursorY}px`;
-            }
-
-            document.addEventListener('mousemove', e => updateCursor(e.clientX, e.clientY));
-            document.addEventListener('touchmove', e => {
-                const touch = e.touches[0];
-                updateCursor(touch.clientX, touch.clientY);
-            }, { passive: true });
-
-            const hoverElements = document.querySelectorAll('a, button, .close');
-            hoverElements.forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-                el.addEventListener('touchstart', () => cursor.classList.add('hover'), { passive: true });
-                el.addEventListener('touchend', () => cursor.classList.remove('hover'), { passive: true });
-            });
-        });
-    </script>
 </head>
 <body>
     <header>
         <div class="logo">
-            <a href="https://nxo.lol">nxo.lol</a>
+            <a href="#">NXO.lol</a>
         </div>
         <nav>
             <ul>
-                <li><a href="https://discord.gg/nxoontop" target="_blank">Discord</a></li>
-                <li><a href="/showcases">Showcases</a></li>
-                <li><a href="/reviews">Reviews</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
-    <video autoplay muted loop class="video-background">
-        <source src="https://cdn-cf-east.streamable.com/video/mp4/no6ivf.mp4?Expires=1741145918286&Key-Pair-Id=APKAIEYUVEN4EVB2OKEQ&Signature=EDpgDcC54Q1BGbO1WJpSo4ZJvb02ZVLB6QBBycDDzscgp33PwMWTryDjdgh6RB07HsCe-URsIa1aihcLtSZo2dIC3RiwwskAloYG3kBb-MYdL0wp3S1XhRInFcUc3IB40F8-dM5BcNJ0iF4bChnwM98~0NtNhVsFZj1rTy-ZTnaQakihUNrFygFVQiP3tIGmvvu~I73-wyHL15HIBgnf9lmrWKcXwpNqjhzKTRofoorHuZjEVNoCHu7pevi8USTv1UMPK5Z58yw0m60KnWtuyg2KN1mvVxx5FD~NXeqh1HFeThcbWnojwJ~OI-Ojepz~eXlHS2wfB-Go7nli3Tw4EA__" type="video/mp4">
+
+    <video class="video-background" autoplay loop muted>
+        <source src="your-video.mp4" type="video/mp4">
     </video>
+
     <div class="overlay"></div>
-    <section id="home">
-        <div class="intro">
-            <h1 class="nxotext">NXO</h1>
-            <div class="buttons">
-                <button class="button view-features-button">View Features</button>
-                <a class="button download-button" href="https://github.com/NuggetGT/NXO-Mod-Panel">Download</a>
+
+    <div class="custom-cursor"></div>
+
+    <section class="intro">
+        <h1 class="nxotext">NXO.lol</h1>
+        <div class="buttons">
+            <a href="#" class="button">Get Started</a>
+            <a href="#features" class="button">Features</a>
+        </div>
+    </section>
+
+    <section class="features-container" id="features">
+        <h2>Features</h2>
+        <div class="features-grid">
+            <div class="feature-box">
+                <h3>Feature One</h3>
+                <p><span class="hashtag">#Innovation</span> New and exciting things coming your way!</p>
+                <button>Learn More</button>
+            </div>
+            <div class="feature-box">
+                <h3>Feature Two</h3>
+                <p><span class="hashtag">#Technology</span> Advanced tools for modern needs.</p>
+                <button>Learn More</button>
+            </div>
+            <div class="feature-box">
+                <h3>Feature Three</h3>
+                <p><span class="hashtag">#Security</span> Your privacy is our priority.</p>
+                <button>Learn More</button>
             </div>
         </div>
     </section>
-    <section id="features">
-        <div class="features-container">
-            <h2>Why Choose Us:</h2>
-            <div class="features-grid">
-                <div class="feature-box"><h3>Undetection</h3><p>Best methods to avoid bans.</p></div>
-                <div class="feature-box"><h3>Safety</h3><p>No malicious files ever.</p></div>
-                <div class="feature-box"><h3>Simplicity</h3><p>Clean and necessary only.</p></div>
-                <div class="feature-box"><h3>Organization</h3><p>Easy navigation.</p></div>
-                <div class="feature-box"><h3>Support</h3><p>Always here to help.</p></div>
-                <div class="feature-box"><h3>Feedback</h3><p>Your voice shapes mods.</p></div>
-                <div class="feature-box"><h3>Unique</h3><p>Standout mods and designs.</p></div>
-                <div class="feature-box"><h3>Constant Updates</h3><p>Fresh menus fast.</p></div>
-                <div class="feature-box"><h3>Quality Over Quantity</h3><p>Only the essentials.</p></div>
-                <div class="feature-box"><h3>It's Free!</h3><p>No cost, full access.</p></div>
-            </div>
-        </div>
-    </section>
-    <div class="modal" id="features-modal">
-        <div class="modal-content">
-            <span class="close" id="close-features">×</span>
-            <h2>NXO Features</h2>
-            <pre id="features-content"></pre>
-        </div>
+
+    <div class="modal">
+        <div class="modal-header">Modal Title</div>
+        <p>This is a modal content. You can put any info here.</p>
+        <button>Close</button>
     </div>
+
+    <script>
+        document.querySelector('.custom-cursor').style.display = 'block';
+
+        document.body.addEventListener('mousemove', function (e) {
+            let cursor = document.querySelector('.custom-cursor');
+            cursor.style.top = e.clientY + 'px';
+            cursor.style.left = e.clientX + 'px';
+        });
+
+        document.querySelector('.custom-cursor').classList.add('hover');
+
+        let featureBoxes = document.querySelectorAll('.feature-box');
+        window.addEventListener('scroll', function () {
+            featureBoxes.forEach(box => {
+                if (box.getBoundingClientRect().top < window.innerHeight - 150) {
+                    box.classList.add('animate');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
