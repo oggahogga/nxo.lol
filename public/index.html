@@ -204,17 +204,32 @@
         .feature-box {
             background: rgba(20, 20, 25, 0.9);
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 15px; /* This rounds the corners */
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px var(--shadow-color);
             opacity: 0;
             transform: translateY(20px);
-            width: 100%; /* Ensures consistent sizing */
-            max-width: 300px; /* Caps width for uniformity */
+            width: 100%;
+            max-width: 300px;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centers content vertically within each box */
-            text-align: center; /* Centers text horizontally */
+            justify-content: center;
+            text-align: center;
+        }
+        
+        /* Make the hashtag text look like Discord */
+        .feature-box p {
+            color: var(--secondary-text-color);
+            font-size: 0.9em;
+            margin: 0;
+            white-space: pre-wrap; /* Allows wrapping text after hashtags */
+        }
+        
+        .feature-box p span.hashtag {
+            font-size: 1.5em; /* Increases the size */
+            color: #7289DA; /* Discord blue */
+            font-weight: bold;
+            text-transform: uppercase;
         }
         .feature-box.animate {
             opacity: 1;
@@ -230,11 +245,6 @@
             color: var(--primary-color);
             font-size: 1.3em;
             margin-bottom: 5px; /* Adds spacing between title and text */
-        }
-        .feature-box p {
-            color: var(--secondary-text-color);
-            font-size: 0.9em;
-            margin: 0; /* Removes default margin */
         }
         .modal {
             display: none;
@@ -328,7 +338,13 @@
             const featuresModal = document.getElementById('features-modal');
             const closeFeatures = document.getElementById('close-features');
             const featuresContent = document.getElementById('features-content');
-
+            document.querySelectorAll('.feature-box p').forEach(p => {
+                let text = p.innerHTML;
+                text = text.replace(/#(\w+)/g, (match, p1) => {
+                    return `<span class="hashtag">#${p1}</span>`;
+                });
+                p.innerHTML = text;
+            });
             document.querySelector('.view-features-button').onclick = e => {
                 e.preventDefault();
                 fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
