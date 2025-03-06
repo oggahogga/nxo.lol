@@ -332,7 +332,10 @@
             document.querySelector('.view-features-button').onclick = e => {
                 e.preventDefault();
                 fetch('https://pastebin.com/raw/6VctCu5R')
-                    .then(r => r.text())
+                    .then(r => {
+                        console.log(r);  // this will log the fetch response to see if it's working
+                        return r.text();
+                    })
                     .then(d => {
                         featuresContent.textContent = d;
                         featuresModal.classList.add('show');
@@ -341,6 +344,7 @@
                         featuresContent.textContent = 'Failed to load features.';
                         featuresModal.classList.add('show');
                     });
+
             };
 
             closeFeatures.onclick = () => featuresModal.classList.remove('show');
