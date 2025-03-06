@@ -331,13 +331,18 @@
 
             document.querySelector('.view-features-button').onclick = e => {
                 e.preventDefault();
-                fetch('https://pastebin.com/raw/6VctCu5R', { mode: 'no-cors' })
-                    .then(r => r.text())
+                fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
+                    .then(r => {
+                        console.log(r);  // see if we are getting the response
+                        return r.text();
+                    })
                     .then(d => {
+                        console.log(d);  // log the content to see if it's being fetched
                         featuresContent.textContent = d;
                         featuresModal.classList.add('show');
                     })
-                    .catch(() => {
+                    .catch((err) => {
+                        console.error(err);  // log any errors to the console
                         featuresContent.textContent = 'Failed to load features.';
                         featuresModal.classList.add('show');
                     });
