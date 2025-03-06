@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
-       :root {
+        :root {
             --primary-color: #6200EA;
             --primary-color-hover: #2c3e50;
             --bg-color: #0a0a0a;
@@ -196,204 +196,200 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px;
             padding: 20px;
-            justify-content: center; 
+            justify-content: center;
             max-width: 1200px;
-            margin: 0 auto; 
-            align-items: stretch; 
+            margin: 0 auto;
+            align-items: stretch;
         }
         .feature-box {
             background: rgba(20, 20, 25, 0.9);
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 15px;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px var(--shadow-color);
             opacity: 0;
-            transform: translateY(20px);
-            width: 100%; 
-            max-width: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; 
-            text-align: center; 
-        }
-        .feature-box.animate {
-            opacity: 1;
-            transform: translateY(0);
-            animation: bounceIn 0.6s ease-out;
+            animation: fadeInBox 0.6s ease-out forwards;
         }
         .feature-box:hover {
-            background: rgba(30, 30, 35, 0.9);
+            background: rgba(142, 68, 173, 0.3);
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px var(--shadow-color);
         }
         .feature-box h3 {
-            color: var(--primary-color);
-            font-size: 1.3em;
-            margin-bottom: 5px;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            color: var(--text-color);
         }
         .feature-box p {
             color: var(--secondary-text-color);
-            font-size: 0.9em;
-            margin: 0;
+            font-size: 1em;
+        }
+        @keyframes fadeInBox {
+            to { opacity: 1; }
         }
         .modal {
             display: none;
             position: fixed;
-            z-index: 20;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            overflow-y: auto;
-        }
-        .modal.show {
-            display: block;
-            animation: fadeIn 0.5s ease-out;
-        }
-        .modal-content {
-            background: rgba(50, 50, 50, 0.9);
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 8px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 80%;
-            max-width: 500px;
-            text-align: center;
-            animation: slideInUp 0.5s ease-out;
+            max-width: 600px;
+            padding: 30px;
+            background: var(--modal-bg);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            animation: slideInModal 0.5s ease-out;
         }
         .modal-header {
-            font-size: 1.5em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
-            color: var(--primary-color);
         }
-        .modal-body p {
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5em;
             color: var(--text-color);
         }
-        .modal-footer {
-            margin-top: 20px;
-        }
-        .close {
-            color: var(--primary-color);
-            font-size: 1.4em;
+        .close-modal {
             cursor: pointer;
-            transition: color 0.3s ease;
+            font-size: 1.5em;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
         }
-        .close:hover {
-            color: #f39c12;
+        .close-modal:hover {
+            transform: scale(1.2);
+        }
+        @keyframes slideInModal {
+            from {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+        /* Animations */
+        @keyframes bounceIn {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideInUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
         @keyframes fadeInUp {
-            0% { transform: translateY(10px); opacity: 0; }
+            0% { transform: translateY(20px); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
+    <!-- Video Background -->
+    <video class="video-background" autoplay loop muted>
+        <source src="your-video.mp4" type="video/mp4">
+    </video>
 
-<header>
-    <div class="logo">
-        <a href="/">NXO.lol</a>
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo"><a href="#">NXO.lol</a></div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Intro Section -->
+    <div class="intro">
+        <h1 class="nxotext">NXO.lol</h1>
+        <div class="buttons">
+            <a href="#" class="button">Explore Now</a>
+            <a href="#" class="button" id="viewFeatures">View Features</a>
+        </div>
     </div>
-</header>
 
-<video class="video-background" autoplay loop muted>
-    <source src="path_to_your_video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-
-<div class="overlay"></div>
-
-<div class="intro">
-    <div class="nxotext">NXO.lol</div>
-    <div class="buttons">
-        <a href="#" class="button">Get Started</a>
-        <a href="#" class="button">Learn More</a>
-    </div>
-</div>
-
-<section id="features">
-        <div class="features-container">
-            <h2>Why Choose Us:</h2>
-            <div class="features-grid">
-                <div class="feature-box"><h3>Undetection</h3><p>Best methods to avoid bans.</p></div>
-                <div class="feature-box"><h3>Safety</h3><p>No malicious files ever.</p></div>
-                <div class="feature-box"><h3>Simplicity</h3><p>Clean and necessary only.</p></div>
-                <div class="feature-box"><h3>Organization</h3><p>Easy navigation.</p></div>
-                <div class="feature-box"><h3>Support</h3><p>Always here to help.</p></div>
-                <div class="feature-box"><h3>Feedback</h3><p>Your voice shapes mods.</p></div>
-                <div class="feature-box"><h3>Unique</h3><p>Standout mods and designs.</p></div>
-                <div class="feature-box"><h3>Constant Updates</h3><p>Fresh menus fast.</p></div>
-                <div class="feature-box"><h3>Quality Over Quantity</h3><p>Only the essentials.</p></div>
-                <div class="feature-box"><h3>It's Free!</h3><p>No cost, full access.</p></div>
+    <!-- Features Section -->
+    <div class="features-container">
+        <h2>Our Features</h2>
+        <div class="features-grid">
+            <div class="feature-box">
+                <h3>Feature 1</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Feature 2</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Feature 3</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             </div>
         </div>
-    </section> 
-
-<!-- Modal Section -->
-<div class="modal" id="modal">
-    <div class="modal-content">
-        <div class="modal-header">Welcome to NXO.lol</div>
-        <div class="modal-body">
-            <p>Explore the features of NXO.lol and have a great time!</p>
-        </div>
-        <div class="modal-footer">
-            <span class="close" onclick="closeModal()">×</span>
-        </div>
     </div>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const featureBoxes = document.querySelectorAll('.feature-box');
-        setTimeout(() => {
-            featureBoxes.forEach((box, index) => {
-                setTimeout(() => {
-                    box.classList.add('animate');
-                }, index * 200);
+    <!-- Modal -->
+    <div class="modal" id="featureModal">
+        <div class="modal-header">
+            <h2>Features</h2>
+            <span class="close-modal" id="closeModal">&times;</span>
+        </div>
+        <div id="modalContent">Loading...</div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
+
+    <script>
+        // JavaScript code for modal and cursor functionality
+        const modal = document.getElementById('featureModal');
+        const closeModal = document.getElementById('closeModal');
+        const viewFeaturesButton = document.getElementById('viewFeatures');
+        const customCursor = document.getElementById('customCursor');
+
+        // Show the modal when 'View Features' button is clicked
+        viewFeaturesButton.addEventListener('click', function() {
+            modal.style.display = 'block';
+            fetch('features.json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('modalContent').innerHTML = data.features.map(feature => `
+                        <div>
+                            <h3>${feature.title}</h3>
+                            <p>${feature.description}</p>
+                        </div>
+                    `).join('');
+                })
+                .catch(() => document.getElementById('modalContent').innerText = 'Failed to load features');
+        });
+
+        // Close the modal when 'X' is clicked
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Update custom cursor position
+        document.addEventListener('mousemove', function(e) {
+            customCursor.style.top = `${e.clientY - 8}px`;
+            customCursor.style.left = `${e.clientX - 8}px`;
+        });
+
+        // Add hover effect to custom cursor
+        document.querySelectorAll('a, .button, .feature-box').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                customCursor.classList.add('hover');
             });
-        }, 500);
-    });
-
-    function openModal() {
-        document.getElementById('modal').classList.add('show');
-    }
-
-    function closeModal() {
-        document.getElementById('modal').classList.remove('show');
-    }
-
-    document.querySelector('.logo').addEventListener('click', openModal);
-
-    const cursor = document.createElement('div');
-    cursor.classList.add('custom-cursor');
-    document.body.appendChild(cursor);
-
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = `${e.pageX - cursor.offsetWidth / 2}px`;
-        cursor.style.top = `${e.pageY - cursor.offsetHeight / 2}px`;
-    });
-
-    document.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('mouseover', () => {
-            cursor.classList.add('hover');
+            element.addEventListener('mouseleave', function() {
+                customCursor.classList.remove('hover');
+            });
         });
-        link.addEventListener('mouseout', () => {
-            cursor.classList.remove('hover');
-        });
-    });
-</script>
-
+    </script>
 </body>
 </html>
