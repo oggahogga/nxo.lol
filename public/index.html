@@ -91,52 +91,88 @@
     <script type="module">
         // Import Firebase SDK
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
-        import { getFirestore, doc, getDoc, setDoc, increment } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+        import { getDatabase, ref, set, onValue, onDisconnect, remove } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js';
+        // Import UUID for unique user IDs
+        import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
         // Firebase configuration
         const firebaseConfig = {
-          apiKey: "AIzaSyAUbv2ryeV2yP6bhgzdXrrWFq1w0O6-KgE",
-          authDomain: "nxolol.firebaseapp.com",
-          databaseURL: "https://nxolol-default-rtdb.firebaseio.com",
-          projectId: "nxolol",
-          storageBucket: "nxolol.firebasestorage.app",
-          messagingSenderId: "1034599667825",
-          appId: "1:1034599667825:web:ca89606c4f49984c39a3d0",
-          measurementId: "G-24Q041PPXM"
+            apiKey: "AIzaSyAUbv2ryeV2yP6bhgzdXrrWFq1w0O6-KgE",
+            authDomain: "nxolol.firebaseapp.com",
+            databaseURL: "https://nxolol-default-rtdb.firebaseio.com",
+            projectId: "nxolol",
+            storageBucket: "nxolol.firebasestorage.app",
+            messagingSenderId: "1034599667825",
+            appId: "1:1034599667825:web:ca89606c4f49984c39a3d0",
+            measurementId: "G-24Q041PPXM"
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        const db = getDatabase(app);
 
         document.addEventListener('DOMContentLoaded', () => {
-            // User count fetch and update
+            // User count display
             const userCountElement = document.getElementById('user-count');
-            const userCountRef = doc(db, 'counters', 'usercount');
+            const activeUsersRef = ref(db, 'activeUsers');
 
-            async function updateUserCount() {
-                try {
-                    // Increment the counter
-                    await setDoc(userCountRef, { online_users: increment(1) }, { merge: true });
-
-                    // Fetch the updated count
-                    const docSnap = await getDoc(userCountRef);
-                    if (docSnap.exists()) {
-                        const data = docSnap.data();
-                        userCountElement.textContent = `Online Users: ${data.online_users}`;
-                    } else {
-                        userCountElement.textContent = 'Online Users: N/A';
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    userCountElement.textContent = 'Online Users: N/A';
-                }
+            // Get or generate a unique user ID
+            let userId = localStorage.getItem('userId');
+            if (!userId) {
+                userId = uuidv4();
+                localStorage.setItem('userId', userId);
             }
 
-            // Initial update
-            updateUserCount();
-            // Update every 10 seconds (optional, remove if you only want to increment on page load)
-            setInterval(updateUserCount, 10000);
+            // Reference to this user's entry
+            const userRef = ref(db, `activeUsers/${userId}`);
+
+            // Add user to activeUsers
+            const addUser = async () => {
+                try {
+                    await set(userRef, {
+                        timestamp: Date.now()
+                    });
+
+                    // Set up onDisconnect to remove the user
+                    onDisconnect(userRef).remove();
+                } catch (error) {
+                    console.error('Error adding user:', error);
+                }
+            };
+
+            // Call addUser only if the user hasn't been added in this session
+            if (!localStorage.getItem('userAdded')) {
+                addUser();
+                localStorage.setItem('userAdded', 'true');
+            }
+
+            // Listen for changes in activeUsers and update the count
+            onValue(activeUsersRef, (snapshot) => {
+                try {
+                    const activeUsers = snapshot.val();
+                    const userCount = activeUsers ? Object.keys(activeUsers).length : 0;
+                    userCountElement.textContent = `Online Users: ${userCount}`;
+                } catch (error) {
+                    console.error('Error updating user count:', error);
+                    userCountElement.textContent = 'Online Users: N/A';
+                }
+            });
+
+            // Clean up old entries (optional, to handle edge cases)
+            const cleanupOldUsers = async () => {
+                const snapshot = await get(activeUsersRef);
+                if (snapshot.exists()) {
+                    const activeUsers = snapshot.val();
+                    const now = Date.now();
+                    const cutoff = 30 * 1000; // 30 seconds timeout
+                    for (const [uid, data] of Object.entries(activeUsers)) {
+                        if (now - data.timestamp > cutoff) {
+                            await remove(ref(db, `activeUsers/${uid}`));
+                        }
+                    }
+                }
+            };
+            setInterval(cleanupOldUsers, 60000); // Run every minute
 
             // Define modal-related elements
             const featuresModal = document.getElementById('features-modal');
@@ -146,7 +182,7 @@
             // View features button
             document.querySelector('.view-features-button').onclick = e => {
                 e.preventDefault();
-                fetch('https://pastebin.com/raw/6VctCu5R')
+                fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
                     .then(r => r.text())
                     .then(d => {
                         const lines = d.split('\n');
