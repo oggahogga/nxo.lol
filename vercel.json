@@ -2,19 +2,19 @@
   "rewrites": [
     {
       "source": "/reviews",
-      "destination": "/reviews/index.html"
+      "destination": "/public/reviews/index.html"
     },
     {
       "source": "/showcases",
-      "destination": "/showcases/index.html"
+      "destination": "/public/showcases/index.html"
     },
     {
       "source": "/admin",
-      "destination": "/admin/index.html"
+      "destination": "/public/admin/index.html"
     },
     {
       "source": "/api/usercount.js",
-      "destination": "/api/usercount"
+      "destination": "/public/api/usercount"
     }
   ],
   "builds": [
