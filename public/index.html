@@ -18,405 +18,166 @@
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
-    :root {
-        --primary-color: #6200EA;
-        --primary-color-hover: #2c3e50;
-        --bg-color: #0a0a0a;
-        --text-color: #e6f0ff;
-        --secondary-text-color: #b0c4de;
-        --overlay-color: rgba(0, 0, 0, 0.4);
-        --header-bg: rgba(10, 10, 10, 0.9);
-        --modal-bg: rgba(15, 15, 20, 0.95);
-        --shadow-color: rgba(0, 0, 0, 0.5);
-        --font-family: 'Bungee', sans-serif;
-        --logo-font: 'Orbitron', sans-serif;
-    }
-    * {
-        scrollbar-width: none;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    *::-webkit-scrollbar {
-        display: none;
-    }
-    body {
-        font-family: var(--font-family);
-        color: var(--text-color);
-        background: var(--bg-color);
-        overflow-x: hidden;
-        position: relative;
-        cursor: none;
-    }
-    header {
-        position: fixed;
-        width: 100%;
-        top: 0;
-        background: var(--header-bg);
-        backdrop-filter: blur(15px);
-        z-index: 10;
-        padding: 15px 40px;
-        box-shadow: 0 4px 15px var(--shadow-color);
-        animation: slideIn 0.6s ease-out;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .logo {
-        z-index: 11;
-    }
-    .logo a {
-        font-family: var(--logo-font);
-        font-size: 1.2em;
-        color: var(--text-color);
-        text-decoration: none;
-        background: rgba(142, 68, 173, 0.2);
-        padding: 4px 8px;
-        border: 2px solid var(--primary-color);
-        border-radius: 4px;
-        transition: all 0.3s ease;
-        display: inline-block;
-    }
-    .logo a:hover {
-        color: var(--primary-color);
-        background: rgba(142, 68, 173, 0.4);
-        box-shadow: 0 0 10px rgba(142, 68, 173, 0.7);
-    }
-    .video-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: -1;
-        filter: brightness(0.5);
-        animation: darkPulse 12s ease-in-out infinite;
-    }
-    @keyframes darkPulse {
-        0%, 100% { transform: scale(1); opacity: 0.8; }
-        50% { transform: scale(1.03); opacity: 1; }
-    }
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--overlay-color);
-        z-index: 0;
-        animation: overlayPulse 4s ease-in-out infinite;
-    }
-    @keyframes overlayPulse {
-        0%, 100% { opacity: 0.4; }
-        50% { opacity: 0.7; }
-    }
-    .custom-cursor {
-        position: fixed;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(142, 68, 173, 0.7) 20%, transparent 80%);
-        pointer-events: none;
-        z-index: 9999;
-        transition: transform 0.1s ease;
-    }
-    .custom-cursor.hover {
-        transform: scale(1.8);
-    }
-    nav ul {
-        list-style: none;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        align-items: center;
-        margin: 0 auto;
-    }
-    nav ul li a {
-        color: var(--text-color);
-        text-decoration: none;
-        font-size: 1.2em;
-        padding: 8px 15px;
-        transition: all 0.3s ease;
-    }
-    nav ul li a:hover {
-        color: var(--primary-color);
-        transform: scale(1.05);
-    }
-    .intro {
-        text-align: center;
-        padding-top: 120px;
-        z-index: 2;
-        position: relative;
-        animation: bounceIn 0.8s ease-out;
-    }
-    .nxotext {
-        font-size: clamp(4em, 12vw, 12em);
-        color: transparent;
-        background: linear-gradient(90deg, var(--primary-color), #2c3e50);
-        background-clip: text;
-        -webkit-background-clip: text;
-        animation: fadeIn 1s ease-out;
-    }
-    .buttons {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 40px;
-        flex-wrap: wrap;
-    }
-    .button {
-        padding: 12px 0;
-        background: #34495e;
-        color: var(--text-color);
-        text-decoration: none;
-        border-radius: 8px;
-        font-size: 1.2em;
-        transition: all 0.3s ease;
-        cursor: none;
-        width: 200px;
-        text-align: center;
-        font-family: var(--font-family);
-        border: none;
-        animation: fadeInUp 0.8s ease-out 0.2s backwards;
-    }
-    .button:hover {
-        background: var(--primary-color);
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
-    }
-    .features-container {
-        margin: 100px 40px;
-        text-align: center;
-        z-index: 2;
-        position: relative;
-    }
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 25px;
-        padding: 20px;
-        justify-content: center; /* Centers incomplete rows */
-        max-width: 1200px; /* Limits width for better centering */
-        margin: 0 auto; /* Centers the grid container */
-        align-items: stretch; /* Ensures boxes align properly */
-    }
-    .feature-box {
-        background: rgba(20, 20, 25, 0.9);
-        padding: 15px;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px var(--shadow-color);
-        opacity: 0;
-        transform: translateY(20px);
-        width: 100%; /* Ensures consistent sizing */
-        max-width: 300px; /* Caps width for uniformity */
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* Centers content vertically within each box */
-        text-align: center; /* Centers text horizontally */
-    }
-    .feature-box.animate {
-        opacity: 1;
-        transform: translateY(0);
-        animation: bounceIn 0.6s ease-out;
-    }
-    .feature-box:hover {
-        background: rgba(30, 30, 35, 0.9);
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px var(--shadow-color);
-    }
-    .feature-box h3 {
-        color: var(--primary-color);
-        font-size: 1.3em;
-        margin-bottom: 5px; /* Adds spacing between title and text */
-    }
-    .feature-box p {
-        color: var(--secondary-text-color);
-        font-size: 0.9em;
-        margin: 0; /* Removes default margin */
-    }
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 20;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        overflow-y: auto;
-    }
-    .modal.show {
-        display: block;
-        animation: fadeIn 0.5s ease-out;
-    }
-    .modal-content {
-        background: var(--modal-bg);
-        margin: 10% auto;
-        padding: 25px;
-        width: 90%;
-        max-width: 700px;
-        border-radius: 12px;
-        box-shadow: 0 5px 20px var(--shadow-color);
-        animation: slideUp 0.5s ease-out;
-    }
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        cursor: none;
-        transition: all 0.3s ease;
-    }
-    .close:hover {
-        color: var(--primary-color);
-        transform: rotate(90deg);
-    }
-    #features-content {
-        font-family: monospace;
-        font-size: 1.1em;
-        line-height: 1.5;
-        color: var(--text-color);
-        background: var(--modal-bg); /* Matches modal background */
-        padding: 15px;
-        border-radius: 5px;
-        max-height: 60vh;
-        overflow-y: auto;
-        white-space: pre-wrap;
-    }
-    #features-content h3 {
-        font-size: 1.8em; /* Slightly bigger headings */
-        color: var(--primary-color);
-        margin: 10px 0;
-    }
-    #features-content p {
-        font-size: 1.3em; /* Slightly bigger regular text */
-        color: var(--text-color);
-        margin: 5px 0;
-        white-space: pre-wrap;
-    }
-    @keyframes slideIn {
-        from { transform: translateY(-50px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes bounceIn {
-        0% { opacity: 0; transform: translateY(30px); }
-        60% { opacity: 1; transform: translateY(-10px); }
-        100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideUp {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-    @media (max-width: 768px) {
-        .nxotext { font-size: clamp(3em, 10vw, 6em); }
-        .intro { padding-top: 80px; }
-        .buttons { flex-direction: column; gap: 15px; }
-        .button { width: 100%; max-width: 250px; font-size: 1em; }
-        .features-container { margin: 60px 20px; }
-        .custom-cursor { width: 14px; height: 14px; }
-        .modal-content { width: 95%; margin: 15% auto; }
-        nav ul { gap: 15px; }
-        nav ul li a { font-size: 1em; padding: 6px 10px; }
-        .logo a { font-size: 1em; padding: 3px 6px; }
-        header { padding: 10px 20px; }
-        .features-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } /* Adjust for smaller screens */
-    }
-    @media (prefers-reduced-motion: reduce) {
-        * { animation: none !important; transition: none !important; }
-    }
-</style>
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const featuresModal = document.getElementById('features-modal');
-        const closeFeatures = document.getElementById('close-features');
-        const featuresContent = document.getElementById('features-content');
-
-        document.querySelector('.view-features-button').onclick = e => {
-            e.preventDefault();
-            fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
-                .then(r => {
-                    console.log(r);  // Log the response
-                    return r.text();
-                })
-                .then(d => {
-                    console.log(d);  // Log the fetched content
-                    // Process the content to wrap lines in appropriate HTML
-                    const lines = d.split('\n');
-                    let formattedContent = '';
-                    let isHeading = false;
-
-                    lines.forEach(line => {
-                        if (line.startsWith('# ')) {
-                            // Remove "# " and wrap the rest in <h3> tags for larger text
-                            formattedContent += `<h3>${line.substring(2)}</h3>`;
-                            isHeading = true;
-                        } else {
-                            // Regular paragraph text
-                            formattedContent += `<p>${line}</p>`;
-                            isHeading = false;
-                        }
-                    });
-
-                    featuresContent.innerHTML = formattedContent; // Use innerHTML to render the tags
-                    featuresModal.classList.add('show');
-                })
-                .catch((err) => {
-                    console.error(err);  // Log errors
-                    featuresContent.textContent = 'Failed to load features.';
-                    featuresModal.classList.add('show');
-                });
-        };
-
-        closeFeatures.onclick = () => featuresModal.classList.remove('show');
-        window.onclick = e => { if (e.target == featuresModal) featuresModal.classList.remove('show'); };
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && featuresModal.classList.contains('show')) featuresModal.classList.remove('show');
-        });
-
-        const featureBoxes = document.querySelectorAll('.feature-box');
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('animate');
-            });
-        }, { threshold: 0.5 });
-        featureBoxes.forEach(box => observer.observe(box));
-
-        const cursor = document.createElement('div');
-        cursor.classList.add('custom-cursor');
-        document.body.appendChild(cursor);
-
-        let cursorX = -100, cursorY = -100;
-        function updateCursor(x, y) {
-            cursorX = x - 8;
-            cursorY = y - 8;
-            cursor.style.left = `${cursorX}px`;
-            cursor.style.top = `${cursorY}px`;
+        /* Your existing CSS remains unchanged */
+        :root {
+            --primary-color: #6200EA;
+            --primary-color-hover: #2c3e50;
+            --bg-color: #0a0a0a;
+            --text-color: #e6f0ff;
+            --secondary-text-color: #b0c4de;
+            --overlay-color: rgba(0, 0, 0, 0.4);
+            --header-bg: rgba(10, 10, 10, 0.9);
+            --modal-bg: rgba(15, 15, 20, 0.95);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --font-family: 'Bungee', sans-serif;
+            --logo-font: 'Orbitron', sans-serif;
         }
+        * { scrollbar-width: none; margin: 0; padding: 0; box-sizing: border-box; }
+        *::-webkit-scrollbar { display: none; }
+        body { font-family: var(--font-family); color: var(--text-color); background: var(--bg-color); overflow-x: hidden; position: relative; cursor: none; }
+        header { position: fixed; width: 100%; top: 0; background: var(--header-bg); backdrop-filter: blur(15px); z-index: 10; padding: 15px 40px; box-shadow: 0 4px 15px var(--shadow-color); animation: slideIn 0.6s ease-out; display: flex; align-items: center; justify-content: space-between; }
+        .logo { z-index: 11; }
+        .logo a { font-family: var(--logo-font); font-size: 1.2em; color: var(--text-color); text-decoration: none; background: rgba(142, 68, 173, 0.2); padding: 4px 8px; border: 2px solid var(--primary-color); border-radius: 4px; transition: all 0.3s ease; display: inline-block; }
+        .logo a:hover { color: var(--primary-color); background: rgba(142, 68, 173, 0.4); box-shadow: 0 0 10px rgba(142, 68, 173, 0.7); }
+        .video-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.5); animation: darkPulse 12s ease-in-out infinite; }
+        @keyframes darkPulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.03); opacity: 1; } }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--overlay-color); z-index: 0; animation: overlayPulse 4s ease-in-out infinite; }
+        @keyframes overlayPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.7; } }
+        .custom-cursor { position: fixed; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle, rgba(142, 68, 173, 0.7) 20%, transparent 80%); pointer-events: none; z-index: 9999; transition: transform 0.1s ease; }
+        .custom-cursor.hover { transform: scale(1.8); }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 20px; align-items: center; margin: 0 auto; }
+        nav ul li a { color: var(--text-color); text-decoration: none; font-size: 1.2em; padding: 8px 15px; transition: all 0.3s ease; }
+        nav ul li a:hover { color: var(--primary-color); transform: scale(1.05); }
+        .intro { text-align: center; padding-top: 120px; z-index: 2; position: relative; animation: bounceIn 0.8s ease-out; }
+        .nxotext { font-size: clamp(4em, 12vw, 12em); color: transparent; background: linear-gradient(90deg, var(--primary-color), #2c3e50); background-clip: text; -webkit-background-clip: text; animation: fadeIn 1s ease-out; }
+        .buttons { display: flex; justify-content: center; gap: 20px; margin-top: 40px; flex-wrap: wrap; }
+        .button { padding: 12px 0; background: #34495e; color: var(--text-color); text-decoration: none; border-radius: 8px; font-size: 1.2em; transition: all 0.3s ease; cursor: none; width: 200px; text-align: center; font-family: var(--font-family); border: none; animation: fadeInUp 0.8s ease-out 0.2s backwards; }
+        .button:hover { background: var(--primary-color); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4); }
+        .features-container { margin: 100px 40px; text-align: center; z-index: 2; position: relative; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; padding: 20px; justify-content: center; max-width: 1200px; margin: 0 auto; align-items: stretch; }
+        .feature-box { background: rgba(20, 20, 25, 0.9); padding: 15px; border-radius: 10px; transition: all 0.3s ease; box-shadow: 0 5px 15px var(--shadow-color); opacity: 0; transform: translateY(20px); width: 100%; max-width: 300px; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+        .feature-box.animate { opacity: 1; transform: translateY(0); animation: bounceIn 0.6s ease-out; }
+        .feature-box:hover { background: rgba(30, 30, 35, 0.9); transform: translateY(-5px); box-shadow: 0 8px 20px var(--shadow-color); }
+        .feature-box h3 { color: var(--primary-color); font-size: 1.3em; margin-bottom: 5px; }
+        .feature-box p { color: var(--secondary-text-color); font-size: 0.9em; margin: 0; }
+        .modal { display: none; position: fixed; z-index: 20; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); overflow-y: auto; }
+        .modal.show { display: block; animation: fadeIn 0.5s ease-out; }
+        .modal-content { background: var(--modal-bg); margin: 10% auto; padding: 25px; width: 90%; max-width: 700px; border-radius: 12px; box-shadow: 0 5px 20px var(--shadow-color); animation: slideUp 0.5s ease-out; }
+        .close { color: #aaa; float: right; font-size: 28px; cursor: none; transition: all 0.3s ease; }
+        .close:hover { color: var(--primary-color); transform: rotate(90deg); }
+        #features-content { font-family: monospace; font-size: 1.1em; line-height: 1.5; color: var(--text-color); background: var(--modal-bg); padding: 15px; border-radius: 5px; max-height: 60vh; overflow-y: auto; white-space: pre-wrap; }
+        #features-content h3 { font-size: 1.8em; color: var(--primary-color); margin: 10px 0; }
+        #features-content p { font-size: 1.3em; color: var(--text-color); margin: 5px 0; white-space: pre-wrap; }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounceIn { 0% { opacity: 0; transform: translateY(30px); } 60% { opacity: 1; transform: translateY(-10px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @media (max-width: 768px) {
+            .nxotext { font-size: clamp(3em, 10vw, 6em); }
+            .intro { padding-top: 80px; }
+            .buttons { flex-direction: column; gap: 15px; }
+            .button { width: 100%; max-width: 250px; font-size: 1em; }
+            .features-container { margin: 60px 20px; }
+            .custom-cursor { width: 14px; height: 14px; }
+            .modal-content { width: 95%; margin: 15% auto; }
+            nav ul { gap: 15px; }
+            nav ul li a { font-size: 1em; padding: 6px 10px; }
+            .logo a { font-size: 1em; padding: 3px 6px; }
+            header { padding: 10px 20px; }
+            .features-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+        }
+        @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const featuresModal = document.getElementById('features-modal');
+            const closeFeatures = document.getElementById('close-features');
+            const featuresContent = document.getElementById('features-content');
+            const userCountElement = document.getElementById('user-count');
+            const url = 'https://nxo.lol/usercount.php'; // Separate PHP endpoint
 
-        document.addEventListener('mousemove', e => updateCursor(e.clientX, e.clientY));
-        document.addEventListener('touchmove', e => {
-            const touch = e.touches[0];
-            updateCursor(touch.clientX, touch.clientY);
-        }, { passive: true });
+            // Fetch user count periodically
+            function updateUserCount() {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        userCountElement.textContent = `Online Users: ${data.online_users}`;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user count:', error);
+                        userCountElement.textContent = 'Online Users: N/A';
+                    });
+            }
 
-        const hoverElements = document.querySelectorAll('a, button, .close');
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-            el.addEventListener('touchstart', () => cursor.classList.add('hover'), { passive: true });
-            el.addEventListener('touchend', () => cursor.classList.remove('hover'), { passive: true });
+            // Initial fetch and periodic update
+            updateUserCount();
+            setInterval(updateUserCount, 10000); // Update every 10 seconds
+
+            document.querySelector('.view-features-button').onclick = e => {
+                e.preventDefault();
+                fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
+                    .then(r => r.text())
+                    .then(d => {
+                        const lines = d.split('\n');
+                        let formattedContent = '';
+                        lines.forEach(line => {
+                            if (line.startsWith('# ')) {
+                                formattedContent += `<h3>${line.substring(2)}</h3>`;
+                            } else {
+                                formattedContent += `<p>${line}</p>`;
+                            }
+                        });
+                        featuresContent.innerHTML = formattedContent;
+                        featuresModal.classList.add('show');
+                    })
+                    .catch(err => {
+                        featuresContent.textContent = 'Failed to load features.';
+                        featuresModal.classList.add('show');
+                    });
+            };
+
+            closeFeatures.onclick = () => featuresModal.classList.remove('show');
+            window.onclick = e => { if (e.target == featuresModal) featuresModal.classList.remove('show'); };
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape' && featuresModal.classList.contains('show')) featuresModal.classList.remove('show');
+            });
+
+            const featureBoxes = document.querySelectorAll('.feature-box');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('animate');
+                });
+            }, { threshold: 0.5 });
+            featureBoxes.forEach(box => observer.observe(box));
+
+            const cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
+
+            let cursorX = -100, cursorY = -100;
+            function updateCursor(x, y) {
+                cursorX = x - 8;
+                cursorY = y - 8;
+                cursor.style.left = `${cursorX}px`;
+                cursor.style.top = `${cursorY}px`;
+            }
+
+            document.addEventListener('mousemove', e => updateCursor(e.clientX, e.clientY));
+            document.addEventListener('touchmove', e => {
+                const touch = e.touches[0];
+                updateCursor(touch.clientX, touch.clientY);
+            }, { passive: true });
+
+            const hoverElements = document.querySelectorAll('a, button, .close');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                el.addEventListener('touchstart', () => cursor.classList.add('hover'), { passive: true });
+                el.addEventListener('touchend', () => cursor.classList.remove('hover'), { passive: true });
+            });
         });
-    });
-</script>
+    </script>
 </head>
 <body>
     <header>
@@ -442,6 +203,7 @@
                 <button class="button view-features-button">View Features</button>
                 <a class="button download-button" href="https://github.com/NuggetGT/NXO-Mod-Panel">Download</a>
             </div>
+            <p id="user-count">Online Users: Loading...</p> <!-- Display the count -->
         </div>
     </section>
     <section id="features">
