@@ -88,26 +88,55 @@
         }
         @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // User count fetch
-            const userCountElement = document.getElementById('user-count');
-            const url = '/usercount';
+    <script type="module">
+        // Import Firebase SDK
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+        import { getFirestore, doc, getDoc, setDoc, increment } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
-            function updateUserCount() {
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
+        // Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAUbv2ryeV2yP6bhgzdXrrWFq1w0O6-KgE",
+          authDomain: "nxolol.firebaseapp.com",
+          databaseURL: "https://nxolol-default-rtdb.firebaseio.com",
+          projectId: "nxolol",
+          storageBucket: "nxolol.firebasestorage.app",
+          messagingSenderId: "1034599667825",
+          appId: "1:1034599667825:web:ca89606c4f49984c39a3d0",
+          measurementId: "G-24Q041PPXM"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // User count fetch and update
+            const userCountElement = document.getElementById('user-count');
+            const userCountRef = doc(db, 'counters', 'usercount');
+
+            async function updateUserCount() {
+                try {
+                    // Increment the counter
+                    await setDoc(userCountRef, { online_users: increment(1) }, { merge: true });
+
+                    // Fetch the updated count
+                    const docSnap = await getDoc(userCountRef);
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
                         userCountElement.textContent = `Online Users: ${data.online_users}`;
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
+                    } else {
                         userCountElement.textContent = 'Online Users: N/A';
-                    });
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    userCountElement.textContent = 'Online Users: N/A';
+                }
             }
 
+            // Initial update
             updateUserCount();
-            setInterval(updateUserCount, 10000); // Update every 10 seconds
+            // Update every 10 seconds (optional, remove if you only want to increment on page load)
+            setInterval(updateUserCount, 10000);
 
             // Define modal-related elements
             const featuresModal = document.getElementById('features-modal');
@@ -117,7 +146,7 @@
             // View features button
             document.querySelector('.view-features-button').onclick = e => {
                 e.preventDefault();
-                fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
+                fetch('https://pastebin.com/raw/6VctCu5R')
                     .then(r => r.text())
                     .then(d => {
                         const lines = d.split('\n');
