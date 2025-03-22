@@ -89,130 +89,114 @@
         @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
     </style>
     <script type="module">
-        // Import Firebase SDK
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
-        import { getDatabase, ref, onValue, get } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js';
+    // Import Firebase SDK
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+    import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js';
 
-        // Firebase configuration
-         const firebaseConfig = {
-            apiKey: "AIzaSyATFGpaUZ36O-AUqdvNh0TgmRGmeguqUGM",
-            authDomain: "nxocount.firebaseapp.com",
-            projectId: "nxocount",
-            storageBucket: "nxocount.firebasestorage.app",
-            messagingSenderId: "836839620106",
-            appId: "1:836839620106:web:30e6f49d1230c1c77769f3",
-            measurementId: "G-NQE7LL6VH6"
-          };
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyATFGpaUZ36O-AUqdvNh0TgmRGmeguqUGM",
+        authDomain: "nxocount.firebaseapp.com",
+        projectId: "nxocount",
+        storageBucket: "nxocount.firebasestorage.app",
+        messagingSenderId: "836839620106",
+        appId: "1:836839620106:web:30e6f49d1230c1c77769f3",
+        measurementId: "G-NQE7LL6VH6"
+    };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // User count display
-            const userCountElement = document.getElementById('user-count');
-            const gameUsersRef = ref(db, 'usercount');
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-            // Listen for changes in gameUsers and update the count
-            onValue(gameUsersRef, (snapshot) => {
-                try {
-                    const gameUsers = snapshot.val();
-                    const userCount = gameUsers ? Object.keys(gameUsers).length : 0;
-                    userCountElement.textContent = `Online Game Users: ${userCount}`;
-                } catch (error) {
-                    console.error('Error updating user count:', error);
-                    userCountElement.textContent = 'Online Game Users: N/A';
-                }
-            });
+    document.addEventListener('DOMContentLoaded', () => {
+        // User count display
+        const userCountElement = document.getElementById('user-count');
+        const userCountRef = ref(db, 'usercount');
 
-            // Clean up old entries (optional, to handle edge cases)
-            const cleanupOldUsers = async () => {
-                const snapshot = await get(gameUsersRef);
-                if (snapshot.exists()) {
-                    const gameUsers = snapshot.val();
-                    const now = Date.now();
-                    const cutoff = 30 * 1000; // 30 seconds timeout
-                    for (const [uid, data] of Object.entries(gameUsers)) {
-                        if (now - data.timestamp > cutoff) {
-                            await remove(ref(db, `gameUsers/${uid}`));
-                        }
-                    }
-                }
-            };
-            setInterval(cleanupOldUsers, 60000); // Run every minute
-
-            // Define modal-related elements
-            const featuresModal = document.getElementById('features-modal');
-            const featuresContent = document.getElementById('features-content');
-            const closeFeatures = document.getElementById('close-features');
-
-            // View features button
-            document.querySelector('.view-features-button').onclick = e => {
-                e.preventDefault();
-                fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
-                    .then(r => r.text())
-                    .then(d => {
-                        const lines = d.split('\n');
-                        let formattedContent = '';
-                        lines.forEach(line => {
-                            if (line.startsWith('# ')) {
-                                formattedContent += `<h3>${line.substring(2)}</h3>`;
-                            } else {
-                                formattedContent += `<p>${line}</p>`;
-                            }
-                        });
-                        featuresContent.innerHTML = formattedContent;
-                        featuresModal.classList.add('show');
-                    })
-                    .catch(err => {
-                        featuresContent.textContent = 'Failed to load features.';
-                        featuresModal.classList.add('show');
-                    });
-            };
-
-            // Modal close handlers
-            closeFeatures.onclick = () => featuresModal.classList.remove('show');
-            window.onclick = e => { if (e.target == featuresModal) featuresModal.classList.remove('show'); };
-            document.addEventListener('keydown', e => {
-                if (e.key === 'Escape' && featuresModal.classList.contains('show')) featuresModal.classList.remove('show');
-            });
-
-            // Feature box animations
-            const featureBoxes = document.querySelectorAll('.feature-box');
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('animate');
-                });
-            }, { threshold: 0.5 });
-            featureBoxes.forEach(box => observer.observe(box));
-
-            // Custom cursor
-            const cursor = document.createElement('div');
-            cursor.classList.add('custom-cursor');
-            document.body.appendChild(cursor);
-
-            let cursorX = -100, cursorY = -100;
-            function updateCursor(x, y) {
-                cursorX = x - 8;
-                cursorY = y - 8;
-                cursor.style.left = `${cursorX}px`;
-                cursor.style.top = `${cursorY}px`;
+        // Listen for changes in usercount and update the display
+        onValue(userCountRef, (snapshot) => {
+            try {
+                const userCount = snapshot.val() || 0; // Directly use the number, default to 0 if null
+                userCountElement.textContent = `Online Game Users: ${userCount}`;
+            } catch (error) {
+                console.error('Error updating user count:', error);
+                userCountElement.textContent = 'Online Game Users: N/A';
             }
-
-            document.addEventListener('mousemove', e => updateCursor(e.clientX, e.clientY));
-            document.addEventListener('touchmove', e => {
-                const touch = e.touches[0];
-                updateCursor(touch.clientX, touch.clientY);
-            }, { passive: true });
-
-            const hoverElements = document.querySelectorAll('a, button, .close');
-            hoverElements.forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-                el.addEventListener('touchstart', () => cursor.classList.add('hover'), { passive: true });
-                el.addEventListener('touchend', () => cursor.classList.remove('hover'), { passive: true });
-            });
         });
-    </script>
+
+        // Define modal-related elements
+        const featuresModal = document.getElementById('features-modal');
+        const featuresContent = document.getElementById('features-content');
+        const closeFeatures = document.getElementById('close-features');
+
+        // View features button
+        document.querySelector('.view-features-button').onclick = e => {
+            e.preventDefault();
+            fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
+                .then(r => r.text())
+                .then(d => {
+                    const lines = d.split('\n');
+                    let formattedContent = '';
+                    lines.forEach(line => {
+                        if (line.startsWith('# ')) {
+                            formattedContent += `<h3>${line.substring(2)}</h3>`;
+                        } else {
+                            formattedContent += `<p>${line}</p>`;
+                        }
+                    });
+                    featuresContent.innerHTML = formattedContent;
+                    featuresModal.classList.add('show');
+                })
+                .catch(err => {
+                    featuresContent.textContent = 'Failed to load features.';
+                    featuresModal.classList.add('show');
+                });
+        };
+
+        // Modal close handlers
+        closeFeatures.onclick = () => featuresModal.classList.remove('show');
+        window.onclick = e => { if (e.target == featuresModal) featuresModal.classList.remove('show'); };
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && featuresModal.classList.contains('show')) featuresModal.classList.remove('show');
+        });
+
+        // Feature box animations
+        const featureBoxes = document.querySelectorAll('.feature-box');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('animate');
+            });
+        }, { threshold: 0.5 });
+        featureBoxes.forEach(box => observer.observe(box));
+
+        // Custom cursor
+        const cursor = document.createElement('div');
+        cursor.classList.add('custom-cursor');
+        document.body.appendChild(cursor);
+
+        let cursorX = -100, cursorY = -100;
+        function updateCursor(x, y) {
+            cursorX = x - 8;
+            cursorY = y - 8;
+            cursor.style.left = `${cursorX}px`;
+            cursor.style.top = `${cursorY}px`;
+        }
+
+        document.addEventListener('mousemove', e => updateCursor(e.clientX, e.clientY));
+        document.addEventListener('touchmove', e => {
+            const touch = e.touches[0];
+            updateCursor(touch.clientX, touch.clientY);
+        }, { passive: true });
+
+        const hoverElements = document.querySelectorAll('a, button, .close');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            el.addEventListener('touchstart', () => cursor.classList.add('hover'), { passive: true });
+            el.addEventListener('touchend', () => cursor.classList.remove('hover'), { passive: true });
+        });
+    });
+</script>
 </head>
 <body>
     <header>
