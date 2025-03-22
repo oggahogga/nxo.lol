@@ -16,5 +16,15 @@
       "source": "/api/usercount",
       "destination": "/api/usercount.php"
     }
+  ],
+  "builds": [
+    {
+      "src": "api/usercount.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
   ]
 }
