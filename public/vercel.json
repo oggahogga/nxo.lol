@@ -14,13 +14,13 @@
     },
     {
       "source": "/api/usercount.php",
-      "destination": "/api/usercount.php"
+      "destination": "/api/usercount"
     }
   ],
   "builds": [
     {
-      "src": "api/usercount.php",
-      "use": "@vercel/php"
+      "src": "public/api/usercount.js",
+      "use": "@vercel/node"
     },
     {
       "src": "*.html",
