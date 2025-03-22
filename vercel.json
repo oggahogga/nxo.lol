@@ -5,10 +5,6 @@
       "destination": "/api/usercount"
     },
     {
-      "source": "/api/usercount.js",
-      "destination": "/api/usercount"
-    },
-    {
       "source": "/reviews",
       "destination": "/public/reviews/index.html"
     },
@@ -27,7 +23,7 @@
   ],
   "builds": [
     {
-      "src": "api/usercount.js",
+      "src": "public/api/usercount.js",
       "use": "@vercel/node"
     },
     {
