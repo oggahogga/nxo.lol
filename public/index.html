@@ -112,7 +112,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // User count display
             const userCountElement = document.getElementById('user-count');
-            const gameUsersRef = ref(db, 'gameUsers');
+            const gameUsersRef = ref(db, 'usercount');
 
             // Listen for changes in gameUsers and update the count
             onValue(gameUsersRef, (snapshot) => {
