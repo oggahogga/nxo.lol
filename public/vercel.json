@@ -11,6 +11,10 @@
     {
       "source": "/admin",
       "destination": "/admin/index.html"
+    },
+    {
+      "source": "/api/usercount",
+      "destination": "/api/usercount.php"
     }
   ]
 }
