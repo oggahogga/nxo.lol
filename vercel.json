@@ -24,7 +24,7 @@
   "builds": [
     {
       "src": "api/usercount.php",
-      "use": "@vercel/php"
+      "use": "vercel-php@0.7.3"
     },
     {
       "src": "public/**/*",
