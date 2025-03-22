@@ -1,8 +1,7 @@
 {
   "name": "nxo-lol",
   "version": "1.0.0",
-  "scripts": {
-    "vercel-build": "node build.js"
-  },
-  "dependencies": {}
+  "devDependencies": {
+    "@vercel/php": "^0.6.0"
+  }
 }
