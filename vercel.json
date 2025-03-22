@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/usercount",
-      "destination": "/public/api/usercount.js"
+      "destination": "/public/apis/usercount.js"
     },
     {
       "source": "/reviews",
