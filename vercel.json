@@ -14,7 +14,7 @@
     },
     {
       "source": "/api/usercount.js",
-      "destination": "/public/api/usercount"
+      "destination": "/api/usercount"
     }
   ],
   "builds": [
