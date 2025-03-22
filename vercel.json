@@ -2,19 +2,23 @@
   "rewrites": [
     {
       "source": "/reviews",
-      "destination": "/public/reviews/index.html"
+      "destination": "/reviews/index.html"
     },
     {
       "source": "/showcases",
-      "destination": "/public/showcases/index.html"
+      "destination": "/showcases/index.html"
     },
     {
       "source": "/admin",
-      "destination": "/public/admin/index.html"
+      "destination": "/admin/index.html"
     },
     {
-      "source": "/api/usercount.js",
+      "source": "/api/usercount",
       "destination": "/api/usercount"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "builds": [
@@ -23,7 +27,7 @@
       "use": "@vercel/node"
     },
     {
-      "src": "*.html",
+      "src": "public/**/*",
       "use": "@vercel/static"
     }
   ]
