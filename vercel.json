@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/usercount",
-      "destination": "/public/apis/usercount.js"
+      "destination": "/public/api/usercount.json"
     },
     {
       "source": "/reviews",
@@ -22,10 +22,6 @@
     }
   ],
   "builds": [
-    {
-      "src": "public/api/usercount.js",
-      "use": "@vercel/node"
-    },
     {
       "src": "public/**/*",
       "use": "@vercel/static"
