@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/usercount",
+      "destination": "/api/usercount.js"
+    },
+    {
       "source": "/reviews",
       "destination": "/public/reviews/index.html"
     },
@@ -13,18 +17,14 @@
       "destination": "/public/admin/index.html"
     },
     {
-      "source": "/api/usercount",
-      "destination": "/api/usercount"
-    },
-    {
       "source": "/(.*)",
       "destination": "/public/index.html"
     }
   ],
   "builds": [
     {
-      "src": "api/usercount.js",
-      "use": "@vercel/node"
+      "src": "api/usercount.php",
+      "use": "@vercel/php"
     },
     {
       "src": "public/**/*",
