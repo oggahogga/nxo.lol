@@ -1,8 +1,0 @@
-{
-  "name": "nxo-lol",
-  "version": "1.0.0",
-  "devDependencies": {
-    "@vercel/node": "^3.0.0",
-    "@vercel/kv": "^1.0.0"
-  }
-}
