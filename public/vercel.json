@@ -13,7 +13,7 @@
       "destination": "/admin/index.html"
     },
     {
-      "source": "/api/usercount",
+      "source": "/api/usercount.php",
       "destination": "/api/usercount.php"
     }
   ],
