@@ -91,9 +91,7 @@
     <script type="module">
         // Import Firebase SDK
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
-        import { getDatabase, ref, set, onValue, onDisconnect, remove } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js';
-        // Import UUID for unique user IDs
-        import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
+        import { getDatabase, ref, onValue, get } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js';
 
         // Firebase configuration
         const firebaseConfig = {
@@ -114,60 +112,30 @@
         document.addEventListener('DOMContentLoaded', () => {
             // User count display
             const userCountElement = document.getElementById('user-count');
-            const activeUsersRef = ref(db, 'activeUsers');
+            const gameUsersRef = ref(db, 'gameUsers');
 
-            // Get or generate a unique user ID
-            let userId = localStorage.getItem('userId');
-            if (!userId) {
-                userId = uuidv4();
-                localStorage.setItem('userId', userId);
-            }
-
-            // Reference to this user's entry
-            const userRef = ref(db, `activeUsers/${userId}`);
-
-            // Add user to activeUsers
-            const addUser = async () => {
+            // Listen for changes in gameUsers and update the count
+            onValue(gameUsersRef, (snapshot) => {
                 try {
-                    await set(userRef, {
-                        timestamp: Date.now()
-                    });
-
-                    // Set up onDisconnect to remove the user
-                    onDisconnect(userRef).remove();
-                } catch (error) {
-                    console.error('Error adding user:', error);
-                }
-            };
-
-            // Call addUser only if the user hasn't been added in this session
-            if (!localStorage.getItem('userAdded')) {
-                addUser();
-                localStorage.setItem('userAdded', 'true');
-            }
-
-            // Listen for changes in activeUsers and update the count
-            onValue(activeUsersRef, (snapshot) => {
-                try {
-                    const activeUsers = snapshot.val();
-                    const userCount = activeUsers ? Object.keys(activeUsers).length : 0;
-                    userCountElement.textContent = `Online Users: ${userCount}`;
+                    const gameUsers = snapshot.val();
+                    const userCount = gameUsers ? Object.keys(gameUsers).length : 0;
+                    userCountElement.textContent = `Online Game Users: ${userCount}`;
                 } catch (error) {
                     console.error('Error updating user count:', error);
-                    userCountElement.textContent = 'Online Users: N/A';
+                    userCountElement.textContent = 'Online Game Users: N/A';
                 }
             });
 
             // Clean up old entries (optional, to handle edge cases)
             const cleanupOldUsers = async () => {
-                const snapshot = await get(activeUsersRef);
+                const snapshot = await get(gameUsersRef);
                 if (snapshot.exists()) {
-                    const activeUsers = snapshot.val();
+                    const gameUsers = snapshot.val();
                     const now = Date.now();
                     const cutoff = 30 * 1000; // 30 seconds timeout
-                    for (const [uid, data] of Object.entries(activeUsers)) {
+                    for (const [uid, data] of Object.entries(gameUsers)) {
                         if (now - data.timestamp > cutoff) {
-                            await remove(ref(db, `activeUsers/${uid}`));
+                            await remove(ref(db, `gameUsers/${uid}`));
                         }
                     }
                 }
@@ -272,7 +240,7 @@
                 <button class="button view-features-button">View Features</button>
                 <a class="button download-button" href="https://github.com/NuggetGT/NXO-Mod-Panel">Download</a>
             </div>
-            <p id="user-count">Online Users: Loading...</p>
+            <p id="user-count">Online Game Users: Loading...</p>
         </div>
     </section>
     <section id="features">
