@@ -1,0 +1,30 @@
+{
+  "rewrites": [
+    {
+      "source": "/reviews",
+      "destination": "/reviews/index.html"
+    },
+    {
+      "source": "/showcases",
+      "destination": "/showcases/index.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/api/usercount",
+      "destination": "/api/usercount.php"
+    }
+  ],
+  "builds": [
+    {
+      "src": "api/usercount.php",
+      "use": "@vercel/php"
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
+  ]
+}
