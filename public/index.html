@@ -18,7 +18,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
-        /* Your existing CSS remains unchanged */
         :root {
             --primary-color: #6200EA;
             --primary-color-hover: #2c3e50;
@@ -90,30 +89,32 @@
         @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
     </style>
     <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const userCountElement = document.getElementById('user-count');
-                const url = '/usercount';
-            
-                function updateUserCount() {
-                    fetch(url)
-                        .then(response => response.json())
-                        .then(data => {
-                            userCountElement.textContent = `Online Users: ${data.online_users}`;
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            userCountElement.textContent = 'Online Users: N/A';
-                        });
-                }
-            
-                updateUserCount();
-                setInterval(updateUserCount, 10000);
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            // User count fetch
+            const userCountElement = document.getElementById('user-count');
+            const url = '/usercount';
 
-            // Initial fetch and periodic update
+            function updateUserCount() {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        userCountElement.textContent = `Online Users: ${data.online_users}`;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        userCountElement.textContent = 'Online Users: N/A';
+                    });
+            }
+
             updateUserCount();
             setInterval(updateUserCount, 10000); // Update every 10 seconds
 
+            // Define modal-related elements
+            const featuresModal = document.getElementById('features-modal');
+            const featuresContent = document.getElementById('features-content');
+            const closeFeatures = document.getElementById('close-features');
+
+            // View features button
             document.querySelector('.view-features-button').onclick = e => {
                 e.preventDefault();
                 fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
@@ -137,12 +138,14 @@
                     });
             };
 
+            // Modal close handlers
             closeFeatures.onclick = () => featuresModal.classList.remove('show');
             window.onclick = e => { if (e.target == featuresModal) featuresModal.classList.remove('show'); };
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape' && featuresModal.classList.contains('show')) featuresModal.classList.remove('show');
             });
 
+            // Feature box animations
             const featureBoxes = document.querySelectorAll('.feature-box');
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -151,6 +154,7 @@
             }, { threshold: 0.5 });
             featureBoxes.forEach(box => observer.observe(box));
 
+            // Custom cursor
             const cursor = document.createElement('div');
             cursor.classList.add('custom-cursor');
             document.body.appendChild(cursor);
@@ -203,7 +207,7 @@
                 <button class="button view-features-button">View Features</button>
                 <a class="button download-button" href="https://github.com/NuggetGT/NXO-Mod-Panel">Download</a>
             </div>
-            <p id="user-count">Online Users: Loading...</p> <!-- Display the count -->
+            <p id="user-count">Online Users: Loading...</p>
         </div>
     </section>
     <section id="features">
