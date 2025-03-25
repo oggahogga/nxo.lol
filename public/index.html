@@ -108,9 +108,8 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         const userCountElement = document.getElementById('user-count');
-        const userCountRef = ref(db, 'usercount');
+        const userCountRef = ref(db, 'usercount/value'); // Target 'value' directly
         
-        // Function to update user count
         const updateUserCount = () => {
             onValue(userCountRef, (snapshot) => {
                 try {
@@ -120,13 +119,10 @@
                     console.error('Error updating user count:', error);
                     userCountElement.textContent = 'Online Game Users: N/A';
                 }
-            }, { onlyOnce: true }); // Fetch only once per call
+            }, { onlyOnce: true });
         };
 
-        // Initial fetch
         updateUserCount();
-        
-        // Fetch every 30 seconds
         setInterval(updateUserCount, 30000);
 
         const featuresModal = document.getElementById('features-modal');
