@@ -90,11 +90,9 @@
         @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
     </style>
     <script type="module">
-    // Import Firebase SDK
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
     import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js';
 
-    // Firebase configuration
     const firebaseConfig = {
         apiKey: "AIzaSyATFGpaUZ36O-AUqdvNh0TgmRGmeguqUGM",
         authDomain: "nxocount.firebaseapp.com",
@@ -105,32 +103,36 @@
         measurementId: "G-NQE7LL6VH6"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
     document.addEventListener('DOMContentLoaded', () => {
-        // User count display
         const userCountElement = document.getElementById('user-count');
         const userCountRef = ref(db, 'usercount');
+        
+        // Function to update user count
+        const updateUserCount = () => {
+            onValue(userCountRef, (snapshot) => {
+                try {
+                    const userCount = snapshot.val() || 0;
+                    userCountElement.textContent = `Online Game Users: ${userCount}`;
+                } catch (error) {
+                    console.error('Error updating user count:', error);
+                    userCountElement.textContent = 'Online Game Users: N/A';
+                }
+            }, { onlyOnce: true }); // Fetch only once per call
+        };
 
-        // Listen for changes in usercount and update the display
-        onValue(userCountRef, (snapshot) => {
-            try {
-                const userCount = snapshot.val() || 0; // Directly use the number, default to 0 if null
-                userCountElement.textContent = `Online Game Users: ${userCount}`;
-            } catch (error) {
-                console.error('Error updating user count:', error);
-                userCountElement.textContent = 'Online Game Users: N/A';
-            }
-        });
+        // Initial fetch
+        updateUserCount();
+        
+        // Fetch every 30 seconds
+        setInterval(updateUserCount, 30000);
 
-        // Define modal-related elements
         const featuresModal = document.getElementById('features-modal');
         const featuresContent = document.getElementById('features-content');
         const closeFeatures = document.getElementById('close-features');
 
-        // View features button
         document.querySelector('.view-features-button').onclick = e => {
             e.preventDefault();
             fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
@@ -154,14 +156,12 @@
                 });
         };
 
-        // Modal close handlers
         closeFeatures.onclick = () => featuresModal.classList.remove('show');
         window.onclick = e => { if (e.target == featuresModal) featuresModal.classList.remove('show'); };
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape' && featuresModal.classList.contains('show')) featuresModal.classList.remove('show');
         });
 
-        // Feature box animations
         const featureBoxes = document.querySelectorAll('.feature-box');
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -170,7 +170,6 @@
         }, { threshold: 0.5 });
         featureBoxes.forEach(box => observer.observe(box));
 
-        // Custom cursor
         const cursor = document.createElement('div');
         cursor.classList.add('custom-cursor');
         document.body.appendChild(cursor);
