@@ -114,7 +114,7 @@
 
         document.querySelector('.view-features-button').onclick = e => {
             e.preventDefault();
-            fetch('https://cors-anywhere.herokuapp.com/https://pastebin.com/raw/6VctCu5R')
+            fetch('https://pastebin.com/raw/6VctCu5R')
                 .then(r => r.text())
                 .then(d => {
                     const lines = d.split('\n');
